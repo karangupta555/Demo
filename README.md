@@ -341,16 +341,12 @@ Step 9: Real Device Setup: Create Driver Session using Appium Desktop
 Download link for dummy app:
 https://github.com/appium/appium/blob/master/sample-code/apps/ApiDemos-debug.apk
 
-C:\YT\ApiDemos-debug.apk
-
-
 ### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* Writing tests -- Will be updated in the near future
+* Code review -- Will be updated in the near future
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Abhinav Dharmapuri(abhinav.dharmapuri@americam-technology.net)
+* Uman Niyaz(uman.niyaz@american-technology.net)
