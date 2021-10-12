@@ -10,5 +10,9 @@
   "validUser": {
     "username": "standard_user",
     "password": "secret_sauce"
+  },
+  "valid": {
+    "username": "harry@bgmi.com",
+    "password": "Test@123"
   }
 }

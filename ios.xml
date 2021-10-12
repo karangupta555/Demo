@@ -11,9 +11,9 @@
     <parameter name="deviceName" value="iPhone 12 Pro Max"/>
     <parameter name="wdaLocalPort" value="10001"/>
     <parameter name="webkitDebugProxyPort" value="11001"/>
+    <parameter name="deviceID" value="2"/>
     <classes>
-    <class name="com.qa.tests.LoginTests"/>
-<!--    <class name="com.qa.tests.ProductTests"/>-->
+        <class name="com.qa.tests.LoginTests"/>
     </classes>
-  </test>-->
+  </test>
 </suite> <!-- Suite -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite parallel="tests" name="Suite">
-  <test name="Android">
+  <test name="Android"> <!-- Google_Pixel_3 -->
     <listeners>
       <listener class-name="com.qa.listeners.TestListener"/>
     </listeners>
@@ -10,6 +10,7 @@
     <parameter name="deviceName" value="OnePlus"/>
     <parameter name="systemPort" value="10000"/>
     <parameter name="chromeDriverPort" value="11000"/>
+    <parameter name="deviceID" value="1"/>
     <classes>
           <class name="com.qa.tests.LoginTests"/>
 <!--      <class name="com.qa.tests.ProductTests"/>-->
@@ -17,7 +18,7 @@
 <!--        <include name = "validateProductOnProductsPage"/>-->
 <!--      </methods>-->
     </classes>
-  </test>-->
+  </test>
   <test name="Android">
     <listeners>
       <listener class-name="com.qa.listeners.TestListener"/>
@@ -28,6 +29,7 @@
     <parameter name="deviceName" value="OnePlus"/>
     <parameter name="systemPort" value="10000"/>
     <parameter name="chromeDriverPort" value="11000"/>
+    <parameter name="deviceID" value="1"/>
     <classes>
       <class name="com.qa.tests.LoginTests"/>
       <!--      <class name="com.qa.tests.ProductTests"/>-->
@@ -35,5 +37,5 @@
       <!--        <include name = "validateProductOnProductsPage"/>-->
       <!--      </methods>-->
     </classes>
-  </test>-->
+  </test>
 </suite> <!-- Suite -->

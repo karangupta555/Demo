@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TestListener implements ITestListener {
-
     public void onTestFailure(ITestResult result){
         TestUtils utils = new TestUtils();
         if(result.getThrowable()!=null){
@@ -73,24 +72,21 @@ public class TestListener implements ITestListener {
     }
 
     @Override
-    public void onTestSuccess(ITestResult result){
+    public void onTestSuccess(ITestResult result) {
         ExtentReport.getTest().log(Status.PASS, "Test Passed");
-
     }
 
     @Override
-    public void onTestSkipped(ITestResult result){
+    public void onTestSkipped(ITestResult result) {
         ExtentReport.getTest().log(Status.SKIP, "Test Skipped");
-
     }
 
     @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult result){
-
+    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
     }
+
     @Override
-    public void onFinish(ITestContext result){
+    public void onFinish(ITestContext result) {
         ExtentReport.getReporter().flush();
     }
-
 }
