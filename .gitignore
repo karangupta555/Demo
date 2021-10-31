@@ -48,7 +48,7 @@ Thumbs.db
 # ignore
 /test-output
 /.settings
-/app
-*.ipa
-*.apk
 /Screenshots
+/Serverlogs
+/bin
+/videos

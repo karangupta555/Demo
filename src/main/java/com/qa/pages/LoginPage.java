@@ -1,13 +1,18 @@
 package com.qa.pages;
 
+import com.aventstack.extentreports.Status;
 import com.qa.BaseTest;
+import com.qa.reports.ExtentReport;
 import com.qa.utils.TestUtils;
+
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 
 public class LoginPage extends BaseTest {
     TestUtils utils =  new TestUtils();
+
+    /**************************************** Sauce Labs *****************************************/
 
     @AndroidFindBy(accessibility = "test-Username")
     @iOSXCUITFindBy(id = "test-Username")
@@ -25,28 +30,30 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name=\"test-Error message\"]/child::XCUIElementTypeStaticText")
     private MobileElement errTxt;
 
-    public LoginPage enterUserName(String username) {
+    public LoginPage enterUserNameS(String username) {
         //WebElement e = wait.until(ExpectedConditions.visibilityOf(usernameTxtFld));
         sendKeys(usernameTxtFld, username, "userNameFF");
         return this;
     }
 
-    public LoginPage enterPassword(String password) {
+    public LoginPage enterPasswordS(String password) {
         //WebElement e = wait.until(ExpectedConditions.visibilityOf(passwordTxtFld));
         sendKeys(passwordTxtFld, password, "PasswordFF");
+        // ((IOSDriver) driver).hideKeyboard(HideKeyboardStrategy.PRESS_KEY, "Done");
+        // ((IOSDriver) driver).hideKeyboard();
         return this;
     }
 
-    public com.qa.pages.ProductsPage pressLoginBtn() {
+    public com.qa.pages.ProductsPage pressLoginBtnS() {
         //wait.until(ExpectedConditions.visibilityOf(loginBtn)).click();
         click(loginBtn);
         return new com.qa.pages.ProductsPage();
     }
 
     public com.qa.pages.ProductsPage login(String username, String password) {
-        enterUserName(username);
-        enterPassword(password);
-        return pressLoginBtn();
+        enterUserNameS(username);
+        enterPasswordS(password);
+        return pressLoginBtnS();
     }
 
     public String getErrTxt() {
@@ -62,26 +69,29 @@ public class LoginPage extends BaseTest {
 
     @AndroidFindBy(accessibility = "Tab 2 of 4")
     private MobileElement searchTab;
+    // Search by course title
 
     @AndroidFindBy(accessibility = "Tab 3 of 4")
     private MobileElement notificationTab;
 
-    @AndroidFindBy(accessibility = "SM Tab 4 of 4")
+    @AndroidFindBy(accessibility = "Notifications")
+    private MobileElement validateNotificationTab;
+
+    @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"SM Tab 4 of 4\"]")
     private MobileElement profileTab;
 
-    /* Notifications */
-    @AndroidFindBy(accessibility = "Notifications")
+    /* Notifications */ // android.view.View
+    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView")
     private MobileElement goBackFromNotificationsTab;
 
     @AndroidFindBy(accessibility = "mark all read")
     private MobileElement markAllReadNotifications;
 
     /* Sign in */
-    @AndroidFindBy(tagName = "Enter email ID or username")
+    @AndroidFindBy(className = "android.widget.EditText")
     private MobileElement signEmail;
-    // className = "android.widget.EditText"
 
-    @AndroidFindBy(tagName = "Enter password")
+    @AndroidFindBy(className = "android.widget.EditText")
     private MobileElement password;
 
     @AndroidFindBy(accessibility = "Continue")
@@ -99,15 +109,14 @@ public class LoginPage extends BaseTest {
     @AndroidFindBy(accessibility = "Show")
     private MobileElement showPasswordButton;
 
-    /* Permissions */
-    @AndroidFindBy(accessibility = "permission_allow_button")
-    private MobileElement allow_access_media;
+    @AndroidFindBy(accessibility = "Hide")
+    private MobileElement hidePasswordButton;
 
-    @AndroidFindBy(accessibility = "permission_deny_button")
-    private MobileElement deny_access_media;
+    @AndroidFindBy(xpath = "hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView")
+    private MobileElement backButtonOnPasswordPage;
 
     /* Profile */
-    @AndroidFindBy(accessibility = "SM")
+    @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"SM\"]")
     private MobileElement editProfile;
 
     @AndroidFindBy(accessibility = "Save")
@@ -125,18 +134,152 @@ public class LoginPage extends BaseTest {
     @AndroidFindBy(accessibility = "Cancel")
     private MobileElement cancel;
 
-    public LoginPage enterUserName1(String username) {
-        sendKeys(signEmail, username, "");
+    public LoginPage clickSignInBtn() throws Exception {
+        try {
+            click(signInButton);
+            utils.log().info("Clicked SignIn Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked SignIn Button");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click SignIn Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click SignIn Button");
+            throw new Exception("Error: Unable to Click SignIn Button");
+        }
         return this;
     }
 
-    public LoginPage enterPassword1(String password) {
-        sendKeys(this.password, password, "");
+    public LoginPage enterLoginEmail(String username) {
+        sendKeys(username);
+        utils.log().info("Entered userName/Email: " + username);
+        ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: " + username);
         return this;
     }
 
-    public com.qa.pages.ProductsPage pressSignInBtn() {
-        click(signInButton);
-        return new com.qa.pages.ProductsPage();
+    public LoginPage enterLoginPassword(String password) {
+        sendKeys(password);
+        utils.log().info("Entered Password: " + password);
+        ExtentReport.getTest().log(Status.INFO, "Entered Password: " + password);
+        return this;
+    }
+
+    public LoginPage clickShowPasswordButton() {
+        click(showPasswordButton);
+        utils.log().info("Clicked Show Password Button");
+        ExtentReport.getTest().log(Status.INFO, "Clicked Show Password Button");
+        return this;
+    }
+
+    public LoginPage clickHidePasswordButton() {
+        click(hidePasswordButton);
+        utils.log().info("Clicked Hide Password Button");
+        ExtentReport.getTest().log(Status.INFO, "Clicked Hide Password Button");
+        return this;
+    }
+
+    public LoginPage clickForgotPassword() {
+        click(forgotPasswordButton);
+        utils.log().info("Clicked Forgot Password Button");
+        ExtentReport.getTest().log(Status.INFO, "Clicked Forgot Password Button");
+        return this;
+    }
+
+    public LoginPage clickContinue() {
+        click(continueBtn);
+        utils.log().info("Clicked Continue Button");
+        ExtentReport.getTest().log(Status.INFO, "Clicked Continue Button");
+        return this;
+    }
+
+    public LoginPage clickHomeTab() throws InterruptedException {
+        Thread.sleep(4000);
+        click(homeTab);
+        utils.log().info("Switched to Home Tab");
+        ExtentReport.getTest().log(Status.INFO, "Switched to Home Tab");
+        return this;
+    }
+
+    public LoginPage clickSearchTab() throws InterruptedException {
+        Thread.sleep(4000);
+        click(searchTab);
+        utils.log().info("Switched to Search/Explore Tab");
+        ExtentReport.getTest().log(Status.INFO, "Switched to Search/Explore Tab");
+        return this;
+    }
+
+    public LoginPage clickNotificationTab() throws InterruptedException {
+        Thread.sleep(4000);
+        click(notificationTab);
+        utils.log().info("Switched to Notification Tab");
+        ExtentReport.getTest().log(Status.INFO, "Switched to Notification Tab");
+        return this;
+    }
+
+    public LoginPage validateNotificationTab() throws Exception {
+        try {
+            click(validateNotificationTab);
+            utils.log().info("Validated Notification Tab");
+            ExtentReport.getTest().log(Status.INFO, "Validated Notification Tab");
+        }catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Validated Notification Tab");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Validated Notification Tab");
+            throw new Exception("Error: Unable to Validated Notification Tab");
+        }
+        return this;
+    }
+
+    public LoginPage clickMarkAllReadNotifications() throws Exception {
+        try{
+            Thread.sleep(2000);
+            click(markAllReadNotifications);
+            utils.log().info("Clicked on \"Mark all Read\" Button in Notifications");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on \"Mark all Read\" Button in Notifications");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on \"Mark all Read\" Button in Notifications");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on \"Mark all Read\" Button in Notifications");
+            throw new Exception("Error: Unable to Click on \"Mark all Read\" Button in Notifications");
+        }
+        return this;
+    }
+
+    public LoginPage clickProfileTab() throws InterruptedException {
+        Thread.sleep(4000);
+        click(profileTab);
+        utils.log().info("Switched to Profile Tab");
+        ExtentReport.getTest().log(Status.INFO, "Switched to Profile Tab");
+        return this;
+    }
+
+    // Toasters
+    public LoginPage getToasterMessage() throws InterruptedException {
+        String message="";
+        utils.log().info("Toaster Message Captured: " + message);
+        ExtentReport.getTest().log(Status.INFO, "Toaster Message Captured: " + message);
+        return this;
+    }
+
+    /****/
+
+    public LoginPage backButtonOnPassword() {
+        click(backButtonOnPasswordPage);
+        return this;
+    }
+
+    public LoginPage clickEditProfile() {
+        click(editProfile);
+        return this;
+    }
+
+    public LoginPage clickLogout() {
+        click(logout);
+        return this;
+    }
+
+    public LoginPage clickSignOutBtn() {
+        click(signout);
+        return this;
     }
 }

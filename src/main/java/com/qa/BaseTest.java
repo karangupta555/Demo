@@ -3,31 +3,6 @@ package com.qa;
 import com.aventstack.extentreports.Status;
 import com.qa.reports.ExtentReport;
 import com.qa.utils.TestUtils;
-
-import org.apache.logging.log4j.ThreadContext;
-import org.json.JSONObject;
-import org.openqa.selenium.By;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.ServerSocket;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -35,9 +10,33 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.screenrecording.CanRecordScreen;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.logging.log4j.ThreadContext;
+import org.json.JSONObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.ServerSocket;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     protected static ThreadLocal<AppiumDriver> driver = new ThreadLocal<AppiumDriver>();
@@ -55,8 +54,6 @@ public class BaseTest {
     // Constructor
     public BaseTest() {
         PageFactory.initElements(new AppiumFieldDecorator(getDriver()), this);
-        //PageFactory.initElements(new AppiumFieldDecorator(getDriver()), this);
-        // PageFactory.initElements(new AppiumFieldDecorator(this.getDriver()), this);
         //wait = new WebDriverWait(getDriver(), 10);
     }
 
@@ -122,9 +119,9 @@ public class BaseTest {
             } else {
                 utils.log().info("Appium server already running");
             }
-            System.out.println("beforeSuite Executed for Local");
+            utils.log().info("beforeSuite Executed for Local");
         } else {
-            System.out.println("beforeSuite Executed for Remote");
+            utils.log().info("beforeSuite Executed for Remote");
         }
     }
 
@@ -134,9 +131,9 @@ public class BaseTest {
         if (envID.equals("local")) {
             server.stop();
             utils.log().info("Appium server stopped"); /****/ // "Appium server stopped from afterSuite"
-            System.out.println("afterSuite Executed for Local");
+            utils.log().info("afterSuite Executed for Local");
         } else {
-            System.out.println("afterSuite Executed for Remote");
+            utils.log().info("afterSuite Executed for Remote");
         }
     }
 
@@ -169,7 +166,7 @@ public class BaseTest {
     public AppiumDriverLocalService getAppiumServerDefault() {
         return AppiumDriverLocalService.buildDefaultService();
     }
-/*
+
     @Parameters({"envID"})
     @BeforeMethod
     public void beforeMethod (String envID) {
@@ -201,7 +198,6 @@ public class BaseTest {
             System.out.println("afterMethod Executed for Remote");
         }
     }
-*/
 
     @Parameters({"envID", "deviceID", "emulator", "platformName", "udid", "deviceName", "systemPort", "chromeDriver", "wdaLocalPort", "webkitDebugProxyPort"})
     @BeforeTest(alwaysRun = true)
@@ -243,18 +239,19 @@ public class BaseTest {
                 desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
                 desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
                 desiredCapabilities.setCapability(MobileCapabilityType.UDID, udid);
+                desiredCapabilities.setCapability("autoGrantPermissions", true);
                 url = new URL(props.getProperty("appiumURL") + "4723/wd/hub");
                 switch (platformName) {
                     case "Android":
                         desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, props.getProperty("androidAutomationName"));
-                        desiredCapabilities.setCapability("appPackage", props.getProperty("androidAppPackage"));
-                        desiredCapabilities.setCapability("appActivity", props.getProperty("androidAppActivity"));
+                        desiredCapabilities.setCapability("appPackage", props.getProperty("androidLMSAppPackage"));
+                        //desiredCapabilities.setCapability("appActivity", props.getProperty("androidAppActivity"));
                         desiredCapabilities.setCapability("systemPort", props.getProperty("systemPort"));/****/
                         desiredCapabilities.setCapability("chromeDriverPort", props.getProperty("chromeDriverPort"));/****/
                         if (emulator.equalsIgnoreCase("true")) {
                             desiredCapabilities.setCapability("avd", "pixel2");/****/ //(testData)
                         }
-                        String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\Android.SauceLabs.Mobile.Sample.app.2.7.1.apk").replace("\\", "/");
+                        String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\app.apk").replace("\\", "/");
                         //String androidAppUrl = getClass().getResource(props.getProperty("androidAppLocation")).getFile();
                         desiredCapabilities.setCapability(MobileCapabilityType.APP, androidAppUrl);
                         utils.log().info(androidAppUrl);
@@ -263,10 +260,11 @@ public class BaseTest {
                         break;
                     case "iOS":
                         desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, props.getProperty("iOSAutomationName"));
-                        desiredCapabilities.setCapability("bundleId", props.getProperty("iOSBundleId"));
+                        desiredCapabilities.setCapability("bundleId", props.getProperty("iOSLMSBundleId"));
                         desiredCapabilities.setCapability("wdaLocalPort", props.getProperty("wdaLocalPort"));
                         desiredCapabilities.setCapability("webkitDebugProxyPort", props.getProperty("webkitDebugProxyPort"));
-                        String iOSappUrl = getClass().getResource(props.getProperty("iOSAppLocation")).getFile();
+                        String iOSappUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\app.ipa").replace("\\", "/");
+                        //String iOSappUrl = getClass().getResource(props.getProperty("iOSAppLocation")).getFile();
                         desiredCapabilities.setCapability("app", iOSappUrl);
                         driver = new IOSDriver(url, desiredCapabilities);
                         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
@@ -318,7 +316,7 @@ public class BaseTest {
     }
 
     public void click(MobileElement e, String msg) {
-        waitForVisibility(e);
+        //waitForVisibility(e);
         utils.log().info(msg);
         ExtentReport.getTest().log(Status.INFO, msg);
         e.click();
@@ -330,7 +328,7 @@ public class BaseTest {
     }
 
     public void sendKeys(MobileElement e, String txt) {
-        waitForVisibility(e);
+        //waitForVisibility(e);
         e.clear();
         e.sendKeys(txt);
     }
@@ -341,6 +339,12 @@ public class BaseTest {
         //ExtentReport.getTest().log(Status.INFO, msg);
         e.clear();
         e.sendKeys(txt);
+    }
+
+    public void sendKeys(String txt) {
+        Actions a = new Actions(getDriver());
+        getDriver().findElementsByClassName("//android.widget.EditText");
+        a.sendKeys(txt).perform();
     }
 
     public String getAttribute(MobileElement e, String attribute) {
@@ -388,7 +392,6 @@ public class BaseTest {
 
     public void closeApp() {
         getDriver().closeApp();
-        // DriverManager.getDriver().closeApp();
     }
 
     public void launchApp() {

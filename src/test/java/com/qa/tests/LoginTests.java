@@ -46,7 +46,7 @@ public class LoginTests extends BaseTest {
             System.out.println("beforeClass Executed for Remote");
         }
     }
-
+/*
     @Test
     public void invalidUserName() {
         LoginPage loginPage = new LoginPage();
@@ -81,34 +81,34 @@ public class LoginTests extends BaseTest {
         String expectedProductTitle = getString().get("product_title");
         utils.log().info("actual product title - " + actualProductTitle + "\n" + "expected product title - " + expectedProductTitle);
         Assert.assertEquals(actualProductTitle,expectedProductTitle);
-    }
-/*
+    } */
+
     @Test
     public void invalidUserName() {
         LoginPage loginPage = new LoginPage();
-        loginPage.enterUserName(loginUsers.getJSONObject("invalidUser").getString("username"));
-        loginPage.enterPassword(loginUsers.getJSONObject("invalidUser").getString("password"));
-        loginPage.pressLoginBtn();
+        loginPage.enterUserNameS(loginUsers.getJSONObject("invalidUser").getString("username"));
+        loginPage.enterPasswordS(loginUsers.getJSONObject("invalidUser").getString("password"));
+        loginPage.pressLoginBtnS();
         Assert.assertEquals(loginPage.getErrTxt(), testData.get("err_invalid_username_or_password"));
     }
 
     @Test
     public void invalidPassword() {
         LoginPage loginPage = new LoginPage();
-        loginPage.enterUserName(loginUsers.getJSONObject("invalidPassword").getString("username"));
-        loginPage.enterPassword(loginUsers.getJSONObject("invalidPassword").getString("password"));
-        loginPage.pressLoginBtn();
+        loginPage.enterUserNameS(loginUsers.getJSONObject("invalidPassword").getString("username"));
+        loginPage.enterPasswordS(loginUsers.getJSONObject("invalidPassword").getString("password"));
+        loginPage.pressLoginBtnS();
         Assert.assertEquals(loginPage.getErrTxt(), testData.get("err_invalid_username_or_password"));
     }
 
     @Test
     public void successfulLogin() {
         LoginPage loginPage = new LoginPage();
-        loginPage.enterUserName(loginUsers.getJSONObject("validUser").getString("username"));
-        loginPage.enterPassword(loginUsers.getJSONObject("validUser").getString("password"));
-        ProductsPage productsPage = loginPage.pressLoginBtn();
+        loginPage.enterUserNameS(loginUsers.getJSONObject("validUser").getString("username"));
+        loginPage.enterPasswordS(loginUsers.getJSONObject("validUser").getString("password"));
+        ProductsPage productsPage = loginPage.pressLoginBtnS();
         Assert.assertEquals(productsPage.getTitle(), testData.get("product_title"));
-    }*/
+    }
 
     @Parameters({"envID"})
     @AfterClass
