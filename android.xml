@@ -14,9 +14,6 @@
     <classes>
           <class name="com.qa.tests.LoginTests"/>
 <!--      <class name="com.qa.tests.ProductTests"/>-->
-<!--      <methods>-->
-<!--        <include name = "validateProductOnProductsPage"/>-->
-<!--      </methods>-->
     </classes>
   </test>
   <test name="Android">
@@ -33,9 +30,6 @@
     <classes>
       <class name="com.qa.tests.LoginTests"/>
       <!--      <class name="com.qa.tests.ProductTests"/>-->
-      <!--      <methods>-->
-      <!--        <include name = "validateProductOnProductsPage"/>-->
-      <!--      </methods>-->
     </classes>
   </test>
 </suite> <!-- Suite -->
