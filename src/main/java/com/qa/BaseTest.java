@@ -139,12 +139,26 @@ public class BaseTest {
 
     public AppiumDriverLocalService getAppiumService() {
         HashMap<String, String> environment = new HashMap<String, String>();
+        /*
+        // For Windows:
         //environment.put("PATH", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk:-:-" + System.getenv("PATH"));
         //environment.put("ANDROID_HOME", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk");
         return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
                 .usingDriverExecutable(new File("C:\\Program Files\\nodejs\\node.exe"))
                 .withAppiumJS(new File("C:\\Users\\Ravi Kanth Gojur\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
                 .usingPort(4723).withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment)
+                .withLogFile(new File("ServerLogs/server.log")));*/
+
+        // For Mac:
+        environment.put("PATH", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/bin:/Users/ravikanth/Library/Android/sdk/tools:/Users/ravikanth/Library/Android/sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin" + System.getenv("PATH"));
+        environment.put("ANDROID_HOME", "/Users/ravikanth/Library/Android/sdk");
+        environment.put("JAVA_HOME", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home");
+        return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
+                .usingDriverExecutable(new File("/usr/local/bin/node"))
+                .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+                .usingPort(4723)
+                .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+                .withEnvironment(environment)
                 .withLogFile(new File("ServerLogs/server.log")));
     }
 
@@ -155,7 +169,7 @@ public class BaseTest {
             socket = new ServerSocket(port);
             socket.close();
         } catch (IOException e) {
-            System.out.println("1");
+            System.out.println("Appium Server is Running!");
             isAppiumServerRunning = true;
         } finally {
             socket = null;
@@ -249,7 +263,7 @@ public class BaseTest {
                         desiredCapabilities.setCapability("systemPort", props.getProperty("systemPort"));/****/
                         desiredCapabilities.setCapability("chromeDriverPort", props.getProperty("chromeDriverPort"));/****/
                         if (emulator.equalsIgnoreCase("true")) {
-                            desiredCapabilities.setCapability("avd", "pixel2");/****/ //(testData)
+                            desiredCapabilities.setCapability("avd", "Pixel4");/****/ //(testData)
                         }
                         String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\app.apk").replace("\\", "/");
                         //String androidAppUrl = getClass().getResource(props.getProperty("androidAppLocation")).getFile();
@@ -263,7 +277,7 @@ public class BaseTest {
                         desiredCapabilities.setCapability("bundleId", props.getProperty("iOSLMSBundleId"));
                         desiredCapabilities.setCapability("wdaLocalPort", props.getProperty("wdaLocalPort"));
                         desiredCapabilities.setCapability("webkitDebugProxyPort", props.getProperty("webkitDebugProxyPort"));
-                        String iOSappUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\app.ipa").replace("\\", "/");
+                        String iOSappUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\ios.app").replace("\\", "/");
                         //String iOSappUrl = getClass().getResource(props.getProperty("iOSAppLocation")).getFile();
                         desiredCapabilities.setCapability("app", iOSappUrl);
                         driver = new IOSDriver(url, desiredCapabilities);

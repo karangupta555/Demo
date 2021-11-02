@@ -1,35 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite parallel="tests" name="Suite">
-  <test name="Android"> <!-- Google_Pixel_3 -->
+  <test name="Android" >
+    <parameter name="deviceID" value="1"/>
+    <parameter name="emulator" value="true"/>
+    <parameter name="platformName" value="Android"/>
+    <parameter name="udid" value ="emulator-5554"/>           <!-- emulator-5554(local_device(ae)), Zen: J7AAB76018109TA -->
+    <parameter name="deviceName" value="Asus"/>
+    <parameter name="systemPort" value="10000"/>
+    <parameter name="chromeDriverPort" value="11000"/>
+    <classes>
+      <class name="com.qa.tests.Demo"/>
+    </classes>
     <listeners>
       <listener class-name="com.qa.listeners.TestListener"/>
     </listeners>
-    <parameter name="emulator" value="false"/>
-    <parameter name="platformName" value="Android"/>
-    <parameter name="udid" value ="2555a46e"/>
-    <parameter name="deviceName" value="OnePlus"/>
-    <parameter name="systemPort" value="10000"/>
-    <parameter name="chromeDriverPort" value="11000"/>
-    <parameter name="deviceID" value="1"/>
-    <classes>
-          <class name="com.qa.tests.LoginTests"/>
-<!--      <class name="com.qa.tests.ProductTests"/>-->
-    </classes>
-  </test>
-  <test name="Android">
-    <listeners>
-      <listener class-name="com.qa.listeners.TestListener"/>
-    </listeners>
-    <parameter name="emulator" value="false"/>
-    <parameter name="platformName" value="Android"/>
-    <parameter name="udid" value ="2555a46e"/>
-    <parameter name="deviceName" value="OnePlus"/>
-    <parameter name="systemPort" value="10000"/>
-    <parameter name="chromeDriverPort" value="11000"/>
-    <parameter name="deviceID" value="1"/>
-    <classes>
-      <class name="com.qa.tests.LoginTests"/>
-      <!--      <class name="com.qa.tests.ProductTests"/>-->
-    </classes>
   </test>
 </suite> <!-- Suite -->
