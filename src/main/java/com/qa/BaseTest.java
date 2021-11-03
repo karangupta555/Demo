@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -180,7 +181,7 @@ public class BaseTest {
     public AppiumDriverLocalService getAppiumServerDefault() {
         return AppiumDriverLocalService.buildDefaultService();
     }
-
+/*
     @Parameters({"envID"})
     @BeforeMethod
     public void beforeMethod (String envID) {
@@ -211,7 +212,7 @@ public class BaseTest {
         }else {
             System.out.println("afterMethod Executed for Remote");
         }
-    }
+    }*/
 
     @Parameters({"envID", "deviceID", "emulator", "platformName", "udid", "deviceName", "systemPort", "chromeDriver", "wdaLocalPort", "webkitDebugProxyPort"})
     @BeforeTest(alwaysRun = true)
@@ -253,20 +254,20 @@ public class BaseTest {
                 desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
                 desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
                 desiredCapabilities.setCapability(MobileCapabilityType.UDID, udid);
-                desiredCapabilities.setCapability("autoGrantPermissions", true);
+                desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Flutter");
+                //desiredCapabilities.setCapability("noReset", "true");
+                //desiredCapabilities.setCapability("skipUnlock","true");
                 url = new URL(props.getProperty("appiumURL") + "4723/wd/hub");
                 switch (platformName) {
                     case "Android":
-                        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, props.getProperty("androidAutomationName"));
                         desiredCapabilities.setCapability("appPackage", props.getProperty("androidLMSAppPackage"));
-                        //desiredCapabilities.setCapability("appActivity", props.getProperty("androidAppActivity"));
-                        desiredCapabilities.setCapability("systemPort", props.getProperty("systemPort"));/****/
-                        desiredCapabilities.setCapability("chromeDriverPort", props.getProperty("chromeDriverPort"));/****/
+                        desiredCapabilities.setCapability("systemPort", props.getProperty("systemPort"));
+                        desiredCapabilities.setCapability("chromeDriverPort", props.getProperty("chromeDriverPort"));
                         if (emulator.equalsIgnoreCase("true")) {
-                            desiredCapabilities.setCapability("avd", "Pixel4");/****/ //(testData)
+                            desiredCapabilities.setCapability("avd", "Pixel4");
                         }
-                        String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\app.apk").replace("\\", "/");
-                        //String androidAppUrl = getClass().getResource(props.getProperty("androidAppLocation")).getFile();
+                        desiredCapabilities.setCapability("autoGrantPermissions", true);
+                        String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\nhk.apk").replace("\\", "/");
                         desiredCapabilities.setCapability(MobileCapabilityType.APP, androidAppUrl);
                         utils.log().info(androidAppUrl);
                         driver = new AndroidDriver(url, desiredCapabilities);
@@ -277,7 +278,7 @@ public class BaseTest {
                         desiredCapabilities.setCapability("bundleId", props.getProperty("iOSLMSBundleId"));
                         desiredCapabilities.setCapability("wdaLocalPort", props.getProperty("wdaLocalPort"));
                         desiredCapabilities.setCapability("webkitDebugProxyPort", props.getProperty("webkitDebugProxyPort"));
-                        String iOSappUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\ios.app").replace("\\", "/");
+                        String iOSappUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\lms.app").replace("\\", "/");
                         //String iOSappUrl = getClass().getResource(props.getProperty("iOSAppLocation")).getFile();
                         desiredCapabilities.setCapability("app", iOSappUrl);
                         driver = new IOSDriver(url, desiredCapabilities);

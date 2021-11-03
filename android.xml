@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite parallel="tests" name="Suite">
+  <parameter name="envID" value="local"/>
   <test name="Android" >
     <parameter name="deviceID" value="1"/>
-    <parameter name="emulator" value="true"/>
+    <parameter name="emulator" value="false"/>
     <parameter name="platformName" value="Android"/>
     <parameter name="udid" value ="emulator-5554"/>           <!-- emulator-5554(local_device(ae)), Zen: J7AAB76018109TA -->
     <parameter name="deviceName" value="Asus"/>

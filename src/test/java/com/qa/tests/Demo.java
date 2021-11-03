@@ -1,11 +1,14 @@
 package com.qa.tests;
 
 import com.qa.BaseTest;
+import com.qa.FlutterElement;
+import com.qa.FlutterFinder;
 import com.qa.pages.LoginPage;
 import com.qa.utils.StringParser;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.openqa.selenium.By;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -15,10 +18,10 @@ import java.io.InputStream;
 
 public class Demo extends BaseTest {
 
-    @Parameters({"envID"})
-    @BeforeClass
-    /****/ // beforeClass, beforeMethod in other files
-    public void beforeClass(String envID) throws Exception {
+    /*  @Parameters({"envID"})
+      @BeforeClass
+      /****/ // beforeClass, beforeMethod in other files
+   /* public void beforeClass(String envID) throws Exception {
         InputStream datais = null;
         try {
             String dataFileName = "data/loginUsers.json";
@@ -43,9 +46,10 @@ public class Demo extends BaseTest {
             System.out.println("beforeClass Executed for Remote");
         }
     }
-
-    @Test
+*/
+    @Test(enabled = false)
     public void successfulLogin() throws Exception {
+        //UIAutomator2
         LoginPage loginPage = new LoginPage();
         loginPage.clickSignInBtn();
         loginPage.enterLoginEmail("sprint@clrmail.com");
@@ -63,6 +67,7 @@ public class Demo extends BaseTest {
 
     @Test(enabled = false)
     public void forgotPassword() throws Exception {
+        //UIAutomator2
         LoginPage loginPage = new LoginPage();
         loginPage.clickSignInBtn();
         loginPage.enterLoginEmail("sprint@clrmail.com");
@@ -71,6 +76,39 @@ public class Demo extends BaseTest {
         loginPage.clickShowPasswordButton();
         loginPage.clickHidePasswordButton();
         loginPage.clickForgotPassword();
+    }
+
+    @Test
+    public void test() throws InterruptedException {
+        FlutterFinder finder = new FlutterFinder(getDriver());
+        //LoginPage loginPage = new LoginPage();
+        //loginPage.permissions();
+
+        FlutterElement txt_username = finder.byValueKey("txt_username");
+        FlutterElement txt_password = finder.byValueKey("txt_password");
+        FlutterElement button_login = finder.byValueKey("button_login");
+
+
+        /*txt_username.sendKeys("user@yopmailcom");
+        txt_password.sendKeys("123456");
+        button_login.click();*/
+
+        FlutterElement signInButton = finder.byValueKey("sign_in");
+        FlutterElement signInSSOButton = finder.byValueKey("sign_in_sso");
+        FlutterElement signInEmailInput = finder.byValueKey("email_or_domain_input");
+        FlutterElement submitEmailButton = finder.byValueKey("submit_email"); //continue
+        FlutterElement submitDomainSSOButton = finder.byValueKey("submit_domain"); //continue
+        FlutterElement signInPasswordInput = finder.byValueKey("password_input");
+        FlutterElement signInSubmitButton = finder.byValueKey("sign_in_submit");
+        FlutterElement showPassword = finder.byValueKey("show_pass");
+        FlutterElement forgotPassword = finder.byValueKey("forgot_password");
+        System.out.print("Hello:"+signInButton);
+        /*signInButton.click();
+        signInEmailInput.sendKeys("sprint@clrmail.com");
+        submitEmailButton.click();
+        signInPasswordInput.sendKeys("Test@123");
+        signInSubmitButton.click();*/
+        Thread.sleep(5000);
     }
 
     @Parameters({"envID"})

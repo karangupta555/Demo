@@ -2,12 +2,14 @@ package com.qa.pages;
 
 import com.aventstack.extentreports.Status;
 import com.qa.BaseTest;
+import com.qa.FlutterFinder;
 import com.qa.reports.ExtentReport;
 import com.qa.utils.TestUtils;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
+import org.openqa.selenium.By;
 
 public class LoginPage extends BaseTest {
     TestUtils utils =  new TestUtils();
@@ -262,7 +264,6 @@ public class LoginPage extends BaseTest {
     }
 
     /****/
-
     public LoginPage backButtonOnPassword() {
         click(backButtonOnPasswordPage);
         return this;
@@ -280,6 +281,11 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickSignOutBtn() {
         click(signout);
+        return this;
+    }
+
+    public LoginPage permissions() {
+        getDriver().findElement(By.name("Allow Access to All Photos")).click();
         return this;
     }
 }

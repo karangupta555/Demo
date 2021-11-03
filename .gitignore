@@ -52,3 +52,9 @@ Thumbs.db
 /Serverlogs
 /bin
 /videos
+*.txt
+*.app
+*.apk
+*.ipa
+/logs
+/${ctx:ROUTINGKEY}
