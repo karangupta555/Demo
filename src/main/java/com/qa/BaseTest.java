@@ -242,11 +242,9 @@ public class BaseTest {
                 props = new Properties();
                 String propFileName = "config.properties";
                 String xmlFileName = "strings/TestDataValidation.xml";
-
                 inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
                 props.load(inputStream);
                 setProps(props);
-
                 stringsis = getClass().getClassLoader().getResourceAsStream(xmlFileName);
                 setStrings(utils.parseStringXML(stringsis));
 
@@ -255,19 +253,17 @@ public class BaseTest {
                 desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
                 desiredCapabilities.setCapability(MobileCapabilityType.UDID, udid);
                 desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Flutter");
+
                 url = new URL(props.getProperty("appiumURL") + "4723/wd/hub");
                 switch (platformName) {
                     case "Android":
                         desiredCapabilities.setCapability("appPackage", props.getProperty("androidLMSAppPackage"));
-                        if (emulator.equalsIgnoreCase("true")) {
-                            desiredCapabilities.setCapability("avd", "Pixel4");
-                        }
                         desiredCapabilities.setCapability("autoGrantPermissions", true);
                         String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\new.apk").replace("\\", "/");
                         desiredCapabilities.setCapability(MobileCapabilityType.APP, androidAppUrl);
                         utils.log().info(androidAppUrl);
                         driver = new AndroidDriver(url, desiredCapabilities);
-                        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+                        //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
                         break;
                     case "iOS":
                         desiredCapabilities.setCapability("bundleId", props.getProperty("iOSLMSBundleId"));
@@ -276,7 +272,7 @@ public class BaseTest {
                         //String iOSappUrl = getClass().getResource(props.getProperty("iOSAppLocation")).getFile();
                         desiredCapabilities.setCapability("app", iOSappUrl);
                         driver = new IOSDriver(url, desiredCapabilities);
-                        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+                        //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
                         break;
                     default:
                         throw new Exception("Invalid platform! - " + platformName);
@@ -298,7 +294,6 @@ public class BaseTest {
             DriverManager.initializeDriver(envID, deviceID);
             System.out.println("beforeTest Executed for Remote");
         }
-        System.out.println("1");
     }
 
     @Parameters({"envID"})
@@ -308,7 +303,6 @@ public class BaseTest {
             if (getDriver() != null) {
                 getDriver().quit();
             }
-            // getDriver().quit();
             System.out.println("afterTest Executed for Local");
         } else {
             System.out.println("afterTest Executed for Remote");

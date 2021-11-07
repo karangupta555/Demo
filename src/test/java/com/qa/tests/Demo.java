@@ -7,12 +7,15 @@ import com.qa.FlutterFinder;
 import com.qa.pages.LoginPage;
 import com.qa.utils.StringParser;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.ws.StringWebSocketClient;
 import org.aspectj.lang.annotation.Before;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -23,17 +26,10 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import static org.apache.commons.io.FileUtils.waitFor;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class Demo extends BaseTest {
-
-    protected FlutterFinder finder;
-
-    @Before("")
-    public void setUp() throws Exception {
-        //super.setUp();
-        super.getDriver();
-        finder = new FlutterFinder(getDriver());
-    }
+    private static final Object FLUTTER_WAIT_TIME = 30;
 
      /* @Parameters({"envID"})
       @BeforeClass
@@ -99,10 +95,10 @@ public class Demo extends BaseTest {
     @Test
     public void test() throws InterruptedException {
         try {
-            System.out.println("Test Case:");
+            System.out.println("Before Reading Elements:");
             switchContext("FLUTTER");
             //loginPage.iOSPermissions();
-            //FlutterFinder finder = new FlutterFinder(getDriver());
+            FlutterFinder finder = new FlutterFinder(getDriver());
             FlutterElement signInButton = finder.byValueKey("sign_in");
             FlutterElement signInSSOButton = finder.byValueKey("sign_in_sso");
             FlutterElement signInEmailInput = finder.byValueKey("email_or_domain_input");
@@ -115,13 +111,23 @@ public class Demo extends BaseTest {
 
             MobileElement a = finder.byValueKey("sign_in");
 
-
-            System.out.println("Test Case Started!");
-            System.out.println("SignIn Contains: "+signInButton+"\n");
+            System.out.println("After Reading Elements:");
+            System.out.println("SignIn Contains: "+signInButton);
             System.out.println("SignIn Contains: "+a+"\n");
 
+            assertEquals(getDriver().executeScript("flutter:checkHealth"), "ok");
+            getDriver().executeScript("flutter:clearTimeline");
+            getDriver().executeScript("flutter:forceGC");
+
+            //getDriver().executeScript("flutter:waitFor", a, FLUTTER_WAIT_TIME);
+
+            //System.out.println("Is Displayed: " + finder.byValueKey("sign_in").findElementByAccessibilityId()+"\n");
+
+
+            getDriver().executeScript("flutter:click", a);
+
             a.click();
-            clickToElement("Sign In");
+            //signInButton.click();
             System.out.println("1");
 
             signInEmailInput.sendKeys("sprint@clrmail.com");
@@ -143,6 +149,7 @@ public class Demo extends BaseTest {
 
     @Test(enabled = false)
     public void test1() throws InterruptedException {
+        FlutterFinder finder = new FlutterFinder(getDriver());
 
         FlutterElement txt_username = finder.byValueKey("txt_username");
         FlutterElement txt_password = finder.byValueKey("txt_password");
@@ -182,6 +189,7 @@ public class Demo extends BaseTest {
     }
 
     private MobileElement waitFor(String locator){
+        FlutterFinder finder = new FlutterFinder(getDriver());
         return (MobileElement) getDriver().executeScript("flutter:waitFor", finder.byValueKey(locator), 30);
     }
 

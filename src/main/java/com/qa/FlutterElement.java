@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
 import java.util.Base64;
