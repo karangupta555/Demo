@@ -284,7 +284,7 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage permissions() {
+    public LoginPage iOSPermissions() {
         getDriver().findElement(By.name("Allow Access to All Photos")).click();
         return this;
     }

@@ -1,5 +1,6 @@
 package com.qa;
 
+import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.qa.reports.ExtentReport;
 import com.qa.utils.TestUtils;
@@ -106,17 +107,16 @@ public class BaseTest {
         dateTime.set(dateTime2);
     }
 
-    // @Optional
     @Parameters({"envID"})
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite(@Optional("iOSOnly") String envID) throws Exception {
         if (envID.equals("local")) {
-            ThreadContext.put("ROUTINGKEY", "ServerLogs"); /****/
+            ThreadContext.put("ROUTINGKEY", "ServerLogs");
             server = getAppiumService();
             if (!checkIfAppiumServerIsRunnning(4723)) {
                 server.start();
                 server.clearOutPutStreams();
-                utils.log().info("Appium server started"); /****/
+                utils.log().info("Appium server started");
             } else {
                 utils.log().info("Appium server already running");
             }
@@ -131,7 +131,7 @@ public class BaseTest {
     public void afterSuite(@Optional String envID) {
         if (envID.equals("local")) {
             server.stop();
-            utils.log().info("Appium server stopped"); /****/ // "Appium server stopped from afterSuite"
+            utils.log().info("Appium server stopped from afterSuite");
             utils.log().info("afterSuite Executed for Local");
         } else {
             utils.log().info("afterSuite Executed for Remote");
@@ -255,29 +255,23 @@ public class BaseTest {
                 desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
                 desiredCapabilities.setCapability(MobileCapabilityType.UDID, udid);
                 desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Flutter");
-                //desiredCapabilities.setCapability("noReset", "true");
-                //desiredCapabilities.setCapability("skipUnlock","true");
                 url = new URL(props.getProperty("appiumURL") + "4723/wd/hub");
                 switch (platformName) {
                     case "Android":
                         desiredCapabilities.setCapability("appPackage", props.getProperty("androidLMSAppPackage"));
-                        desiredCapabilities.setCapability("systemPort", props.getProperty("systemPort"));
-                        desiredCapabilities.setCapability("chromeDriverPort", props.getProperty("chromeDriverPort"));
                         if (emulator.equalsIgnoreCase("true")) {
                             desiredCapabilities.setCapability("avd", "Pixel4");
                         }
                         desiredCapabilities.setCapability("autoGrantPermissions", true);
-                        String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\nhk.apk").replace("\\", "/");
+                        String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\new.apk").replace("\\", "/");
                         desiredCapabilities.setCapability(MobileCapabilityType.APP, androidAppUrl);
                         utils.log().info(androidAppUrl);
                         driver = new AndroidDriver(url, desiredCapabilities);
                         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
                         break;
                     case "iOS":
-                        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, props.getProperty("iOSAutomationName"));
                         desiredCapabilities.setCapability("bundleId", props.getProperty("iOSLMSBundleId"));
                         desiredCapabilities.setCapability("wdaLocalPort", props.getProperty("wdaLocalPort"));
-                        desiredCapabilities.setCapability("webkitDebugProxyPort", props.getProperty("webkitDebugProxyPort"));
                         String iOSappUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\lms.app").replace("\\", "/");
                         //String iOSappUrl = getClass().getResource(props.getProperty("iOSAppLocation")).getFile();
                         desiredCapabilities.setCapability("app", iOSappUrl);
@@ -304,6 +298,7 @@ public class BaseTest {
             DriverManager.initializeDriver(envID, deviceID);
             System.out.println("beforeTest Executed for Remote");
         }
+        System.out.println("1");
     }
 
     @Parameters({"envID"})

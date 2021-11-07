@@ -5,7 +5,7 @@
     <parameter name="deviceID" value="1"/>
     <parameter name="emulator" value="false"/>
     <parameter name="platformName" value="Android"/>
-    <parameter name="udid" value ="emulator-5554"/>           <!-- emulator-5554(local_device(ae)), Zen: J7AAB76018109TA -->
+    <parameter name="udid" value ="emulator-5554"/>           <!-- emulator-5554, J7AAB76018109TA -->
     <parameter name="deviceName" value="Asus"/>
     <parameter name="systemPort" value="10000"/>
     <parameter name="chromeDriverPort" value="11000"/>
