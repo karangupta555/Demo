@@ -163,6 +163,7 @@ public class LoginPage extends BaseTest {
     private MobileElement cancel;
 
     public LoginPage clickSignInBtn() throws Exception {
+        Thread.sleep(4000);
         try {
             click(signInButton);
             utils.log().info("Clicked SignIn Button");
@@ -230,6 +231,7 @@ public class LoginPage extends BaseTest {
     }
 
     public LoginPage clickHomeTab() throws InterruptedException {
+        Thread.sleep(2000);
         click(homeTab);
         utils.log().info("Switched to Home Tab");
         ExtentReport.getTest().log(Status.INFO, "Switched to Home Tab");
@@ -281,7 +283,7 @@ public class LoginPage extends BaseTest {
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on \"Mark all Read\" Button in Notifications");
             throw new Exception("Error: Unable to Click on \"Mark all Read\" Button in Notifications");
         }
-        Thread.sleep(4000);
+        Thread.sleep(6000);
         return this;
     }
 
@@ -293,11 +295,10 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-
-
     public LoginPage searchCourse(String courseName) throws InterruptedException {
+        Thread.sleep(5000);
         click(textBox);
-        Thread.sleep(3000);
+        Thread.sleep(5000);
         getDriver().getKeyboard().sendKeys(courseName);
         utils.log().info("Searched Course: " + courseName);
         ExtentReport.getTest().log(Status.INFO, "Searched Course: " + courseName);
@@ -319,7 +320,7 @@ public class LoginPage extends BaseTest {
         click(enrollNowButton);
         utils.log().info("Clicked on Enroll Now Button");
         ExtentReport.getTest().log(Status.INFO, "Clicked on Enroll Now Button");
-        Thread.sleep(4000);
+        Thread.sleep(6000);
         return this;
     }
 
@@ -327,12 +328,12 @@ public class LoginPage extends BaseTest {
         click(startCourseButton);
         utils.log().info("Clicked on Start Course Button");
         ExtentReport.getTest().log(Status.INFO, "Clicked on Start Course Button");
-        Thread.sleep(4000);
+        Thread.sleep(6000);
         return this;
     }
 
     public LoginPage clickNextLesson() throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(8000);
         click(nextLessonButton);
         utils.log().info("Clicked on Next Lesson Button");
         ExtentReport.getTest().log(Status.INFO, "Clicked on Next Lesson Button");
@@ -373,6 +374,7 @@ public class LoginPage extends BaseTest {
     }
 
     public LoginPage clickProceed() throws InterruptedException {
+        Thread.sleep(6000);
         click(proceedButton);
         utils.log().info("Clicked on Proceed Button");
         ExtentReport.getTest().log(Status.INFO, "Clicked on Proceed Button");
@@ -381,6 +383,7 @@ public class LoginPage extends BaseTest {
     }
 
     public LoginPage clickViewCertificate() throws InterruptedException {
+        Thread.sleep(4000);
         click(viewCertificateButton);
         utils.log().info("Clicked on View Certificate Button");
         ExtentReport.getTest().log(Status.INFO, "Clicked on View Certificate Button");

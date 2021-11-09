@@ -59,22 +59,25 @@ public class Demo extends BaseTest {
         Thread.sleep(3000);
     }
 
+    // cane@zetmail.com
+    // bnf@zetmail.com
+    // auzmor@zetmail.com
+
     @Test
     public void test() throws Exception {
         LoginPage loginPage = new LoginPage();
         loginPage.clickSignInBtn();
-        loginPage.enterLoginEmail("sprint@clrmail.com");
+        loginPage.enterLoginEmail("bnf@zetmail.com");
         loginPage.clickContinue();
         loginPage.enterLoginPassword("Test@123");
-        loginPage.clickShowPasswordButton();
-        loginPage.clickHidePasswordButton();
-        loginPage.clickForgotPassword();
         loginPage.clickContinue();
         Thread.sleep(5000);
         loginPage.clickNotificationTab();
         loginPage.validateNotificationTab();
         loginPage.clickMarkAllReadNotifications();
+        Thread.sleep(5000);
         loginPage.clickSearchTab();
+        Thread.sleep(5000);
         loginPage.searchCourse("Class1");
         loginPage.viewSpecificCourse("Class1");
         loginPage.clickEnrollNow();
@@ -88,6 +91,7 @@ public class Demo extends BaseTest {
         loginPage.clickSearchTab();
         loginPage.searchCourse("Class1");
         Assert.assertTrue(loginPage.isNoResultFound());
+        getDriver().navigate().back();
         loginPage.clickHomeTab();
         loginPage.clickSearchTab();
         loginPage.searchCourse("Class2");
