@@ -2,6 +2,7 @@ package com.qa;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.qa.pages.LoginPage;
 import com.qa.reports.ExtentReport;
 import com.qa.utils.TestUtils;
 import io.appium.java_client.AppiumDriver;
@@ -181,7 +182,7 @@ public class BaseTest {
     public AppiumDriverLocalService getAppiumServerDefault() {
         return AppiumDriverLocalService.buildDefaultService();
     }
-/*
+
     @Parameters({"envID"})
     @BeforeMethod
     public void beforeMethod (String envID) {
@@ -212,7 +213,7 @@ public class BaseTest {
         }else {
             System.out.println("afterMethod Executed for Remote");
         }
-    }*/
+    }
 
     @Parameters({"envID", "deviceID", "emulator", "platformName", "udid", "deviceName", "systemPort", "chromeDriver", "wdaLocalPort", "webkitDebugProxyPort"})
     @BeforeTest(alwaysRun = true)
@@ -237,6 +238,8 @@ public class BaseTest {
             //route logs to separate file for each thread
             ThreadContext.put("ROUTINGKEY", strFile);
             utils.log().info("log path: " + strFile);
+            String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\old.apk").replace("\\", "/");
+            String iOSAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\Runner.app").replace("\\", "/");
 
             try {
                 props = new Properties();
@@ -252,27 +255,25 @@ public class BaseTest {
                 desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
                 desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
                 desiredCapabilities.setCapability(MobileCapabilityType.UDID, udid);
-                desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Flutter");
-
                 url = new URL(props.getProperty("appiumURL") + "4723/wd/hub");
+
                 switch (platformName) {
                     case "Android":
+                        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
                         desiredCapabilities.setCapability("appPackage", props.getProperty("androidLMSAppPackage"));
                         desiredCapabilities.setCapability("autoGrantPermissions", true);
-                        String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\new.apk").replace("\\", "/");
                         desiredCapabilities.setCapability(MobileCapabilityType.APP, androidAppUrl);
                         utils.log().info(androidAppUrl);
                         driver = new AndroidDriver(url, desiredCapabilities);
-                        //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+                        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
                         break;
                     case "iOS":
+                        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
                         desiredCapabilities.setCapability("bundleId", props.getProperty("iOSLMSBundleId"));
                         desiredCapabilities.setCapability("wdaLocalPort", props.getProperty("wdaLocalPort"));
-                        String iOSappUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\lms.app").replace("\\", "/");
-                        //String iOSappUrl = getClass().getResource(props.getProperty("iOSAppLocation")).getFile();
-                        desiredCapabilities.setCapability("app", iOSappUrl);
+                        desiredCapabilities.setCapability(MobileCapabilityType.APP, iOSAppUrl);
                         driver = new IOSDriver(url, desiredCapabilities);
-                        //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+                        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
                         break;
                     default:
                         throw new Exception("Invalid platform! - " + platformName);
@@ -339,15 +340,16 @@ public class BaseTest {
 
     public void sendKeys(MobileElement e, String txt, String msg) {
         //waitForVisibility(e);
-        //utils.log().info(msg);
-        //ExtentReport.getTest().log(Status.INFO, msg);
+        utils.log().info(msg);
+        ExtentReport.getTest().log(Status.INFO, msg);
         e.clear();
         e.sendKeys(txt);
     }
 
     public void sendKeys(String txt) {
         Actions a = new Actions(getDriver());
-        getDriver().findElementsByClassName("//android.widget.EditText");
+        getDriver().findElementsByClassName("//android.widget.EditText").clear();
+        //getDriver().findElementsByClassName(String.valueOf(LoginPage.textBox)).clear();
         a.sendKeys(txt).perform();
     }
 
