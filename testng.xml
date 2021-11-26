@@ -5,5 +5,4 @@
     DeviceID = {"1":"Android", "2":"IOS"}
     EnvID    = {"1":"local", "2":"remote"}
   -->
-
 </suite>

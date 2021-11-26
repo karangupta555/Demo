@@ -7,140 +7,160 @@ import com.qa.utils.TestUtils;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.MultiTouchAction;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
+import io.appium.java_client.touch.TapOptions;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.ElementOption;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.time.Duration;
+import java.util.HashMap;
+
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 public class LoginPage extends BaseTest {
     TestUtils utils =  new TestUtils();
 
-    /**************************************** Sauce Labs *****************************************/
-
-    @AndroidFindBy(accessibility = "test-Username")
-    @iOSXCUITFindBy(id = "test-Username")
-    private MobileElement usernameTxtFld;
-
-    @AndroidFindBy(accessibility = "test-Password")
-    @iOSXCUITFindBy(id = "test-Password")
-    private MobileElement passwordTxtFld;
-
-    @AndroidFindBy(accessibility = "test-LOGIN")
-    @iOSXCUITFindBy(id = "test-LOGIN")
-    private MobileElement loginBtn;
-
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-Error message\"]/android.widget.TextView")
-    @iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name=\"test-Error message\"]/child::XCUIElementTypeStaticText")
-    private MobileElement errTxt;
-
-    public LoginPage enterUserNameS(String username) {
-        //WebElement e = wait.until(ExpectedConditions.visibilityOf(usernameTxtFld));
-        sendKeys(usernameTxtFld, username, "userNameFF");
-        return this;
-    }
-
-    public LoginPage enterPasswordS(String password) {
-        //WebElement e = wait.until(ExpectedConditions.visibilityOf(passwordTxtFld));
-        sendKeys(passwordTxtFld, password, "PasswordFF");
-        // ((IOSDriver) driver).hideKeyboard(HideKeyboardStrategy.PRESS_KEY, "Done");
-        // ((IOSDriver) driver).hideKeyboard();
-        return this;
-    }
-
-    public com.qa.pages.ProductsPage pressLoginBtnS() {
-        //wait.until(ExpectedConditions.visibilityOf(loginBtn)).click();
-        click(loginBtn);
-        return new com.qa.pages.ProductsPage();
-    }
-
-    public com.qa.pages.ProductsPage login(String username, String password) {
-        enterUserNameS(username);
-        enterPasswordS(password);
-        return pressLoginBtnS();
-    }
-
-    public String getErrTxt() {
-        return errTxt.getText();
-        //return wait.until(ExpectedConditions.visibilityOf(errTxt)).getText();
-    }
-
-    /************************************  LMS  ***************************************/
-
     /* Tabs*/
     @AndroidFindBy(accessibility = "Tab 1 of 4")
+    @iOSXCUITFindBy(accessibility = "Tab 1 of 4")
     private MobileElement homeTab;
 
     @AndroidFindBy(accessibility = "Tab 2 of 4")
+    @iOSXCUITFindBy(accessibility = "Tab 2 of 4")
     private MobileElement searchTab;
     // Search by course title
 
     @AndroidFindBy(accessibility = "Tab 3 of 4")
+    @iOSXCUITFindBy(accessibility = "Tab 3 of 4")
     private MobileElement notificationTab;
 
     @AndroidFindBy(accessibility = "Notifications")
+    @iOSXCUITFindBy(accessibility = "Notifications")
     private MobileElement validateNotificationTab;
 
     @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"SM Tab 4 of 4\"]")
     private MobileElement profileTab;
 
     @AndroidFindBy(accessibility = "Enroll now")
-    private  MobileElement enrollNowButton;
+    @iOSXCUITFindBy(accessibility = "Enroll now")
+    private MobileElement enrollNowButton;
 
     @AndroidFindBy(accessibility = "Start course")
-    private  MobileElement startCourseButton;
+    @iOSXCUITFindBy(accessibility = "Start course")
+    private MobileElement startCourseButton;
 
     @AndroidFindBy(accessibility = "Next lesson")
-    private  MobileElement nextLessonButton;
+    @iOSXCUITFindBy(accessibility = "Next lesson")
+    private MobileElement nextLessonButton;
 
     @AndroidFindBy(accessibility = "Take assessment")
-    private  MobileElement takeAssessmentButton;
+    @iOSXCUITFindBy(accessibility = "Take assessment")
+    private MobileElement takeAssessmentButton;
+
+    @AndroidFindBy(accessibility = "Attend later")
+    @iOSXCUITFindBy(accessibility = "Attend later")
+    private MobileElement attendLaterButton;
 
     @AndroidFindBy(accessibility = "Complete Assessment")
-    private  MobileElement completeAssessmentButton;
+    @iOSXCUITFindBy(accessibility = "Complete Assessment")
+    private MobileElement completeAssessmentButton;
 
     @AndroidFindBy(accessibility = "Assessment summary")
-    private  MobileElement assessmentSummaryButton;
+    @iOSXCUITFindBy(accessibility = "Assessment summary")
+    private MobileElement assessmentSummaryButton;
 
     @AndroidFindBy(accessibility = "Proceed")
-    private  MobileElement proceedButton;
+    @iOSXCUITFindBy(accessibility = "Proceed")
+    private MobileElement proceedButton;
 
     @AndroidFindBy(accessibility = "View Certificate")
-    private  MobileElement viewCertificateButton;
+    @iOSXCUITFindBy(accessibility = "View Certificate")
+    private MobileElement viewCertificateButton;
+
+    @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
+    @iOSXCUITFindBy(className = "XCUIElementTypeImage")
+    private MobileElement backButtonOnViewCertificatePage;
+
+    @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
+    @iOSXCUITFindBy(xpath = "/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeImage[1]")
+    private MobileElement backButtonOnCourseDetailsPage; // Completed Course
+
+    @AndroidFindBy(accessibility = "Go Back")
+    @iOSXCUITFindBy(accessibility = "Go Back")
+    private MobileElement goBackButton;
+
+    @AndroidFindBy(accessibility = "undefined")
+    @iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name=\"Done\"]")
+    private MobileElement doneButtonInAppBrowser;
+
+    @AndroidFindBy(accessibility = "undefined")
+    @iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"ReloadButton\"]")
+    private MobileElement reloadButtonInAppBrowser;
+
+    @AndroidFindBy(accessibility = "undefined")
+    @iOSXCUITFindBy(xpath = "Export as PDF")
+    private MobileElement certificateExportAsPDF;
+
+    @AndroidFindBy(accessibility = "undefined")
+    @iOSXCUITFindBy(accessibility = "Export as Image")
+    private MobileElement certificateExportAsImage;
+
+    @AndroidFindBy(accessibility = "undefined")
+    @iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name=\"URL\"]")
+    private MobileElement clickURLInAppBrowser;
 
     /* Notifications */ // android.view.View
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView")
+    @iOSXCUITFindBy(xpath = "/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeImage")
     private MobileElement goBackFromNotificationsTab;
 
     @AndroidFindBy(accessibility = "mark all read")
+    @iOSXCUITFindBy(accessibility = "mark all read")
     private MobileElement markAllReadNotifications;
 
     /* Sign in */
     @AndroidFindBy(className = "android.widget.EditText")
+    @iOSXCUITFindBy(className = "XCUIElementTypeTextField")
     private MobileElement textBox;
 
     @AndroidFindBy(accessibility = "Continue")
+    @iOSXCUITFindBy(accessibility = "Continue")
     private MobileElement continueBtn;
 
     @AndroidFindBy(accessibility = "Sign in")
+    @iOSXCUITFindBy(accessibility = "Sign in")
     private MobileElement signInButton;
 
     @AndroidFindBy(accessibility = "Sign in with SSO")
+    @iOSXCUITFindBy(accessibility = "Sign in with SSO")
     private MobileElement signInSSOButton;
 
     @AndroidFindBy(accessibility = "Forgot password?")
+    @iOSXCUITFindBy(accessibility = "Forgot password?")
     private MobileElement forgotPasswordButton;
 
     @AndroidFindBy(accessibility = "Show")
+    @iOSXCUITFindBy(accessibility = "Show")
     private MobileElement showPasswordButton;
 
     @AndroidFindBy(accessibility = "Hide")
+    @iOSXCUITFindBy(accessibility = "Hide")
     private MobileElement hidePasswordButton;
 
     @AndroidFindBy(xpath = "hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView")
+    @iOSXCUITFindBy(className = "XCUIElementTypeImage")
     private MobileElement backButtonOnPasswordPage;
 
     /* Profile */
@@ -148,6 +168,7 @@ public class LoginPage extends BaseTest {
     private MobileElement editProfile;
 
     @AndroidFindBy(accessibility = "Save")
+    @iOSXCUITFindBy(accessibility = "Save")
     private MobileElement saveButton;
 
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView[1]")
@@ -157,9 +178,11 @@ public class LoginPage extends BaseTest {
     private MobileElement logout;
 
     @AndroidFindBy(accessibility = "Sign Out")
+    @iOSXCUITFindBy(accessibility = "Sign Out")
     private MobileElement signout;
 
     @AndroidFindBy(accessibility = "Cancel")
+    @iOSXCUITFindBy(accessibility = "Cancel")
     private MobileElement cancel;
 
     public LoginPage clickSignInBtn() throws Exception {
@@ -181,7 +204,7 @@ public class LoginPage extends BaseTest {
 
     public LoginPage enterLoginEmail(String username) throws InterruptedException {
         Thread.sleep(2000);
-        //sendKeys(username);
+        //sendKeys(username); // This approach will take some time to enter/send values
         getDriver().getKeyboard().sendKeys(username);
         utils.log().info("Entered userName/Email: " + username);
         ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: " + username);
@@ -190,7 +213,7 @@ public class LoginPage extends BaseTest {
 
     public LoginPage enterLoginPassword(String password) throws InterruptedException {
         Thread.sleep(2000);
-        //sendKeys(password);
+        //sendKeys(password); // This approach will take some time to enter/send values
         getDriver().getKeyboard().sendKeys(password);
         utils.log().info("Entered Password: " + password);
         ExtentReport.getTest().log(Status.INFO, "Entered Password: " + password);
@@ -298,18 +321,16 @@ public class LoginPage extends BaseTest {
     public LoginPage searchCourse(String courseName) throws InterruptedException {
         Thread.sleep(5000);
         click(textBox);
-        Thread.sleep(5000);
+        textBox.clear();/****/
         getDriver().getKeyboard().sendKeys(courseName);
         utils.log().info("Searched Course: " + courseName);
         ExtentReport.getTest().log(Status.INFO, "Searched Course: " + courseName);
-        Thread.sleep(8000);
+        getDriver().hideKeyboard();
         return this;
     }
 
-
     public LoginPage viewSpecificCourse(String courseName) throws InterruptedException {
-        // //android.widget.CheckBox[@index='1']
-        getDriver().findElementByXPath("//android.view.View[@content-desc=\""+courseName+"\"]").click();
+        getDriver().findElementByAccessibilityId(courseName).click();
         utils.log().info("Clicked on '"+courseName+"' Course");
         ExtentReport.getTest().log(Status.INFO, "Clicked on '"+courseName+"' Course");
         Thread.sleep(4000);
@@ -349,6 +370,14 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
+    public LoginPage clickAttendLater() throws InterruptedException {
+        Thread.sleep(6500);
+        click(attendLaterButton);
+        utils.log().info("Clicked on Attend Later Button");
+        ExtentReport.getTest().log(Status.INFO, "Clicked on Attend Later Button");
+        return this;
+    }
+
     public LoginPage clickCompleteAssessment() throws InterruptedException {
         click(completeAssessmentButton);
         utils.log().info("Clicked on Complete Assessment Button");
@@ -357,10 +386,10 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage answerSingleChoiceQuestion() throws InterruptedException {
-        getDriver().findElementByXPath("//android.view.View[@content-desc=\"a\"]").click();
-        utils.log().info("Selected Option A");
-        ExtentReport.getTest().log(Status.INFO, "Selected Option A");
+    public LoginPage answerSingleChoiceQuestion(String option) throws InterruptedException {
+        getDriver().findElementByAccessibilityId(option).click();
+        utils.log().info("Selected Option '"+option+"'");
+        ExtentReport.getTest().log(Status.INFO, "Selected Option '"+option+"'");
         Thread.sleep(5000);
         return this;
     }
@@ -391,16 +420,47 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage clickBackButton() throws InterruptedException {
-        getDriver().findElementByXPath("//android.widget.ImageView[@index='0']").click();
-        utils.log().info("Clicked Back Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked Back Button");
+    public LoginPage pressBackButtonFromMobile() throws  InterruptedException {
+        getDriver().navigate().back();
+        utils.log().info("Clicked Back Button from Mobile");
+        ExtentReport.getTest().log(Status.INFO, "Clicked Back Button from Mobile");
+        return this;
+    }
+
+    public LoginPage clickBackButtonOnViewCertificatePage() throws InterruptedException {
+        click(backButtonOnViewCertificatePage);
+        utils.log().info("Clicked Back Button on View Certificate Button Page");
+        ExtentReport.getTest().log(Status.INFO, "Clicked Back Button on View Certificate Button Page");
+        Thread.sleep(5000);
+        return this;
+    }
+
+    public LoginPage clickBackButtonOnCourseDetailsPage() throws InterruptedException {
+        click(backButtonOnCourseDetailsPage);
+        utils.log().info("Clicked Back Button in Course Details");
+        ExtentReport.getTest().log(Status.INFO, "Clicked Back Button in Course Details");
+        Thread.sleep(5000);
+        return this;
+    }
+
+    public LoginPage clickGoBackButton() throws InterruptedException {
+        click(goBackButton);
+        utils.log().info("Clicked Go Back Button");
+        ExtentReport.getTest().log(Status.INFO, "Clicked Go Back Button");
+        Thread.sleep(5000);
+        return this;
+    }
+
+    public LoginPage clickDoneButtonInAppBrowser() throws InterruptedException {
+        click(doneButtonInAppBrowser);
+        utils.log().info("Clicked Go Back Button");
+        ExtentReport.getTest().log(Status.INFO, "Clicked Go Back Button");
         Thread.sleep(5000);
         return this;
     }
 
     public boolean isNoResultFound() throws InterruptedException {
-        if(getDriver().findElementsByXPath("//android.widget.ImageView[@content-desc=\"Uh oh!! We searched the whole space but couldn't find it\"]").size()>0){
+        if(getDriver().findElementsByAccessibilityId("Uh oh!! We searched the whole space but couldn't find it").size()>0){
             utils.log().info("No Result Found");
             ExtentReport.getTest().log(Status.INFO, "No Result Found");
             return true;
@@ -419,6 +479,87 @@ public class LoginPage extends BaseTest {
         utils.log().info("Completed Button Not Present");
         ExtentReport.getTest().log(Status.INFO, "Completed Button Not Present");
         return false;
+    }
+
+     /*****************
+       Actions Examples
+     *****************/
+
+    public LoginPage tap() throws InterruptedException {
+        // Similar to Click
+        TouchAction action = new TouchAction(getDriver());
+        action.tap(ElementOption.element(getDriver().findElementByAccessibilityId("Enroll now"))).perform();
+        utils.log().info("");
+        ExtentReport.getTest().log(Status.INFO, "");
+        return this;
+    }
+
+    public LoginPage press() throws InterruptedException {
+        // Similar to Click
+        TouchAction action = new TouchAction(getDriver());
+        action.press(ElementOption.element(getDriver().findElementByAccessibilityId(""))).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).release().perform();
+        utils.log().info("");
+        ExtentReport.getTest().log(Status.INFO, "");
+        return this;
+    }
+
+    public LoginPage longPress() throws InterruptedException {
+        TouchAction action = new TouchAction(getDriver());
+        action.longPress(ElementOption.element(getDriver().findElementByAccessibilityId(""))).waitAction(WaitOptions.waitOptions(Duration.ofMillis(10000))).release().perform();
+        utils.log().info("");
+        ExtentReport.getTest().log(Status.INFO, "");
+        return this;
+    }
+
+    public LoginPage checkNotifications() throws InterruptedException {
+        TouchAction action = new TouchAction(getDriver());
+        Dimension size = getDriver().manage().window().getSize();
+        size.getHeight();
+        size.getWidth();
+        System.out.println("Height of the screen: " + getDriver().manage().window().getSize().getHeight());
+        System.out.println("Width of the screen: " + getDriver().manage().window().getSize().getWidth());
+        // Drag from Top-Bottom
+        action.press(PointOption.point(10,10))
+                .waitAction(waitOptions(Duration.ofMillis(1200)))
+                .moveTo(PointOption.point(900,900))
+                .release()
+                .perform();
+        Thread.sleep(5000);
+        // Drag from Bottom-Top
+        action.press(PointOption.point(900,900))
+                .waitAction(waitOptions(Duration.ofMillis(1200)))
+                .moveTo(PointOption.point(10,10))
+                .release()
+                .perform();
+        return this;
+    }
+
+    public LoginPage scroll() throws InterruptedException {
+        TouchAction action = new TouchAction(getDriver());
+        /*
+        xOffset = startScrollingFromX
+        yOffset = startScrollingFromY
+
+        Same x,y points are required for end_points
+         */
+        action.press(PointOption.point(0,800))
+                .waitAction(waitOptions(Duration.ofMillis(1500)))
+                .moveTo(PointOption.point(0,200))
+                .release()
+                .perform();
+        Thread.sleep(5000);
+        return this;
+    }
+
+    public LoginPage bedug() throws InterruptedException {
+        TouchAction action = new TouchAction(getDriver());
+        action.press(PointOption.point(0,800))
+                .waitAction(waitOptions(Duration.ofMillis(1500)))
+                .moveTo(PointOption.point(0,200))
+                .release()
+                .perform();
+        Thread.sleep(5000);
+        return this;
     }
 
     // Toasters
@@ -454,4 +595,75 @@ public class LoginPage extends BaseTest {
         getDriver().findElement(By.name("Allow Access to All Photos")).click();
         return this;
     }
+
+    /********************************************* Debugging methods ********************************************/
+
+
+    // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "home"));
+    // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "volumeup"));
+    // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "volumedown"));
+
+    int heightOfScreen = getDriver().manage().window().getSize().getHeight();
+    int widthOfScreen = getDriver().manage().window().getSize().getWidth();
+    int middleHeightOfScreen = heightOfScreen/2;
+
+    //50% of width/Width
+    double x = widthOfScreen * 0.5;
+    double y = heightOfScreen * 0.5;
+
+    public LoginPage touches() {
+        TouchAction touchAction = new TouchAction(getDriver());
+        //touchAction.longPress();
+        //touchAction.moveTo();
+        //touchAction.cancel();
+        //touchAction.perform().longPress();
+
+        touchAction.tap(PointOption.point(1280, 1013)).perform();
+        return this;
+    }
+
+    public LoginPage swipe() {
+        TouchAction swipe = new TouchAction(getDriver())
+                .press(PointOption.point(972,500))
+                .waitAction(waitOptions(Duration.ofMillis(800)))
+                .moveTo(PointOption.point(108,500))
+                .release()
+                .perform();
+        return this;
+    }
+
+    public LoginPage multiTouches() {
+        // Multiple touches at a time
+        TouchAction touchActionOne = new TouchAction(getDriver());
+        touchActionOne.press(PointOption.point(100, 100));
+        touchActionOne.release();
+
+        TouchAction touchActionTwo = new TouchAction(getDriver());
+        touchActionTwo.press(PointOption.point(200, 200));
+        touchActionTwo.release();
+
+        MultiTouchAction action = new MultiTouchAction(getDriver());
+        action.add(touchActionOne);
+        action.add(touchActionTwo);
+        action.perform();
+
+        // perform multi touch on particular elements
+        TouchAction touchAction1 = new TouchAction(getDriver())
+                .tap(ElementOption.element(signInButton))
+                .release();
+
+        TouchAction touchAction2 = new TouchAction(getDriver())
+                .tap(ElementOption.element(signInButton))
+                .release();
+
+        MultiTouchAction action1 = new MultiTouchAction(getDriver());
+        action1.add(touchAction1);
+        action1.add(touchAction2);
+        action1.perform();
+        return this;
+    }
 }
+
+// https://kobiton.com/book/chapter-11-automating-gestures
+// http://appium.io/docs/en/writing-running-appium/tutorial/swipe-tutorial/
+// https://www.google.com/search?q=swiping+actions+on+appium+app+automtion&oq=swiping+actions+on+appium+app+automtion&aqs=chrome..69i57j33i10i160.15882j0j1&sourceid=chrome&ie=UTF-8

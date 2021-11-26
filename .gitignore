@@ -58,3 +58,4 @@ Thumbs.db
 *.ipa
 /logs
 /${ctx:ROUTINGKEY}
+references.md

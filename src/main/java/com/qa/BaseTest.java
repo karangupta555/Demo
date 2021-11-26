@@ -255,6 +255,10 @@ public class BaseTest {
                 desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
                 desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
                 desiredCapabilities.setCapability(MobileCapabilityType.UDID, udid);
+                // desiredCapabilities.setCapability("noReset", true);
+                desiredCapabilities.setCapability("fullReset", false);
+                // desiredCapabilities.setCapability("printPageSourceOnFindFailure", true);
+                // desiredCapabilities.setCapability("autoWebview", true);
                 url = new URL(props.getProperty("appiumURL") + "4723/wd/hub");
 
                 switch (platformName) {

@@ -16,8 +16,6 @@ import org.testng.annotations.Test;
 
 import java.io.InputStream;
 
-import static org.testng.AssertJUnit.assertEquals;
-
 public class Demo extends BaseTest {
      @Parameters({"envID"})
       @BeforeClass
@@ -48,28 +46,15 @@ public class Demo extends BaseTest {
     }
 
     @Test(enabled = false)
-    public void debug() throws Exception {
-        LoginPage loginPage = new LoginPage();
-        Thread.sleep(3000);
-        loginPage.clickSignInBtn();
-        loginPage.enterLoginEmail("sprint@clrmail.com");
-        loginPage.clickContinue();
-        loginPage.enterLoginPassword("Test@123");
-        loginPage.clickContinue();
-        Thread.sleep(3000);
-    }
-
-    // cane@zetmail.com
-    // bnf@zetmail.com
-    // auzmor@zetmail.com
-
-    @Test
-    public void test() throws Exception {
+    public void android() throws  Exception{
         LoginPage loginPage = new LoginPage();
         loginPage.clickSignInBtn();
-        loginPage.enterLoginEmail("bnf@zetmail.com");
+        loginPage.enterLoginEmail("auzmor@zetmail.com");
         loginPage.clickContinue();
         loginPage.enterLoginPassword("Test@123");
+        loginPage.clickShowPasswordButton();
+        loginPage.clickHidePasswordButton();
+        loginPage.clickForgotPassword();
         loginPage.clickContinue();
         Thread.sleep(5000);
         loginPage.clickNotificationTab();
@@ -85,13 +70,12 @@ public class Demo extends BaseTest {
         loginPage.clickNextLesson();
         loginPage.clickTakeAssessment();
         loginPage.clickTakeAssessment();
-        loginPage.answerSingleChoiceQuestion();
+        loginPage.answerSingleChoiceQuestion("a");
         loginPage.clickCompleteAssessment();
         loginPage.clickProceed();
         loginPage.clickSearchTab();
         loginPage.searchCourse("Class1");
         Assert.assertTrue(loginPage.isNoResultFound());
-        getDriver().navigate().back();
         loginPage.clickHomeTab();
         loginPage.clickSearchTab();
         loginPage.searchCourse("Class2");
@@ -100,19 +84,102 @@ public class Demo extends BaseTest {
         loginPage.clickStartCourse();
         loginPage.clickTakeAssessment();
         loginPage.clickTakeAssessment();
-        loginPage.answerSingleChoiceQuestion();
+        loginPage.answerSingleChoiceQuestion("a");
         loginPage.clickCompleteAssessment();
         loginPage.clickProceed();
         loginPage.clickViewCertificate();
-        getDriver().navigate().back();
-        System.out.println("Pressed Back Button from Mobile");
+        loginPage.pressBackButtonFromMobile();
         Thread.sleep(5000);
-        loginPage.clickBackButton();
+        loginPage.clickBackButtonOnViewCertificatePage();
         Assert.assertTrue(loginPage.isCompletedButtonPresent());
-        loginPage.clickBackButton();
+        loginPage.clickBackButtonOnCourseDetailsPage();
         loginPage.clickSearchTab();
         loginPage.searchCourse("Class2");
         Assert.assertTrue(loginPage.isNoResultFound());
+    }
+
+    @Test(enabled = false)
+    public void ios() throws  Exception {
+        LoginPage loginPage = new LoginPage();
+        loginPage.iOSPermissions();
+        loginPage.clickSignInBtn();
+        loginPage.enterLoginEmail("auzmor@zetmail.com");
+        loginPage.clickContinue();
+        loginPage.enterLoginPassword("Test@123");
+        loginPage.clickShowPasswordButton();
+        loginPage.clickHidePasswordButton();
+        loginPage.clickForgotPassword();
+        loginPage.clickContinue();
+        Thread.sleep(5000);
+        loginPage.clickNotificationTab();
+        loginPage.validateNotificationTab();
+        loginPage.clickMarkAllReadNotifications();
+        Thread.sleep(5000);
+        loginPage.clickSearchTab();
+        Thread.sleep(5000);
+        loginPage.searchCourse("Class1");
+        loginPage.viewSpecificCourse("Class1");
+        loginPage.clickEnrollNow();
+        loginPage.clickStartCourse();
+        loginPage.clickNextLesson();
+        loginPage.clickTakeAssessment();
+        loginPage.clickTakeAssessment();
+        loginPage.answerSingleChoiceQuestion("a");
+        loginPage.clickCompleteAssessment();
+        loginPage.clickProceed();
+        loginPage.clickSearchTab();
+        loginPage.searchCourse("Class1");
+        Assert.assertTrue(loginPage.isNoResultFound());
+        loginPage.clickHomeTab();
+        loginPage.clickSearchTab();
+        loginPage.searchCourse("Class2");
+        loginPage.viewSpecificCourse("Class2");
+        loginPage.clickEnrollNow();
+        loginPage.clickStartCourse();
+        loginPage.clickTakeAssessment();
+        loginPage.clickTakeAssessment();
+        loginPage.answerSingleChoiceQuestion("a");
+        loginPage.clickCompleteAssessment();
+        loginPage.clickProceed();
+        System.out.println("Current Context: "+ getDriver().getContext());
+        loginPage.clickViewCertificate();
+        //Set<String> contextNames = getDriver().getContextHandles();
+        //getDriver().context((String)contextNames.toArray()[0]);
+        getDriver().context("NATIVE_APP");
+        loginPage.clickGoBackButton();
+        Thread.sleep(5000);
+        getDriver().launchApp();
+        loginPage.iOSPermissions();
+        loginPage.clickSignInBtn();
+        loginPage.enterLoginEmail("cane@zetmail.com");
+        loginPage.clickContinue();
+        loginPage.enterLoginPassword("Test@123");
+        loginPage.clickShowPasswordButton();
+        loginPage.clickHidePasswordButton();
+        loginPage.clickForgotPassword();
+        loginPage.clickContinue();
+        Thread.sleep(5000);
+        loginPage.clickSearchTab();
+        loginPage.searchCourse("Class2");
+        Assert.assertTrue(loginPage.isNoResultFound());
+    }
+
+    @Test(enabled = true)
+    public void debugMethod() throws  Exception {
+        LoginPage loginPage = new LoginPage();
+        loginPage.iOSPermissions();
+        loginPage.clickSignInBtn();
+        loginPage.enterLoginEmail("auzmor@zetmail.com");
+        loginPage.clickContinue();
+        loginPage.enterLoginPassword("Test@123");
+        loginPage.clickContinue();
+        Thread.sleep(5000);
+        loginPage.clickSearchTab();
+        loginPage.searchCourse("touch");
+        loginPage.viewSpecificCourse("touch");
+        Thread.sleep(3000);
+        loginPage.bedug();
+        Thread.sleep(5000);
     }
 
     @Parameters({"envID"})

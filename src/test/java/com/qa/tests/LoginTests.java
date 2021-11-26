@@ -1,22 +1,17 @@
 package com.qa.tests;
 
 import com.qa.BaseTest;
-import com.qa.pages.LoginPage;
-import com.qa.pages.ProductsPage;
 import com.qa.utils.StringParser;
 import com.qa.utils.TestUtils;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
 
 import java.io.InputStream;
 
 public class LoginTests extends BaseTest {
-    ProductsPage productsPage;
     TestUtils utils = new TestUtils();
 
     @Parameters({"envID"})
@@ -82,33 +77,6 @@ public class LoginTests extends BaseTest {
         utils.log().info("actual product title - " + actualProductTitle + "\n" + "expected product title - " + expectedProductTitle);
         Assert.assertEquals(actualProductTitle,expectedProductTitle);
     } */
-
-    @Test
-    public void invalidUserName() {
-        LoginPage loginPage = new LoginPage();
-        loginPage.enterUserNameS(loginUsers.getJSONObject("invalidUser").getString("username"));
-        loginPage.enterPasswordS(loginUsers.getJSONObject("invalidUser").getString("password"));
-        loginPage.pressLoginBtnS();
-        Assert.assertEquals(loginPage.getErrTxt(), testData.get("err_invalid_username_or_password"));
-    }
-
-    @Test
-    public void invalidPassword() {
-        LoginPage loginPage = new LoginPage();
-        loginPage.enterUserNameS(loginUsers.getJSONObject("invalidPassword").getString("username"));
-        loginPage.enterPasswordS(loginUsers.getJSONObject("invalidPassword").getString("password"));
-        loginPage.pressLoginBtnS();
-        Assert.assertEquals(loginPage.getErrTxt(), testData.get("err_invalid_username_or_password"));
-    }
-
-    @Test
-    public void successfulLogin() {
-        LoginPage loginPage = new LoginPage();
-        loginPage.enterUserNameS(loginUsers.getJSONObject("validUser").getString("username"));
-        loginPage.enterPasswordS(loginUsers.getJSONObject("validUser").getString("password"));
-        ProductsPage productsPage = loginPage.pressLoginBtnS();
-        Assert.assertEquals(productsPage.getTitle(), testData.get("product_title"));
-    }
 
     @Parameters({"envID"})
     @AfterClass
