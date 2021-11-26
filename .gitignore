@@ -56,6 +56,14 @@ Thumbs.db
 *.app
 *.apk
 *.ipa
+*.iml
 /logs
 /${ctx:ROUTINGKEY}
 references.md
+.factorypath
+.classpath
+.project
+.idea
+.settings
+Extent.html
+TDDFramework.iml
