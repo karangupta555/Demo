@@ -21,7 +21,6 @@ dist/
 
 # Maven
 target/
-dist/
 
 # JetBrains IDE
 .idea/
@@ -34,6 +33,7 @@ Thumbs.db
 
 # Applications
 *.app
+*.apk
 *.exe
 *.war
 
@@ -53,8 +53,6 @@ Thumbs.db
 /bin
 /videos
 *.txt
-*.app
-*.apk
 *.ipa
 *.iml
 /logs
@@ -63,7 +61,5 @@ references.md
 .factorypath
 .classpath
 .project
-.idea
 .settings
-Extent.html
-TDDFramework.iml
+*.html
