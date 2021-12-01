@@ -63,3 +63,4 @@ references.md
 .project
 .settings
 *.html
+**/debug.java

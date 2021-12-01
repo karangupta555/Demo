@@ -1,49 +1,11 @@
-package com.qa.tests;
+package com.qa.tests.Courses;
 
-import com.aventstack.extentreports.Status;
 import com.qa.BaseTest;
 import com.qa.pages.LoginPage;
-import com.qa.reports.ExtentReport;
-import com.qa.utils.StringParser;
-
-import org.json.JSONObject;
-import org.json.JSONTokener;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import java.io.InputStream;
-
-public class Demo extends BaseTest {
-     @Parameters({"envID"})
-      @BeforeClass
-      public void beforeClass(String envID) throws Exception {
-        InputStream datais = null;
-        try {
-            String dataFileName = "data/loginUsers.json";
-            datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
-            JSONTokener tokener = new JSONTokener(datais);
-            loginUsers = new JSONObject(tokener);
-            testData = StringParser.parseStringXML("strings/TestDataValidation.xml");
-        } catch (Exception e){
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if(datais != null){
-                datais.close();
-            }
-        }
-        if(envID.equals("local")) {
-            closeApp();
-            launchApp();
-            System.out.println("beforeClass Executed for Local");
-        }
-        else {
-            System.out.println("beforeClass Executed for Remote");
-        }
-    }
+public class assessments extends BaseTest {
 
     @Test(enabled = false)
     public void android() throws  Exception{
@@ -98,7 +60,7 @@ public class Demo extends BaseTest {
         Assert.assertTrue(loginPage.isNoResultFound());
     }
 
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void ios() throws  Exception {
         LoginPage loginPage = new LoginPage();
         loginPage.iOSPermissions();
@@ -164,7 +126,7 @@ public class Demo extends BaseTest {
         Assert.assertTrue(loginPage.isNoResultFound());
     }
 
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void debugMethod() throws  Exception {
         LoginPage loginPage = new LoginPage();
         loginPage.iOSPermissions();
@@ -180,16 +142,5 @@ public class Demo extends BaseTest {
         Thread.sleep(3000);
         loginPage.bedug();
         Thread.sleep(5000);
-    }
-
-    @Parameters({"envID"})
-    @AfterClass
-    public void afterClass(String envID) {
-        if(envID.equals("local")) {
-            System.out.println("afterClass Executed for Local");
-        }
-        else {
-            System.out.println("afterClass Executed for Remote");
-        }
     }
 }

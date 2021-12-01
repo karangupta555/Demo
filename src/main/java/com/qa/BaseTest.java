@@ -4,6 +4,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.qa.pages.LoginPage;
 import com.qa.reports.ExtentReport;
+import com.qa.utils.StringParser;
 import com.qa.utils.TestUtils;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
@@ -19,6 +20,7 @@ import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.logging.log4j.ThreadContext;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -48,8 +50,6 @@ public class BaseTest {
     protected static ThreadLocal<String> platform = new ThreadLocal<String>();
     protected static ThreadLocal<String> dateTime = new ThreadLocal<String>();
     protected static ThreadLocal<String> deviceName = new ThreadLocal<String>();
-    public HashMap<String, String> testData = new HashMap<>();
-    public JSONObject loginUsers;
     private static AppiumDriverLocalService server;
     TestUtils utils = new TestUtils();
     public WebDriverWait wait;
@@ -108,12 +108,13 @@ public class BaseTest {
         dateTime.set(dateTime2);
     }
 
-    @Parameters({"envID"})
+
+    @Parameters({"envID", "platformName"})
     @BeforeSuite(alwaysRun = true)
-    public void beforeSuite(@Optional("iOSOnly") String envID) throws Exception {
+    public void beforeSuite(String envID, String platformName) throws Exception {
         if (envID.equals("local")) {
             ThreadContext.put("ROUTINGKEY", "ServerLogs");
-            server = getAppiumService();
+            server = getAppiumService(platformName);
             if (!checkIfAppiumServerIsRunnning(4723)) {
                 server.start();
                 server.clearOutPutStreams();
@@ -121,9 +122,9 @@ public class BaseTest {
             } else {
                 utils.log().info("Appium server already running");
             }
-            utils.log().info("beforeSuite Executed for Local");
+            utils.log().info("'beforeSuite' Executed for Local");
         } else {
-            utils.log().info("beforeSuite Executed for Remote");
+            utils.log().info("'beforeSuite' Executed for Remote");
         }
     }
 
@@ -132,36 +133,39 @@ public class BaseTest {
     public void afterSuite(@Optional String envID) {
         if (envID.equals("local")) {
             server.stop();
-            utils.log().info("Appium server stopped from afterSuite");
-            utils.log().info("afterSuite Executed for Local");
+            utils.log().info("'afterSuite' Executed for Local");
         } else {
-            utils.log().info("afterSuite Executed for Remote");
+            utils.log().info("'afterSuite' Executed for Remote");
         }
     }
 
-    public AppiumDriverLocalService getAppiumService() {
+    public AppiumDriverLocalService getAppiumService(String platform) throws Exception {
         HashMap<String, String> environment = new HashMap<String, String>();
-        /*
-        // For Windows:
-        //environment.put("PATH", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk:-:-" + System.getenv("PATH"));
-        //environment.put("ANDROID_HOME", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk");
-        return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
-                .usingDriverExecutable(new File("C:\\Program Files\\nodejs\\node.exe"))
-                .withAppiumJS(new File("C:\\Users\\Ravi Kanth Gojur\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
-                .usingPort(4723).withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment)
-                .withLogFile(new File("ServerLogs/server.log")));*/
-
-        // For Mac:
-        environment.put("PATH", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/bin:/Users/ravikanth/Library/Android/sdk/tools:/Users/ravikanth/Library/Android/sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin" + System.getenv("PATH"));
-        environment.put("ANDROID_HOME", "/Users/ravikanth/Library/Android/sdk");
-        environment.put("JAVA_HOME", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home");
-        return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
-                .usingDriverExecutable(new File("/usr/local/bin/node"))
-                .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
-                .usingPort(4723)
-                .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-                .withEnvironment(environment)
-                .withLogFile(new File("ServerLogs/server.log")));
+        switch(platform) {
+            case "Android": {
+                environment.put("PATH", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk:-:-" + System.getenv("PATH"));
+                environment.put("ANDROID_HOME", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk");
+                return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
+                        .usingDriverExecutable(new File("C:\\Program Files\\nodejs\\node.exe"))
+                        .withAppiumJS(new File("C:\\Users\\Ravi Kanth Gojur\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
+                        .usingPort(4723).withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment)
+                        .withLogFile(new File("ServerLogs/server.log")));
+            }
+            case "iOS": {
+                environment.put("PATH", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/bin:/Users/ravikanth/Library/Android/sdk/tools:/Users/ravikanth/Library/Android/sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin" + System.getenv("PATH"));
+                environment.put("ANDROID_HOME", "/Users/ravikanth/Library/Android/sdk");
+                environment.put("JAVA_HOME", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home");
+                return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
+                        .usingDriverExecutable(new File("/usr/local/bin/node"))
+                        .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js")).usingPort(4723)
+                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment)
+                        .withLogFile(new File("ServerLogs/server.log")));
+            }
+            default: {
+                utils.log().info("Something wrong with 'getAppiumService()'");
+                throw new Exception("Something wrong with 'getAppiumService()'");
+            }
+        }
     }
 
     public boolean checkIfAppiumServerIsRunnning(int port) throws Exception {
@@ -171,7 +175,7 @@ public class BaseTest {
             socket = new ServerSocket(port);
             socket.close();
         } catch (IOException e) {
-            System.out.println("Appium Server is Running!");
+            utils.log().info("Appium Server is Running!");
             isAppiumServerRunning = true;
         } finally {
             socket = null;
@@ -183,14 +187,155 @@ public class BaseTest {
         return AppiumDriverLocalService.buildDefaultService();
     }
 
+    @Parameters({"envID", "deviceID", "emulator", "platformName", "udid", "deviceName", "systemPort", "chromeDriver", "wdaLocalPort", "webkitDebugProxyPort"})
+    @BeforeTest(alwaysRun = true)
+    public void beforeTest(@Optional("iOSOnly") String envID, String deviceID, String emulator, String platformName, String udid, String deviceName, @Optional("androidOnly") String systemPort, @Optional("androidOnly") String chromeDriverPort,
+                           @Optional("iOSOnly") String wdaLocalPort, @Optional("iOSOnly") String webkitDebugProxyPort) throws Exception {
+
+        if (envID.equals("local")) {
+            setDateTime(utils.dateTime());
+            setPlatform(platformName);
+            setDeviceName(deviceName);
+
+            String strFile = "logs" + File.separator + platformName + "_" + deviceName;
+            File logFile = new File(strFile);
+            if (!logFile.exists()) {
+                logFile.mkdirs();
+            }
+            //route logs to separate file for each thread
+            ThreadContext.put("ROUTINGKEY", strFile);
+            utils.log().info("Log Path: " + strFile);
+            InputStream inputStream = null;
+            InputStream stringsis = null;
+            try {
+                AppiumDriver driver;
+                // Reading Config/TestData files
+                Properties props = new Properties();
+                String propFileName = "config.properties";
+                String xmlFileName = "strings/TestDataValidation.xml";
+                inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+                props.load(inputStream);
+                setProps(props);
+                stringsis = getClass().getClassLoader().getResourceAsStream(xmlFileName);
+                setStrings(utils.parseStringXML(stringsis));
+
+                // App Path(s)
+                String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\old.apk").replace("\\", "/");
+                String iOSAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\Runner.app").replace("\\", "/");
+
+                // Capabilities
+                DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+                desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
+                desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
+                desiredCapabilities.setCapability(MobileCapabilityType.UDID, udid);
+                desiredCapabilities.setCapability("fullReset", false);
+                // desiredCapabilities.setCapability("noReset", true);
+                // desiredCapabilities.setCapability("printPageSourceOnFindFailure", true);
+                // desiredCapabilities.setCapability("autoWebview", true);
+                URL url = new URL(props.getProperty("appiumURL") + "4723/wd/hub");
+
+                switch (platformName) {
+                    case "Android": {
+                        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
+                        desiredCapabilities.setCapability("appPackage", props.getProperty("androidLMSAppPackage"));
+                        desiredCapabilities.setCapability("autoGrantPermissions", true);
+                        desiredCapabilities.setCapability(MobileCapabilityType.APP, androidAppUrl);
+                        driver = new AndroidDriver(url, desiredCapabilities);
+                        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+                        break;
+                    }
+                    case "iOS": {
+                        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
+                        desiredCapabilities.setCapability("bundleId", props.getProperty("iOSLMSBundleId"));
+                        desiredCapabilities.setCapability("wdaLocalPort", props.getProperty("wdaLocalPort"));
+                        desiredCapabilities.setCapability(MobileCapabilityType.APP, iOSAppUrl);
+                        driver = new IOSDriver(url, desiredCapabilities);
+                        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+                        break;
+                    }
+                    default:
+                        throw new Exception("Invalid Platform! - " + platformName);
+                }
+                setDriver(driver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (stringsis != null) {
+                    stringsis.close();
+                }
+            }
+            utils.log().info("'beforeTest' Executed for Local");
+        } else {
+            // Driver Initialization for Remote(SauceLabs)
+            DriverManager.initializeDriver(envID, deviceID);
+            utils.log().info("'beforeTest' Executed for Remote");
+        }
+    }
+
+    @Parameters({"envID"})
+    @AfterTest(alwaysRun = true)
+    public void quit(@Optional String envID) {
+        if (envID.equals("local")) {
+            if (getDriver() != null) {
+                getDriver().quit();
+            }
+            utils.log().info("'afterTest' Executed for Local");
+        } else {
+            utils.log().info("'afterTest' Executed for Remote");
+        }
+    }
+
+    @Parameters({"envID"})
+    @BeforeClass
+    public void beforeClass(String envID) throws Exception {
+        InputStream datais = null;
+        try {
+            String dataFileName = "data/loginUsers.json";
+            datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
+            JSONTokener tokener = new JSONTokener(datais);
+            JSONObject loginUsers = new JSONObject(tokener);
+            HashMap<String,String> testData = StringParser.parseStringXML("strings/TestDataValidation.xml");
+        } catch (Exception e){
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(datais != null){
+                datais.close();
+            }
+        }
+        if(envID.equals("local")) {
+            // closeApp();
+            // launchApp();
+            utils.log().info("'beforeClass' Executed for Local");
+        }
+        else {
+            utils.log().info("'beforeClass' Executed for Remote");
+        }
+    }
+
+    @Parameters({"envID"})
+    @AfterClass
+    public void afterClass(String envID) {
+        if(envID.equals("local")) {
+            utils.log().info("'afterClass' Executed for Local");
+        }
+        else {
+            utils.log().info("'afterClass' Executed for Remote");
+        }
+    }
+
     @Parameters({"envID"})
     @BeforeMethod
     public void beforeMethod (String envID) {
         if(envID.equals("local")) {
+            launchApp();
             ((CanRecordScreen) getDriver()).startRecordingScreen();
-            System.out.println("beforeMethod Executed for Local");
+            utils.log().info("'beforeMethod' Executed for Local");
         } else {
-            System.out.println("beforeMethod Executed for Remote");
+            utils.log().info("'beforeMethod' Executed for Remote");
         }
     }
 
@@ -209,111 +354,23 @@ public class BaseTest {
             }
             FileOutputStream stream = new FileOutputStream(videoDir + File.separator + result.getName() + ".mp4");
             stream.write(Base64.decodeBase64(media));
-            System.out.println("afterMethod Executed for Local");
+            utils.log().info("'afterMethod' Executed for Local");
         }else {
-            System.out.println("afterMethod Executed for Remote");
+            utils.log().info("'afterMethod' Executed for Remote");
         }
     }
 
-    @Parameters({"envID", "deviceID", "emulator", "platformName", "udid", "deviceName", "systemPort", "chromeDriver", "wdaLocalPort", "webkitDebugProxyPort"})
-    @BeforeTest(alwaysRun = true)
-    public void beforeTest(@Optional("iOSOnly") String envID, String deviceID, String emulator, String platformName, String udid, String deviceName, @Optional("androidOnly") String systemPort, @Optional("androidOnly") String chromeDriverPort,
-                           @Optional("iOSOnly") String wdaLocalPort, @Optional("iOSOnly") String webkitDebugProxyPort) throws Exception {
-
-        if (envID.equals("local")) {
-            setDateTime(utils.dateTime());
-            setPlatform(platformName);
-            setDeviceName(deviceName);
-            URL url;
-            InputStream inputStream = null;
-            InputStream stringsis = null;
-            Properties props = new Properties();
-            AppiumDriver driver;
-
-            String strFile = "logs" + File.separator + platformName + "_" + deviceName;
-            File logFile = new File(strFile);
-            if (!logFile.exists()) {
-                logFile.mkdirs();
-            }
-            //route logs to separate file for each thread
-            ThreadContext.put("ROUTINGKEY", strFile);
-            utils.log().info("log path: " + strFile);
-            String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\old.apk").replace("\\", "/");
-            String iOSAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\Runner.app").replace("\\", "/");
-
-            try {
-                props = new Properties();
-                String propFileName = "config.properties";
-                String xmlFileName = "strings/TestDataValidation.xml";
-                inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-                props.load(inputStream);
-                setProps(props);
-                stringsis = getClass().getClassLoader().getResourceAsStream(xmlFileName);
-                setStrings(utils.parseStringXML(stringsis));
-
-                DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-                desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
-                desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
-                desiredCapabilities.setCapability(MobileCapabilityType.UDID, udid);
-                // desiredCapabilities.setCapability("noReset", true);
-                desiredCapabilities.setCapability("fullReset", false);
-                // desiredCapabilities.setCapability("printPageSourceOnFindFailure", true);
-                // desiredCapabilities.setCapability("autoWebview", true);
-                url = new URL(props.getProperty("appiumURL") + "4723/wd/hub");
-
-                switch (platformName) {
-                    case "Android":
-                        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
-                        desiredCapabilities.setCapability("appPackage", props.getProperty("androidLMSAppPackage"));
-                        desiredCapabilities.setCapability("autoGrantPermissions", true);
-                        desiredCapabilities.setCapability(MobileCapabilityType.APP, androidAppUrl);
-                        utils.log().info(androidAppUrl);
-                        driver = new AndroidDriver(url, desiredCapabilities);
-                        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-                        break;
-                    case "iOS":
-                        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
-                        desiredCapabilities.setCapability("bundleId", props.getProperty("iOSLMSBundleId"));
-                        desiredCapabilities.setCapability("wdaLocalPort", props.getProperty("wdaLocalPort"));
-                        desiredCapabilities.setCapability(MobileCapabilityType.APP, iOSAppUrl);
-                        driver = new IOSDriver(url, desiredCapabilities);
-                        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-                        break;
-                    default:
-                        throw new Exception("Invalid platform! - " + platformName);
-                }
-                setDriver(driver);
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-                if (stringsis != null) {
-                    stringsis.close();
-                }
-            }
-            System.out.println("beforeTest Executed for Local");
-        } else {
-            // Driver Initialization for Remote(SauceLabs)
-            DriverManager.initializeDriver(envID, deviceID);
-            System.out.println("beforeTest Executed for Remote");
-        }
+    public void launchApp() {
+        utils.log().info("Launching App...");
+        getDriver().launchApp();
     }
 
-    @Parameters({"envID"})
-    @AfterTest(alwaysRun = true)
-    public void quit(@Optional String envID) {
-        if (envID.equals("local")) {
-            if (getDriver() != null) {
-                getDriver().quit();
-            }
-            System.out.println("afterTest Executed for Local");
-        } else {
-            System.out.println("afterTest Executed for Remote");
-        }
+    public void closeApp() {
+        utils.log().info("App Closed!!");
+        getDriver().closeApp();
     }
 
+    // Debug Methods
     public void waitForVisibility(MobileElement e) {
         WebDriverWait wait = new WebDriverWait(getDriver(), TestUtils.WAIT);
         wait.until(ExpectedConditions.visibilityOf(e));
@@ -362,7 +419,6 @@ public class BaseTest {
         return e.getAttribute(attribute);
     }
 
-    // works on local only
     public String getText(MobileElement e, String msg) {
         String txt = null;
         System.out.println("Platform Name: " + getPlatform());
@@ -380,9 +436,9 @@ public class BaseTest {
     }
 
     public void OpenAppWithDeepLinks(String url) {
-        switch (Objects.requireNonNull(getDriver().getPlatformName())) {
+        switch(Objects.requireNonNull(getDriver().getPlatformName())) {
             case "Android":
-                HashMap<String, String> deepUrl = new HashMap<>();
+                HashMap<String,String> deepUrl = new HashMap<>();
                 deepUrl.put("url", url);
                 deepUrl.put("package", "com.swaglabsmobileapp");
                 getDriver().executeScript("mobile: deepLink", deepUrl);
@@ -399,32 +455,4 @@ public class BaseTest {
                 break;
         }
     }
-
-    public void closeApp() {
-        getDriver().closeApp();
-    }
-
-    public void launchApp() {
-        getDriver().launchApp();
-    }
-
-    /*
-    public MobileElement scrollToElement() {
-        return (MobileElement) ((FindsByAndroidUIAutomator) getDriver()).findElementByAndroidUIAutomator(
-                "new UiScrollable(new UiSelector()" + ".scrollable(true)).scrollIntoView("
-                        + "new UiSelector().description(\"test-Price\"));");
-    }
-
-    public void iOSScrollToElement() {
-        RemoteWebElement element = (RemoteWebElement)getDriver().findElement(By.name("test-ADD TO CART"));
-        String elementID = element.getId();
-        HashMap<String, String> scrollObject = new HashMap<String, String>();
-        scrollObject.put("element", elementID);
-        //scrollObject.put("direction", "down");
-        //scrollObject.put("predicateString", "label == 'ADD TO CART'");
-        //scrollObject.put("name", "test-ADD TO CART");
-        scrollObject.put("toVisible", "sdfnjksdnfkld");
-        getDriver().executeScript("mobile:scroll", scrollObject);
-    }
-    */
 }

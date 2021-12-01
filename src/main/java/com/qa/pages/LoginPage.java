@@ -4,11 +4,7 @@ import com.aventstack.extentreports.Status;
 import com.qa.BaseTest;
 import com.qa.reports.ExtentReport;
 import com.qa.utils.TestUtils;
-
-import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.MultiTouchAction;
-import io.appium.java_client.TouchAction;
+import io.appium.java_client.*;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
@@ -21,6 +17,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -661,6 +658,24 @@ public class LoginPage extends BaseTest {
         action1.add(touchAction2);
         action1.perform();
         return this;
+    }
+
+    public MobileElement scrollToElement(String elementName) {
+        return (MobileElement) ((FindsByAndroidUIAutomator) getDriver()).findElementByAndroidUIAutomator(
+                "new UiScrollable(new UiSelector()" + ".scrollable(true)).scrollIntoView("
+                        + "new UiSelector().description("+elementName+"));");
+    }
+
+    public void scrollToElement2(String elementName) {
+        RemoteWebElement element = (RemoteWebElement)getDriver().findElement(By.name(elementName));
+        String elementID = element.getId();
+        HashMap<String, String> scrollObject = new HashMap<String, String>();
+        scrollObject.put("element", elementID);
+        scrollObject.put("direction", "down");
+        scrollObject.put("predicateString", "label == 'certificate'");
+        scrollObject.put("name", "certificate");
+        scrollObject.put("toVisible", "sdfnjksdnfkld");
+        getDriver().executeScript("mobile:scroll", scrollObject);
     }
 }
 
