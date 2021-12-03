@@ -43,10 +43,6 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Tab 3 of 4")
     private MobileElement notificationTab;
 
-    @AndroidFindBy(accessibility = "Notifications")
-    @iOSXCUITFindBy(accessibility = "Notifications")
-    private MobileElement validateNotificationTab;
-
     @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"SM Tab 4 of 4\"]")
     private MobileElement profileTab;
 
@@ -74,6 +70,10 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Complete Assessment")
     private MobileElement completeAssessmentButton;
 
+    @AndroidFindBy(accessibility = "Complete")
+    @iOSXCUITFindBy(accessibility = "Complete")
+    private MobileElement completeButton;
+
     @AndroidFindBy(accessibility = "Assessment summary")
     @iOSXCUITFindBy(accessibility = "Assessment summary")
     private MobileElement assessmentSummaryButton;
@@ -85,6 +85,10 @@ public class LoginPage extends BaseTest {
     @AndroidFindBy(accessibility = "View Certificate")
     @iOSXCUITFindBy(accessibility = "View Certificate")
     private MobileElement viewCertificateButton;
+
+    @AndroidFindBy(accessibility = "Back to courses")
+    @iOSXCUITFindBy(accessibility = "Back to courses")
+    private MobileElement backToCoursesButton;
 
     @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
     @iOSXCUITFindBy(className = "XCUIElementTypeImage")
@@ -182,12 +186,28 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Cancel")
     private MobileElement cancel;
 
+    public LoginPage iOSPermissions() throws Exception {
+        try {
+            getDriver().findElement(By.name("Allow Access to All Photos")).click();
+            utils.log().info("'Allow Access to All Photos' Permission allowed Successfully");
+            ExtentReport.getTest().log(Status.INFO, "'Allow Access to All Photos' Permission allowed Successfully");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to 'Allow Access to All Photos' Permission");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to 'Allow Access to All Photos' Permission");
+            throw new Exception("Error: Unable to 'Allow Access to All Photos' Permission!");
+        }
+        return this;
+    }
+    
     public LoginPage clickSignInBtn() throws Exception {
         Thread.sleep(4000);
         try {
             click(signInButton);
             utils.log().info("Clicked SignIn Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked SignIn Button");
+            Thread.sleep(4000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -195,103 +215,159 @@ public class LoginPage extends BaseTest {
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click SignIn Button");
             throw new Exception("Error: Unable to Click SignIn Button");
         }
-        Thread.sleep(4000);
         return this;
     }
 
-    public LoginPage enterLoginEmail(String username) throws InterruptedException {
-        Thread.sleep(2000);
-        //sendKeys(username); // This approach will take some time to enter/send values
-        getDriver().getKeyboard().sendKeys(username);
-        utils.log().info("Entered userName/Email: " + username);
-        ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: " + username);
+    public LoginPage enterLoginEmail(String username) throws Exception {
+        try {
+            Thread.sleep(2000);
+            //sendKeys(username); // This approach will take some time to enter/send values
+            getDriver().getKeyboard().sendKeys(username);
+            utils.log().info("Entered userName/Email: " + username);
+            ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: " + username);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to enter login email");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to enter login email");
+            throw new Exception("Error: Unable to enter login email");
+        }
         return this;
     }
 
-    public LoginPage enterLoginPassword(String password) throws InterruptedException {
-        Thread.sleep(2000);
-        //sendKeys(password); // This approach will take some time to enter/send values
-        getDriver().getKeyboard().sendKeys(password);
-        utils.log().info("Entered Password: " + password);
-        ExtentReport.getTest().log(Status.INFO, "Entered Password: " + password);
+    public LoginPage enterLoginPassword(String password) throws Exception {
+        try {
+            Thread.sleep(2000);
+            //sendKeys(password); // This approach will take some time to enter/send values
+            getDriver().getKeyboard().sendKeys(password);
+            utils.log().info("Entered Password: " + password);
+            ExtentReport.getTest().log(Status.INFO, "Entered Password: " + password);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to enter login password");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to enter login password");
+            throw new Exception("Error: Unable to enter login password");
+        }
         return this;
     }
 
-    public LoginPage clickShowPasswordButton() throws InterruptedException {
-        click(showPasswordButton);
-        utils.log().info("Clicked Show Password Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked Show Password Button");
-        Thread.sleep(3000);
+    public LoginPage clickShowPasswordButton() throws Exception {
+        try {
+            click(showPasswordButton);
+            utils.log().info("Clicked Show Password Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked Show Password Button");
+            Thread.sleep(3000);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Show Password Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Show Password Button");
+            throw new Exception("Error: Unable to Click on Show Password Button");
+        }
         return this;
     }
 
-    public LoginPage clickHidePasswordButton() throws InterruptedException {
-        click(hidePasswordButton);
-        utils.log().info("Clicked Hide Password Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked Hide Password Button");
-        Thread.sleep(3000);
+    public LoginPage clickHidePasswordButton() throws Exception {
+        try {
+            click(hidePasswordButton);
+            utils.log().info("Clicked Hide Password Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked Hide Password Button");
+            Thread.sleep(3000);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Hide Password Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Hide Password Button");
+            throw new Exception("Error: Unable to Click on Hide Password Button");
+        }
         return this;
     }
 
-    public LoginPage clickForgotPassword() throws InterruptedException {
-        click(forgotPasswordButton);
-        utils.log().info("Clicked Forgot Password Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked Forgot Password Button");
-        Thread.sleep(6000);
+    public LoginPage clickForgotPassword() throws Exception {
+        try {
+            click(forgotPasswordButton);
+            utils.log().info("Clicked Forgot Password Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked Forgot Password Button");
+            Thread.sleep(6000);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Forgot Password Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Forgot Password Button");
+            throw new Exception("Error: Unable to Click on Forgot Password Button");
+        }
         return this;
     }
 
-    public LoginPage clickContinue() throws InterruptedException {
-        Thread.sleep(3000);
-        click(continueBtn);
-        utils.log().info("Clicked Continue Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked Continue Button");
-        Thread.sleep(2000);
-        return this;
-    }
-
-    public LoginPage clickHomeTab() throws InterruptedException {
-        Thread.sleep(2000);
-        click(homeTab);
-        utils.log().info("Switched to Home Tab");
-        ExtentReport.getTest().log(Status.INFO, "Switched to Home Tab");
-        Thread.sleep(4000);
-        return this;
-    }
-
-    public LoginPage clickSearchTab() throws InterruptedException {
-        click(searchTab);
-        utils.log().info("Switched to Search/Explore Tab");
-        ExtentReport.getTest().log(Status.INFO, "Switched to Search/Explore Tab");
-        Thread.sleep(4000);
-        return this;
-    }
-
-    public LoginPage clickNotificationTab() throws InterruptedException {
-        click(notificationTab);
-        utils.log().info("Switched to Notification Tab");
-        ExtentReport.getTest().log(Status.INFO, "Switched to Notification Tab");
-        Thread.sleep(4000);
-        return this;
-    }
-
-    public LoginPage validateNotificationTab() throws Exception {
+    public LoginPage clickContinue() throws Exception {
         try {
             Thread.sleep(3000);
-            click(validateNotificationTab);
-            utils.log().info("Validated Notification Tab");
-            ExtentReport.getTest().log(Status.INFO, "Validated Notification Tab");
-        }catch (Exception e){
+            click(continueBtn);
+            utils.log().info("Clicked Continue Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked Continue Button");
+            Thread.sleep(2000);
+        }
+        catch (Exception e){
             e.printStackTrace();
-            utils.log().info("Error: Unable to Validated Notification Tab");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Validated Notification Tab");
-            throw new Exception("Error: Unable to Validated Notification Tab");
+            utils.log().info("Error: Unable to Click on Continue Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Continue Button");
+            throw new Exception("Error: Unable to Click on Continue Button");
+        }
+        return this;
+    }
+
+    public LoginPage clickHomeTab() throws Exception {
+        try {
+            Thread.sleep(2000);
+            click(homeTab);
+            utils.log().info("Clicked on Home Tab");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Home Tab");
+            Thread.sleep(4000);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Home Tab");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Home Tab");
+            throw new Exception("Error: Unable to Click on Home Tab");
+        }
+        return this;
+    }
+
+    public LoginPage clickSearchTab() throws Exception {
+        try {
+            click(searchTab);
+            utils.log().info("Clicked on Search/Explore Tab");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Search/Explore Tab");
+            Thread.sleep(4000);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click Search/Explore Tab");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click Search/Explore Tab");
+            throw new Exception("Error: Unable to Click Search/Explore Tab");
+        }
+        return this;
+    }
+
+    public LoginPage clickNotificationTab() throws Exception {
+        try {
+            click(notificationTab);
+            utils.log().info("Clicked on Notification Tab");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Notification Tab");
+            Thread.sleep(4000);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click Notification Tab");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click Notification Tab");
+            throw new Exception("Error: Unable to Click Notification Tab");
         }
         return this;
     }
 
     public LoginPage clickMarkAllReadNotifications() throws Exception {
-        try{
+        try {
             Thread.sleep(6000);
             click(markAllReadNotifications);
             utils.log().info("Clicked on \"Mark all Read\" Button in Notifications");
@@ -307,156 +383,349 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage clickProfileTab() throws InterruptedException {
-        Thread.sleep(4000);
-        click(profileTab);
-        utils.log().info("Switched to Profile Tab");
-        ExtentReport.getTest().log(Status.INFO, "Switched to Profile Tab");
-        return this;
-    }
-
-    public LoginPage searchCourse(String courseName) throws InterruptedException {
-        Thread.sleep(5000);
-        click(textBox);
-        textBox.clear();/****/
-        getDriver().getKeyboard().sendKeys(courseName);
-        utils.log().info("Searched Course: " + courseName);
-        ExtentReport.getTest().log(Status.INFO, "Searched Course: " + courseName);
-        getDriver().hideKeyboard();
-        return this;
-    }
-
-    public LoginPage viewSpecificCourse(String courseName) throws InterruptedException {
-        getDriver().findElementByAccessibilityId(courseName).click();
-        utils.log().info("Clicked on '"+courseName+"' Course");
-        ExtentReport.getTest().log(Status.INFO, "Clicked on '"+courseName+"' Course");
-        Thread.sleep(4000);
-        return this;
-    }
-
-    public LoginPage clickEnrollNow() throws InterruptedException {
-        click(enrollNowButton);
-        utils.log().info("Clicked on Enroll Now Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked on Enroll Now Button");
-        Thread.sleep(6000);
-        return this;
-    }
-
-    public LoginPage clickStartCourse() throws InterruptedException {
-        click(startCourseButton);
-        utils.log().info("Clicked on Start Course Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked on Start Course Button");
-        Thread.sleep(6000);
-        return this;
-    }
-
-    public LoginPage clickNextLesson() throws InterruptedException {
-        Thread.sleep(8000);
-        click(nextLessonButton);
-        utils.log().info("Clicked on Next Lesson Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked on Next Lesson Button");
+    public LoginPage clickProfileTab() throws Exception {
+        try{
+            Thread.sleep(4000);
+            click(profileTab);
+            utils.log().info("Switched to Profile Tab");
+            ExtentReport.getTest().log(Status.INFO, "Switched to Profile Tab");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Switch to Profile Tab");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Switch to Profile Tab");
+            throw new Exception("Error: Error: Unable to Switch to Profile Tab");
+        }
         Thread.sleep(5000);
         return this;
     }
 
-    public LoginPage clickTakeAssessment() throws InterruptedException {
-        Thread.sleep(6500);
-        click(takeAssessmentButton);
-        utils.log().info("Clicked on Take Assessment Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked on Take Assessment Button");
+    public LoginPage searchCourse(String courseName) throws Exception {
+        try {
+            Thread.sleep(5000);
+            click(textBox);
+            textBox.clear();/****/
+            getDriver().getKeyboard().sendKeys(courseName);
+            utils.log().info("Searched Course: " + courseName);
+            ExtentReport.getTest().log(Status.INFO, "Searched Course: " + courseName);
+            getDriver().hideKeyboard();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Search Course Failed!");
+            ExtentReport.getTest().log(Status.INFO, "Error: Search Course Failed!");
+            throw new Exception("Error: Search Course Failed!");
+        }
         return this;
     }
 
-    public LoginPage clickAttendLater() throws InterruptedException {
-        Thread.sleep(6500);
-        click(attendLaterButton);
-        utils.log().info("Clicked on Attend Later Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked on Attend Later Button");
+    public LoginPage viewSpecificCourse(String courseName) throws Exception {
+        try {
+            getDriver().findElementByAccessibilityId(courseName).click();
+            utils.log().info("Clicked on '"+courseName+"' Course");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on '"+courseName+"' Course");
+            Thread.sleep(4000);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on '" + courseName + "' Course");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on '" + courseName + "' Course");
+            throw new Exception("Error: Unable to Click on '" + courseName + "' Course");
+        }
         return this;
     }
 
-    public LoginPage clickCompleteAssessment() throws InterruptedException {
-        click(completeAssessmentButton);
-        utils.log().info("Clicked on Complete Assessment Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Assessment Button");
-        Thread.sleep(5000);
+    public LoginPage clickEnrollNow() throws Exception {
+        try {
+            click(enrollNowButton);
+            utils.log().info("Clicked on Enroll Now Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Enroll Now Button");
+            Thread.sleep(6000);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Enroll Now Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Enroll Now Button");
+            throw new Exception("Error: Unable to Click on Enroll Now Button");
+        }
         return this;
     }
 
-    public LoginPage answerSingleChoiceQuestion(String option) throws InterruptedException {
-        getDriver().findElementByAccessibilityId(option).click();
-        utils.log().info("Selected Option '"+option+"'");
-        ExtentReport.getTest().log(Status.INFO, "Selected Option '"+option+"'");
-        Thread.sleep(5000);
+    public LoginPage clickStartCourse() throws Exception {
+        try {
+            click(startCourseButton);
+            utils.log().info("Clicked on Start Course Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Start Course Button");
+            Thread.sleep(6000);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Start Course Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Start Course Button");
+            throw new Exception("Error: Unable to Click on Start Course Button");
+        }
         return this;
     }
 
-    public LoginPage clickAssessmentSummary() throws InterruptedException {
-        click(assessmentSummaryButton);
-        utils.log().info("Clicked on Assessment Summary Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked on Assessment Summary Button");
-        Thread.sleep(5000);
+    public LoginPage clickNextLesson() throws Exception {
+        try {
+            Thread.sleep(8000);
+            click(nextLessonButton);
+            utils.log().info("Clicked on Next Lesson Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Next Lesson Button");
+            Thread.sleep(5000);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Next Lesson Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Next Lesson Button");
+            throw new Exception("Error: Unable to Click on Next Lesson Button");
+        }
         return this;
     }
 
-    public LoginPage clickProceed() throws InterruptedException {
-        Thread.sleep(6000);
-        click(proceedButton);
-        utils.log().info("Clicked on Proceed Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked on Proceed Button");
-        Thread.sleep(6000);
+    public LoginPage clickTakeAssessment() throws Exception {
+        try {
+            Thread.sleep(6500);
+            click(takeAssessmentButton);
+            utils.log().info("Clicked on Take Assessment Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Take Assessment Button");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Take Assessment Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Take Assessment Button");
+            throw new Exception("Error: Unable to Click on Take Assessment Button");
+        }
         return this;
     }
 
-    public LoginPage clickViewCertificate() throws InterruptedException {
-        Thread.sleep(4000);
-        click(viewCertificateButton);
-        utils.log().info("Clicked on View Certificate Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked on View Certificate Button");
-        Thread.sleep(10000);
+    public LoginPage clickAttendLater() throws Exception {
+        try {
+            Thread.sleep(6500);
+            click(attendLaterButton);
+            utils.log().info("Clicked on Attend Later Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Attend Later Button");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Attend Later Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Attend Later Button");
+            throw new Exception("Error: Unable to click Attend Later Button");
+        }
         return this;
     }
 
-    public LoginPage pressBackButtonFromMobile() throws  InterruptedException {
-        getDriver().navigate().back();
-        utils.log().info("Clicked Back Button from Mobile");
-        ExtentReport.getTest().log(Status.INFO, "Clicked Back Button from Mobile");
+    public LoginPage clickCompleteAssessment() throws Exception {
+        try {
+            click(completeAssessmentButton);
+            utils.log().info("Clicked on Complete Assessment Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Assessment Button");
+            Thread.sleep(5000);}
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Complete Assessment Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Complete Assessment Button");
+            throw new Exception("Error: Unable to click Complete Assessment Button");
+        }
         return this;
     }
 
-    public LoginPage clickBackButtonOnViewCertificatePage() throws InterruptedException {
-        click(backButtonOnViewCertificatePage);
-        utils.log().info("Clicked Back Button on View Certificate Button Page");
-        ExtentReport.getTest().log(Status.INFO, "Clicked Back Button on View Certificate Button Page");
-        Thread.sleep(5000);
+    public LoginPage clickCompleteButton() throws Exception {
+        try {
+            click(completeButton);
+            utils.log().info("Clicked on Complete Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Button");
+            Thread.sleep(5000);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Complete Assessment Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Complete Assessment Button");
+            throw new Exception("Error: Unable to click Complete Assessment Button");
+        }
         return this;
     }
 
-    public LoginPage clickBackButtonOnCourseDetailsPage() throws InterruptedException {
-        click(backButtonOnCourseDetailsPage);
-        utils.log().info("Clicked Back Button in Course Details");
-        ExtentReport.getTest().log(Status.INFO, "Clicked Back Button in Course Details");
-        Thread.sleep(5000);
+    public LoginPage answerSingleChoiceQuestion(String option) throws Exception {
+        try {
+            getDriver().findElementByAccessibilityId(option).click();
+            utils.log().info("Selected Option '"+option+"'");
+            ExtentReport.getTest().log(Status.INFO, "Selected Option '"+option+"'");
+            Thread.sleep(5000);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Option '" + option + "'");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Option '"+option+"'");
+            throw new Exception("Error: Unable to click Option '"+option+"'");
+        }
         return this;
     }
 
-    public LoginPage clickGoBackButton() throws InterruptedException {
-        click(goBackButton);
-        utils.log().info("Clicked Go Back Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked Go Back Button");
-        Thread.sleep(5000);
+    public LoginPage clickAssessmentSummary() throws Exception {
+        try {
+            click(assessmentSummaryButton);
+            utils.log().info("Clicked on Assessment Summary Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Assessment Summary Button");
+            Thread.sleep(5000);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Assessment Summary Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Assessment Summary Button");
+            throw new Exception("Error: Unable to click Assessment Summary Button");
+        }
         return this;
     }
 
-    public LoginPage clickDoneButtonInAppBrowser() throws InterruptedException {
-        click(doneButtonInAppBrowser);
-        utils.log().info("Clicked Go Back Button");
-        ExtentReport.getTest().log(Status.INFO, "Clicked Go Back Button");
-        Thread.sleep(5000);
+    public LoginPage clickProceed() throws Exception {
+        try {
+            Thread.sleep(6000);
+            click(proceedButton);
+            utils.log().info("Clicked on Proceed Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Proceed Button");
+            Thread.sleep(6000);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Proceed Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Proceed Button");
+            throw new Exception("Error: Unable to click Proceed Button");
+        }
         return this;
     }
 
-    public boolean isNoResultFound() throws InterruptedException {
+    public LoginPage clickViewCertificate() throws Exception {
+        try {
+            Thread.sleep(4000);
+            click(viewCertificateButton);
+            utils.log().info("Clicked on View Certificate Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on View Certificate Button");
+            Thread.sleep(10000);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click View Certificate Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click View Certificate Button");
+            throw new Exception("Error: Unable to click View Certificate Button");
+        }
+        return this;
+    }
+
+    public LoginPage clickBackToCoursesButton() throws Exception {
+        try {
+            Thread.sleep(4000);
+            click(backToCoursesButton);
+            utils.log().info("Clicked on Back to courses Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Back to courses Button");
+            Thread.sleep(10000);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Back to courses Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Back to courses Button");
+            throw new Exception("Error: Unable to click Back to courses Button");
+        }
+        return this;
+    }
+
+    public LoginPage pressBackButtonFromMobile() throws  Exception {
+        try {
+            getDriver().navigate().back();
+            utils.log().info("Clicked Back Button from Mobile");
+            ExtentReport.getTest().log(Status.INFO, "Clicked Back Button from Mobile");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click Back Button from Mobile");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click Back Button from Mobile");
+            throw new Exception("Error: Unable to Click Back Button from Mobile");
+        }
+        return this;
+    }
+
+    public LoginPage clickBackButtonOnViewCertificatePage() throws Exception {
+        try {
+            click(backButtonOnViewCertificatePage);
+            utils.log().info("Clicked Back Button on View Certificate Page");
+            ExtentReport.getTest().log(Status.INFO, "Clicked Back Button on View Certificate Page");
+            Thread.sleep(5000);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Back Button on View Certificate Page");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Back Button on View Certificate Page");
+            throw new Exception("Error: Unable to click Back Button on View Certificate Page");
+        }
+        return this;
+    }
+
+    public LoginPage clickBackButtonOnCourseDetailsPage() throws Exception {
+        try {
+            click(backButtonOnCourseDetailsPage);
+            utils.log().info("Clicked Back Button in Course Details");
+            ExtentReport.getTest().log(Status.INFO, "Clicked Back Button in Course Details");
+            Thread.sleep(5000);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Back Button in Course Details");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Back Button in Course Details");
+            throw new Exception("Error: Unable to click Back Button in Course Details");
+        }
+        return this;
+    }
+
+    public LoginPage clickGoBackButton() throws Exception {
+        try {
+            click(goBackButton);
+            utils.log().info("Clicked Go Back Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked Go Back Button");
+            Thread.sleep(5000);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Go Back Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Go Back Button");
+            throw new Exception("Error: Unable to click Go Back Button");
+        }
+        return this;
+    }
+
+    public LoginPage clickDoneButtonInAppBrowser() throws Exception {
+        try {
+            click(doneButtonInAppBrowser);
+            utils.log().info("Clicked Go Back Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked Go Back Button");
+            Thread.sleep(5000);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Done Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Done Button");
+            throw new Exception("Error: Unable to click Done Button");
+        }
+        return this;
+    }
+
+    /*****************
+        Validations
+     *****************/
+
+    public boolean validateNotificationTab() throws Exception {
+            Thread.sleep(3000);
+            if(getDriver().findElementsByAccessibilityId("Notifications").size() > 0) {
+                utils.log().info("Validated Notification Tab");
+                ExtentReport.getTest().log(Status.INFO, "Validated Notification Tab");
+                return true;
+            }
+            utils.log().info("Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
+            return false;
+    }
+
+    public boolean isNoResultFound() throws Exception {
         if(getDriver().findElementsByAccessibilityId("Uh oh!! We searched the whole space but couldn't find it").size()>0){
             utils.log().info("No Result Found");
             ExtentReport.getTest().log(Status.INFO, "No Result Found");
@@ -467,7 +736,7 @@ public class LoginPage extends BaseTest {
         return false;
     }
 
-    public boolean isCompletedButtonPresent() throws InterruptedException {
+    public boolean isCompletedButtonPresent() throws Exception {
         if(getDriver().findElementsByAccessibilityId("Completed").size()>0){
             utils.log().info("Completed Button Present");
             ExtentReport.getTest().log(Status.INFO, "Completed Button Present");
@@ -482,7 +751,7 @@ public class LoginPage extends BaseTest {
        Actions Examples
      *****************/
 
-    public LoginPage tap() throws InterruptedException {
+    public LoginPage tap() throws Exception {
         // Similar to Click
         TouchAction action = new TouchAction(getDriver());
         action.tap(ElementOption.element(getDriver().findElementByAccessibilityId("Enroll now"))).perform();
@@ -491,7 +760,7 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage press() throws InterruptedException {
+    public LoginPage press() throws Exception {
         // Similar to Click
         TouchAction action = new TouchAction(getDriver());
         action.press(ElementOption.element(getDriver().findElementByAccessibilityId(""))).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).release().perform();
@@ -500,7 +769,7 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage longPress() throws InterruptedException {
+    public LoginPage longPress() throws Exception {
         TouchAction action = new TouchAction(getDriver());
         action.longPress(ElementOption.element(getDriver().findElementByAccessibilityId(""))).waitAction(WaitOptions.waitOptions(Duration.ofMillis(10000))).release().perform();
         utils.log().info("");
@@ -508,7 +777,7 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage checkNotifications() throws InterruptedException {
+    public LoginPage checkNotifications() throws Exception {
         TouchAction action = new TouchAction(getDriver());
         Dimension size = getDriver().manage().window().getSize();
         size.getHeight();
@@ -531,7 +800,7 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage scroll() throws InterruptedException {
+    public LoginPage scroll() throws Exception {
         TouchAction action = new TouchAction(getDriver());
         /*
         xOffset = startScrollingFromX
@@ -548,7 +817,7 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage bedug() throws InterruptedException {
+    public LoginPage bedug() throws Exception {
         TouchAction action = new TouchAction(getDriver());
         action.press(PointOption.point(0,800))
                 .waitAction(waitOptions(Duration.ofMillis(1500)))
@@ -560,7 +829,7 @@ public class LoginPage extends BaseTest {
     }
 
     // Toasters
-    public LoginPage getToasterMessage() throws InterruptedException {
+    public LoginPage getToasterMessage() throws Exception {
         String message="";
         utils.log().info("Toaster Message Captured: " + message);
         ExtentReport.getTest().log(Status.INFO, "Toaster Message Captured: " + message);
@@ -588,13 +857,7 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage iOSPermissions() {
-        getDriver().findElement(By.name("Allow Access to All Photos")).click();
-        return this;
-    }
-
     /********************************************* Debugging methods ********************************************/
-
 
     // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "home"));
     // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "volumeup"));
