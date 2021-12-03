@@ -13,9 +13,6 @@ public class DriverManager{
     public static void initializeDriver (String envID, String deviceID) throws Exception {
         BaseTest objBaseTest = new BaseTest();
         AppiumDriver driver;
-        //HashMap<String, String> testDataValidation = new HashMap<>();
-        //testDataValidation = StringParser.parseStringXML("TestDataValidation.xml");
-        //JSONObject deviceObj = new JSONObject(JsonParser.parse("Devices.json").getJSONObject(deviceID).toString());
 
         DesiredCapabilities caps = new DesiredCapabilities();
 

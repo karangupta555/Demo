@@ -202,9 +202,8 @@ public class BaseTest {
             if (!logFile.exists()) {
                 logFile.mkdirs();
             }
-            //route logs to separate file for each thread
             ThreadContext.put("ROUTINGKEY", strFile);
-            utils.log().info("Log Path: " + strFile);
+            utils.log().info("Log(s) for this Run is initiated at: " + strFile);
             InputStream inputStream = null;
             InputStream stringsis = null;
             try {
@@ -307,8 +306,6 @@ public class BaseTest {
             }
         }
         if(envID.equals("local")) {
-            // closeApp();
-            // launchApp();
             utils.log().info("'beforeClass' Executed for Local");
         }
         else {
@@ -370,7 +367,8 @@ public class BaseTest {
         getDriver().closeApp();
     }
 
-    // Debug Methods
+    /********************************************* Debugging methods ********************************************/
+
     public void waitForVisibility(MobileElement e) {
         WebDriverWait wait = new WebDriverWait(getDriver(), TestUtils.WAIT);
         wait.until(ExpectedConditions.visibilityOf(e));

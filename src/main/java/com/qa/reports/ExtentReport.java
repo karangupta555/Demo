@@ -10,19 +10,18 @@ import java.util.Map;
 
 public class ExtentReport {
         static ExtentReports extent;
-        final static String filePath = "Extent.html";
+        final static String filePath = "reports/Extent.html";
         static Map<Integer, ExtentTest> extentTestMap = new HashMap();
 
         public synchronized static ExtentReports getReporter() {
             if (extent == null) {
-                ExtentSparkReporter spark = new ExtentSparkReporter("Extent.html");
+                ExtentSparkReporter spark = new ExtentSparkReporter(filePath);
                 spark.config().setDocumentTitle("Appium Framework");
-                spark.config().setReportName("MyApp");
+                spark.config().setReportName("Auzmor Learn");
                 spark.config().setTheme(Theme.DARK);
                 extent = new ExtentReports();
                 extent.attachReporter(spark);
             }
-
             return extent;
         }
 
@@ -33,7 +32,6 @@ public class ExtentReport {
         public static synchronized ExtentTest startTest(String testName, String desc) {
             ExtentTest test = getReporter().createTest(testName, desc);
             extentTestMap.put((int) (long) (Thread.currentThread().getId()), test);
-
             return test;
         }
     }
