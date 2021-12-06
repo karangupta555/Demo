@@ -4,6 +4,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.qa.pages.LoginPage;
 import com.qa.reports.ExtentReport;
+import com.qa.utils.JsonParser;
 import com.qa.utils.StringParser;
 import com.qa.utils.TestUtils;
 import io.appium.java_client.AppiumDriver;
@@ -52,12 +53,9 @@ public class BaseTest {
     protected static ThreadLocal<String> deviceName = new ThreadLocal<String>();
     private static AppiumDriverLocalService server;
     TestUtils utils = new TestUtils();
-    public WebDriverWait wait;
 
-    // Constructor
     public BaseTest() {
         PageFactory.initElements(new AppiumFieldDecorator(getDriver()), this);
-        //wait = new WebDriverWait(getDriver(), 10);
     }
 
     public AppiumDriver getDriver() {
@@ -114,7 +112,7 @@ public class BaseTest {
     public void beforeSuite(String envID, String platformName) throws Exception {
         if (envID.equals("local")) {
             ThreadContext.put("ROUTINGKEY", "ServerLogs");
-            server = getAppiumService(platformName);
+            server = getAppiumService("Mac OS X"); // Windows or Mac
             if (!checkIfAppiumServerIsRunnning(4723)) {
                 server.start();
                 server.clearOutPutStreams();
@@ -142,7 +140,7 @@ public class BaseTest {
     public AppiumDriverLocalService getAppiumService(String platform) throws Exception {
         HashMap<String, String> environment = new HashMap<String, String>();
         switch(platform) {
-            case "Android": {
+            case "Windows": {
                 environment.put("PATH", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk:-:-" + System.getenv("PATH"));
                 environment.put("ANDROID_HOME", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk");
                 return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
@@ -151,7 +149,7 @@ public class BaseTest {
                         .usingPort(4723).withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment)
                         .withLogFile(new File("ServerLogs/server.log")));
             }
-            case "iOS": {
+            case "Mac OS X": {
                 environment.put("PATH", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/bin:/Users/ravikanth/Library/Android/sdk/tools:/Users/ravikanth/Library/Android/sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin" + System.getenv("PATH"));
                 environment.put("ANDROID_HOME", "/Users/ravikanth/Library/Android/sdk");
                 environment.put("JAVA_HOME", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home");
@@ -208,6 +206,7 @@ public class BaseTest {
             InputStream stringsis = null;
             try {
                 AppiumDriver driver;
+
                 // Reading Config/TestData files
                 Properties props = new Properties();
                 String propFileName = "config.properties";
@@ -219,8 +218,8 @@ public class BaseTest {
                 setStrings(utils.parseStringXML(stringsis));
 
                 // App Path(s)
-                String androidAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\old.apk").replace("\\", "/");
-                String iOSAppUrl = (System.getProperty("user.dir") + File.separator + "src\\test\\resources\\app\\Runner.app").replace("\\", "/");
+                String androidAppUrl = (System.getProperty("user.dir") + File.separator + props.getProperty("androidApp")).replace("\\", "/");
+                String iOSAppUrl = (System.getProperty("user.dir") + File.separator + props.getProperty("iOSApp")).replace("\\", "/");
 
                 // Capabilities
                 DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
@@ -292,7 +291,7 @@ public class BaseTest {
     public void beforeClass(String envID) throws Exception {
         InputStream datais = null;
         try {
-            String dataFileName = "data/loginUsers.json";
+            String dataFileName = "data/loginData.json";
             datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
             JSONTokener tokener = new JSONTokener(datais);
             JSONObject loginUsers = new JSONObject(tokener);
@@ -367,7 +366,20 @@ public class BaseTest {
         getDriver().closeApp();
     }
 
-    /********************************************* Debugging methods ********************************************/
+    public void iOSPermissions() throws Exception {
+        try {
+            waitForVisibility((MobileElement)getDriver().findElement(By.name("Allow Access to All Photos")));
+            getDriver().findElement(By.name("Allow Access to All Photos")).click();
+            utils.log().info("'Allow Access to All Photos' Permission allowed Successfully");
+            ExtentReport.getTest().log(Status.INFO, "'Allow Access to All Photos' Permission allowed Successfully");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to 'Allow Access to All Photos' Permission");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to 'Allow Access to All Photos' Permission");
+            throw new Exception("Error: Unable to 'Allow Access to All Photos' Permission!");
+        }
+    }
 
     public void waitForVisibility(MobileElement e) {
         WebDriverWait wait = new WebDriverWait(getDriver(), TestUtils.WAIT);
@@ -375,45 +387,23 @@ public class BaseTest {
     }
 
     public void click(MobileElement e) {
-        //waitForVisibility(e);
-        e.click();
-    }
-
-    public void click(MobileElement e, String msg) {
-        //waitForVisibility(e);
-        utils.log().info(msg);
-        ExtentReport.getTest().log(Status.INFO, msg);
+        waitForVisibility(e);
         e.click();
     }
 
     public void clear(MobileElement e) {
-        //waitForVisibility(e);
+        waitForVisibility(e);
         e.clear();
     }
 
     public void sendKeys(MobileElement e, String txt) {
-        //waitForVisibility(e);
+        waitForVisibility(e);
         e.clear();
         e.sendKeys(txt);
-    }
-
-    public void sendKeys(MobileElement e, String txt, String msg) {
-        //waitForVisibility(e);
-        utils.log().info(msg);
-        ExtentReport.getTest().log(Status.INFO, msg);
-        e.clear();
-        e.sendKeys(txt);
-    }
-
-    public void sendKeys(String txt) {
-        Actions a = new Actions(getDriver());
-        getDriver().findElementsByClassName("//android.widget.EditText").clear();
-        //getDriver().findElementsByClassName(String.valueOf(LoginPage.textBox)).clear();
-        a.sendKeys(txt).perform();
     }
 
     public String getAttribute(MobileElement e, String attribute) {
-        //waitForVisibility(e);
+        waitForVisibility(e);
         return e.getAttribute(attribute);
     }
 

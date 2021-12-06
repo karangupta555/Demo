@@ -44,7 +44,7 @@ public class DriverManager{
 }
 
 // (netstat -ano|findstr "PID :4723"),  (taskkill /pid enter_pid_here /f)
-//"app_url": "storage:6bd8d42c-215c-4599-952b-7fba702ce427" // lmsAndroid
-//"app_url": "storage:dbf85b9a-dce3-428b-87ac-b9ec6ed0f183" // lmsIOS
-//"app_url": "storage:1c0dd137-09ab-4534-8263-5053d72b2d98" // sauceAndroid
-//"app_url": "storage:81c3825c-d215-424a-bb8f-a648f210d958" // sauceIOS
+// "app_url": "storage:6bd8d42c-215c-4599-952b-7fba702ce427" // lmsAndroid
+// "app_url": "storage:dbf85b9a-dce3-428b-87ac-b9ec6ed0f183" // lmsIOS
+// "app_url": "storage:1c0dd137-09ab-4534-8263-5053d72b2d98" // sauceAndroid
+// "app_url": "storage:81c3825c-d215-424a-bb8f-a648f210d958" // sauceIOS

@@ -2,12 +2,16 @@ package com.qa.tests.Courses;
 
 import com.qa.BaseTest;
 import com.qa.pages.LoginPage;
+import com.qa.utils.JsonParser;
+import org.json.JSONObject;
 import org.springframework.context.annotation.Description;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class certificates extends BaseTest {
+    JSONObject loginData = JsonParser.getLoginData();
+    JSONObject testData = JsonParser.getTestData();
 
     @Parameters({"platformName"})
     @Test
@@ -15,11 +19,11 @@ public class certificates extends BaseTest {
     public void completeCourseWithCertificateWithoutAssessment(String platformName) throws  Exception {
         /*
         Requirements:
-        Name: Course 80760
-        lessons: 3
-        certificate: yes
-        assessment: no
-        access: public
+            Name: Course 80760
+            lessons: 3
+            certificate: yes
+            assessment: no
+            access: public
         */
         try {
             LoginPage loginPage = new LoginPage();
@@ -27,16 +31,11 @@ public class certificates extends BaseTest {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail("auzmor@zetmail.com");
+            loginPage.enterLoginEmail(loginData.get("padmin").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword("Test@123");
-            loginPage.clickShowPasswordButton();
-            loginPage.clickHidePasswordButton();
-            loginPage.clickForgotPassword();
+            loginPage.enterLoginPassword(loginData.get("password").toString());
             loginPage.clickContinue();
-            Thread.sleep(5000);
             loginPage.clickSearchTab();
-            Thread.sleep(5000);
             loginPage.searchCourse("Course 80760");
             loginPage.viewSpecificCourse("Course 80760");
             loginPage.clickEnrollNow();
@@ -44,7 +43,13 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickNextLesson();
             loginPage.clickCompleteButton();
-            loginPage.clickBackToCoursesButton();
+            if(!platformName.equals("iOS")) {
+                loginPage.clickViewCertificate();
+                loginPage.pressBackButtonFromMobile();
+            }
+            loginPage.clickBackButtonOnViewCertificatePage();
+            Assert.assertTrue(loginPage.isCompletedButtonPresent());
+            loginPage.clickBackButtonOnCourseDetailsPage();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80760");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -62,11 +67,11 @@ public class certificates extends BaseTest {
     public void completeCourseWithCertificateAndDownload(String platformName) throws  Exception {
         /*
         Requirements:
-        Name: Course 81218
-        lessons: 3
-        certificate: yes
-        assessment: no
-        access: public
+            Name: Course 81218
+            lessons: 3
+            certificate: yes
+            assessment: no
+            access: public
         */
         try {
             LoginPage loginPage = new LoginPage();
@@ -74,16 +79,11 @@ public class certificates extends BaseTest {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail("auzmor@zetmail.com");
+            loginPage.enterLoginEmail(loginData.get("learner1").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword("Test@123");
-            loginPage.clickShowPasswordButton();
-            loginPage.clickHidePasswordButton();
-            loginPage.clickForgotPassword();
+            loginPage.enterLoginPassword(loginData.get("password").toString());
             loginPage.clickContinue();
-            Thread.sleep(5000);
             loginPage.clickSearchTab();
-            Thread.sleep(5000);
             loginPage.searchCourse("Course 81218");
             loginPage.viewSpecificCourse("Course 81218");
             loginPage.clickEnrollNow();
@@ -91,7 +91,12 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickNextLesson();
             loginPage.clickCompleteButton();
-            loginPage.clickBackToCoursesButton();
+            if(!platformName.equals("iOS")) {
+                loginPage.clickViewCertificate();
+            }
+            loginPage.clickBackButtonOnViewCertificatePage();
+            Assert.assertTrue(loginPage.isCompletedButtonPresent());
+            loginPage.clickBackButtonOnCourseDetailsPage();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 81218");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -121,23 +126,21 @@ public class certificates extends BaseTest {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail("auzmor@zetmail.com");
+            loginPage.enterLoginEmail(loginData.get("learner1").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword("Test@123");
+            loginPage.enterLoginPassword(loginData.get("password").toString());
             loginPage.clickShowPasswordButton();
             loginPage.clickHidePasswordButton();
             loginPage.clickForgotPassword();
             loginPage.clickContinue();
-            Thread.sleep(5000);
             loginPage.clickSearchTab();
-            Thread.sleep(5000);
             loginPage.searchCourse("Course 80773");
             loginPage.viewSpecificCourse("Course 80773");
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickTakeAssessment();
             loginPage.clickTakeAssessment();
-            loginPage.answerSingleChoiceQuestion("a");
+            loginPage.answerSingleChoiceQuestion(testData.get("a").toString());
             loginPage.clickCompleteAssessment();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
@@ -172,23 +175,21 @@ public class certificates extends BaseTest {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail("auzmor@zetmail.com");
+            loginPage.enterLoginEmail(loginData.get("learner1").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword("Test@123");
+            loginPage.enterLoginPassword(loginData.get("password").toString());
             loginPage.clickShowPasswordButton();
             loginPage.clickHidePasswordButton();
             loginPage.clickForgotPassword();
             loginPage.clickContinue();
-            Thread.sleep(5000);
             loginPage.clickSearchTab();
-            Thread.sleep(5000);
             loginPage.searchCourse("Course 80777");
             loginPage.viewSpecificCourse("Course 80777");
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickTakeAssessment();
             loginPage.clickTakeAssessment();
-            loginPage.answerSingleChoiceQuestion("b"); // Correct Answer: 'a'
+            loginPage.answerSingleChoiceQuestion(testData.get("b").toString()); // Correct Answer: 'a'
             loginPage.clickCompleteAssessment();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
@@ -223,16 +224,14 @@ public class certificates extends BaseTest {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail("auzmor@zetmail.com");
+            loginPage.enterLoginEmail(loginData.get("learner1").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword("Test@123");
+            loginPage.enterLoginPassword(loginData.get("password").toString());
             loginPage.clickShowPasswordButton();
             loginPage.clickHidePasswordButton();
             loginPage.clickForgotPassword();
             loginPage.clickContinue();
-            Thread.sleep(5000);
             loginPage.clickSearchTab();
-            Thread.sleep(5000);
             loginPage.searchCourse("Course 81188");
             loginPage.viewSpecificCourse("Course 81188");
             loginPage.clickEnrollNow();
@@ -268,16 +267,14 @@ public class certificates extends BaseTest {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail("auzmor@zetmail.com");
+            loginPage.enterLoginEmail(loginData.get("learner1").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword("Test@123");
+            loginPage.enterLoginPassword(loginData.get("password").toString());
             loginPage.clickShowPasswordButton();
             loginPage.clickHidePasswordButton();
             loginPage.clickForgotPassword();
             loginPage.clickContinue();
-            Thread.sleep(5000);
             loginPage.clickSearchTab();
-            Thread.sleep(5000);
             loginPage.searchCourse("Course 80778");
             loginPage.viewSpecificCourse("Course 80778");
             loginPage.clickEnrollNow();
@@ -313,16 +310,14 @@ public class certificates extends BaseTest {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail("auzmor@zetmail.com");
+            loginPage.enterLoginEmail(loginData.get("learner1").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword("Test@123");
+            loginPage.enterLoginPassword(loginData.get("password").toString());
             loginPage.clickShowPasswordButton();
             loginPage.clickHidePasswordButton();
             loginPage.clickForgotPassword();
             loginPage.clickContinue();
-            Thread.sleep(5000);
             loginPage.clickSearchTab();
-            Thread.sleep(5000);
             loginPage.searchCourse("Course 80779");
             loginPage.viewSpecificCourse("Course 80779");
             loginPage.clickEnrollNow();
@@ -358,16 +353,14 @@ public class certificates extends BaseTest {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail("auzmor@zetmail.com");
+            loginPage.enterLoginEmail(loginData.get("learner1").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword("Test@123");
+            loginPage.enterLoginPassword(loginData.get("password").toString());
             loginPage.clickShowPasswordButton();
             loginPage.clickHidePasswordButton();
             loginPage.clickForgotPassword();
             loginPage.clickContinue();
-            Thread.sleep(5000);
             loginPage.clickSearchTab();
-            Thread.sleep(5000);
             loginPage.searchCourse("Course 80780");
             loginPage.viewSpecificCourse("Course 80780");
             loginPage.clickEnrollNow();

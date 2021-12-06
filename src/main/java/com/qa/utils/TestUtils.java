@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class TestUtils {
-    public static final long WAIT = 10;
+    public static final long WAIT = 40;
     public HashMap<String, String> parseStringXML(InputStream file) throws Exception {
         HashMap<String, String> stringMap = new HashMap<String, String>();
         //Get Document Builder
@@ -59,7 +59,7 @@ public class TestUtils {
         String msg = Thread.currentThread().getId() + ":" + base.getPlatform() + ":" + base.getDeviceName() + ":"
                 + Thread.currentThread().getStackTrace()[2].getClassName() + ":" + txt;
 
-        System.out.println(msg);
+        //System.out.println(msg);
 
         String strFile = "logs" + File.separator + base.getPlatform() + "_" + base.getDeviceName()
                 + File.separator + base.getDateTime();
@@ -74,7 +74,6 @@ public class TestUtils {
         try {
             fileWriter = new FileWriter(logFile + File.separator + "log.txt",true);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         PrintWriter printWriter = new PrintWriter(fileWriter);

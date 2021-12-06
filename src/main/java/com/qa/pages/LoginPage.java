@@ -12,12 +12,15 @@ import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
+import org.apache.http.impl.client.StandardHttpRequestRetryHandler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -185,29 +188,12 @@ public class LoginPage extends BaseTest {
     @AndroidFindBy(accessibility = "Cancel")
     @iOSXCUITFindBy(accessibility = "Cancel")
     private MobileElement cancel;
-
-    public LoginPage iOSPermissions() throws Exception {
-        try {
-            getDriver().findElement(By.name("Allow Access to All Photos")).click();
-            utils.log().info("'Allow Access to All Photos' Permission allowed Successfully");
-            ExtentReport.getTest().log(Status.INFO, "'Allow Access to All Photos' Permission allowed Successfully");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            utils.log().info("Error: Unable to 'Allow Access to All Photos' Permission");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to 'Allow Access to All Photos' Permission");
-            throw new Exception("Error: Unable to 'Allow Access to All Photos' Permission!");
-        }
-        return this;
-    }
     
     public LoginPage clickSignInBtn() throws Exception {
-        Thread.sleep(4000);
         try {
             click(signInButton);
             utils.log().info("Clicked SignIn Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked SignIn Button");
-            Thread.sleep(4000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -220,9 +206,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage enterLoginEmail(String username) throws Exception {
         try {
-            Thread.sleep(2000);
-            //sendKeys(username); // This approach will take some time to enter/send values
-            getDriver().getKeyboard().sendKeys(username);
+            sendKeys(textBox, username);
+            //getDriver().getKeyboard().sendKeys(username); // Entering from keyboard
             utils.log().info("Entered userName/Email: " + username);
             ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: " + username);
         }
@@ -237,9 +222,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage enterLoginPassword(String password) throws Exception {
         try {
-            Thread.sleep(2000);
-            //sendKeys(password); // This approach will take some time to enter/send values
-            getDriver().getKeyboard().sendKeys(password);
+            sendKeys(textBox, password);
+            //getDriver().getKeyboard().sendKeys(password); // Entering from keyboard
             utils.log().info("Entered Password: " + password);
             ExtentReport.getTest().log(Status.INFO, "Entered Password: " + password);
         }
@@ -257,7 +241,6 @@ public class LoginPage extends BaseTest {
             click(showPasswordButton);
             utils.log().info("Clicked Show Password Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked Show Password Button");
-            Thread.sleep(3000);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -273,7 +256,6 @@ public class LoginPage extends BaseTest {
             click(hidePasswordButton);
             utils.log().info("Clicked Hide Password Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked Hide Password Button");
-            Thread.sleep(3000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -289,7 +271,6 @@ public class LoginPage extends BaseTest {
             click(forgotPasswordButton);
             utils.log().info("Clicked Forgot Password Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked Forgot Password Button");
-            Thread.sleep(6000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -302,11 +283,9 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickContinue() throws Exception {
         try {
-            Thread.sleep(3000);
             click(continueBtn);
             utils.log().info("Clicked Continue Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked Continue Button");
-            Thread.sleep(2000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -319,11 +298,9 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickHomeTab() throws Exception {
         try {
-            Thread.sleep(2000);
             click(homeTab);
             utils.log().info("Clicked on Home Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Home Tab");
-            Thread.sleep(4000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -339,7 +316,6 @@ public class LoginPage extends BaseTest {
             click(searchTab);
             utils.log().info("Clicked on Search/Explore Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Search/Explore Tab");
-            Thread.sleep(4000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -355,7 +331,6 @@ public class LoginPage extends BaseTest {
             click(notificationTab);
             utils.log().info("Clicked on Notification Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Notification Tab");
-            Thread.sleep(4000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -368,7 +343,6 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickMarkAllReadNotifications() throws Exception {
         try {
-            Thread.sleep(6000);
             click(markAllReadNotifications);
             utils.log().info("Clicked on \"Mark all Read\" Button in Notifications");
             ExtentReport.getTest().log(Status.INFO, "Clicked on \"Mark all Read\" Button in Notifications");
@@ -379,13 +353,11 @@ public class LoginPage extends BaseTest {
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on \"Mark all Read\" Button in Notifications");
             throw new Exception("Error: Unable to Click on \"Mark all Read\" Button in Notifications");
         }
-        Thread.sleep(6000);
         return this;
     }
 
     public LoginPage clickProfileTab() throws Exception {
         try{
-            Thread.sleep(4000);
             click(profileTab);
             utils.log().info("Switched to Profile Tab");
             ExtentReport.getTest().log(Status.INFO, "Switched to Profile Tab");
@@ -396,17 +368,15 @@ public class LoginPage extends BaseTest {
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to Switch to Profile Tab");
             throw new Exception("Error: Error: Unable to Switch to Profile Tab");
         }
-        Thread.sleep(5000);
         return this;
     }
 
     public LoginPage searchCourse(String courseName) throws Exception {
         try {
-            Thread.sleep(5000);
             click(textBox);
             textBox.clear();/****/
             getDriver().getKeyboard().sendKeys(courseName);
-            utils.log().info("Searched Course: " + courseName);
+            utils.log().info("Searched Course: '" + courseName + "'");
             ExtentReport.getTest().log(Status.INFO, "Searched Course: " + courseName);
             getDriver().hideKeyboard();
         }
@@ -424,7 +394,6 @@ public class LoginPage extends BaseTest {
             getDriver().findElementByAccessibilityId(courseName).click();
             utils.log().info("Clicked on '"+courseName+"' Course");
             ExtentReport.getTest().log(Status.INFO, "Clicked on '"+courseName+"' Course");
-            Thread.sleep(4000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -440,7 +409,6 @@ public class LoginPage extends BaseTest {
             click(enrollNowButton);
             utils.log().info("Clicked on Enroll Now Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Enroll Now Button");
-            Thread.sleep(6000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -456,7 +424,6 @@ public class LoginPage extends BaseTest {
             click(startCourseButton);
             utils.log().info("Clicked on Start Course Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Start Course Button");
-            Thread.sleep(6000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -469,11 +436,10 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickNextLesson() throws Exception {
         try {
-            Thread.sleep(8000);
+            Thread.sleep(3000);
             click(nextLessonButton);
             utils.log().info("Clicked on Next Lesson Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Next Lesson Button");
-            Thread.sleep(5000);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -486,7 +452,6 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickTakeAssessment() throws Exception {
         try {
-            Thread.sleep(6500);
             click(takeAssessmentButton);
             utils.log().info("Clicked on Take Assessment Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Take Assessment Button");
@@ -502,7 +467,6 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickAttendLater() throws Exception {
         try {
-            Thread.sleep(6500);
             click(attendLaterButton);
             utils.log().info("Clicked on Attend Later Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Attend Later Button");
@@ -521,7 +485,7 @@ public class LoginPage extends BaseTest {
             click(completeAssessmentButton);
             utils.log().info("Clicked on Complete Assessment Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Assessment Button");
-            Thread.sleep(5000);}
+        }
         catch (Exception e) {
             e.printStackTrace();
             utils.log().info("Error: Unable to click Complete Assessment Button");
@@ -536,7 +500,6 @@ public class LoginPage extends BaseTest {
             click(completeButton);
             utils.log().info("Clicked on Complete Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Button");
-            Thread.sleep(5000);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -552,7 +515,6 @@ public class LoginPage extends BaseTest {
             getDriver().findElementByAccessibilityId(option).click();
             utils.log().info("Selected Option '"+option+"'");
             ExtentReport.getTest().log(Status.INFO, "Selected Option '"+option+"'");
-            Thread.sleep(5000);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -568,7 +530,6 @@ public class LoginPage extends BaseTest {
             click(assessmentSummaryButton);
             utils.log().info("Clicked on Assessment Summary Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Assessment Summary Button");
-            Thread.sleep(5000);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -581,11 +542,9 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickProceed() throws Exception {
         try {
-            Thread.sleep(6000);
             click(proceedButton);
             utils.log().info("Clicked on Proceed Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Proceed Button");
-            Thread.sleep(6000);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -598,7 +557,6 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickViewCertificate() throws Exception {
         try {
-            Thread.sleep(4000);
             click(viewCertificateButton);
             utils.log().info("Clicked on View Certificate Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on View Certificate Button");
@@ -615,11 +573,9 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickBackToCoursesButton() throws Exception {
         try {
-            Thread.sleep(4000);
             click(backToCoursesButton);
             utils.log().info("Clicked on Back to courses Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Back to courses Button");
-            Thread.sleep(10000);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -647,10 +603,10 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickBackButtonOnViewCertificatePage() throws Exception {
         try {
+            Thread.sleep(5000);
             click(backButtonOnViewCertificatePage);
             utils.log().info("Clicked Back Button on View Certificate Page");
             ExtentReport.getTest().log(Status.INFO, "Clicked Back Button on View Certificate Page");
-            Thread.sleep(5000);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -663,10 +619,10 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickBackButtonOnCourseDetailsPage() throws Exception {
         try {
+            Thread.sleep(5000);
             click(backButtonOnCourseDetailsPage);
             utils.log().info("Clicked Back Button in Course Details");
             ExtentReport.getTest().log(Status.INFO, "Clicked Back Button in Course Details");
-            Thread.sleep(5000);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -682,7 +638,6 @@ public class LoginPage extends BaseTest {
             click(goBackButton);
             utils.log().info("Clicked Go Back Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked Go Back Button");
-            Thread.sleep(5000);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -698,7 +653,6 @@ public class LoginPage extends BaseTest {
             click(doneButtonInAppBrowser);
             utils.log().info("Clicked Go Back Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked Go Back Button");
-            Thread.sleep(5000);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -714,7 +668,6 @@ public class LoginPage extends BaseTest {
      *****************/
 
     public boolean validateNotificationTab() throws Exception {
-            Thread.sleep(3000);
             if(getDriver().findElementsByAccessibilityId("Notifications").size() > 0) {
                 utils.log().info("Validated Notification Tab");
                 ExtentReport.getTest().log(Status.INFO, "Validated Notification Tab");
