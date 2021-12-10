@@ -21,6 +21,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Parameters;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -53,9 +54,17 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Enroll now")
     private MobileElement enrollNowButton;
 
+    @AndroidFindBy(accessibility = "Completed")
+    @iOSXCUITFindBy(accessibility = "Completed")
+    private MobileElement completedButton;
+
     @AndroidFindBy(accessibility = "Start course")
     @iOSXCUITFindBy(accessibility = "Start course")
     private MobileElement startCourseButton;
+
+    @AndroidFindBy(accessibility = "Resume")
+    @iOSXCUITFindBy(accessibility = "Resume")
+    private MobileElement resumeButton;
 
     @AndroidFindBy(accessibility = "Next lesson")
     @iOSXCUITFindBy(accessibility = "Next lesson")
@@ -64,6 +73,18 @@ public class LoginPage extends BaseTest {
     @AndroidFindBy(accessibility = "Take assessment")
     @iOSXCUITFindBy(accessibility = "Take assessment")
     private MobileElement takeAssessmentButton;
+
+    @AndroidFindBy(accessibility = "Skip assessment")
+    @iOSXCUITFindBy(accessibility = "Skip assessment")
+    private MobileElement skipAssessmentButton;
+
+    @AndroidFindBy(accessibility = "Back")
+    @iOSXCUITFindBy(accessibility = "Back")
+    private MobileElement backButton;
+
+    @AndroidFindBy(accessibility = "Skip")
+    @iOSXCUITFindBy(accessibility = "Skip")
+    private MobileElement skipButton;
 
     @AndroidFindBy(accessibility = "Attend later")
     @iOSXCUITFindBy(accessibility = "Attend later")
@@ -89,41 +110,48 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "View Certificate")
     private MobileElement viewCertificateButton;
 
+    @AndroidFindBy(accessibility = "Download")
+    @iOSXCUITFindBy(accessibility = "Download")
+    private MobileElement downloadButton;
+
+    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[2]/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[1]/android.view.View[3]/android.view.View/android.widget.Image")
+    @iOSXCUITFindBy(accessibility = "Export as Image")
+    private MobileElement downloadCertificateButton;
+
+    @AndroidFindBy(accessibility = "Export as PDF")
+    @iOSXCUITFindBy(xpath = "Export as PDF")
+    private MobileElement certificateExportAsPDF;
+
+    @AndroidFindBy(accessibility = "Export as Image")
+    @iOSXCUITFindBy(accessibility = "Export as Image")
+    private MobileElement certificateExportAsImage;
+
+    @AndroidFindBy(id = "com.android.chrome:id/button_primary")
+    private MobileElement downloadButtonChrome; // In-App browser
+
+    @AndroidFindBy(accessibility = "Back to Course")
+    @iOSXCUITFindBy(accessibility = "Back to Course")
+    private MobileElement backToCourseButton;
+
     @AndroidFindBy(accessibility = "Back to courses")
     @iOSXCUITFindBy(accessibility = "Back to courses")
     private MobileElement backToCoursesButton;
+
+    @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
+    @iOSXCUITFindBy(xpath = "//XCUIElementTypeApplication[@name=\"Auzmor Learn\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeImage")
+    private MobileElement backButtonOnAssessmentSummaryPage;
 
     @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
     @iOSXCUITFindBy(className = "XCUIElementTypeImage")
     private MobileElement backButtonOnViewCertificatePage;
 
     @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
-    @iOSXCUITFindBy(xpath = "/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeImage[1]")
-    private MobileElement backButtonOnCourseDetailsPage; // Completed Course
+    @iOSXCUITFindBy(xpath = "//XCUIElementTypeApplication[@name=\"Auzmor Learn\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeImage[1]")
+    private MobileElement backButtonOnCourseDetailsPage;
 
     @AndroidFindBy(accessibility = "Go Back")
     @iOSXCUITFindBy(accessibility = "Go Back")
     private MobileElement goBackButton;
-
-    @AndroidFindBy(accessibility = "undefined")
-    @iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name=\"Done\"]")
-    private MobileElement doneButtonInAppBrowser;
-
-    @AndroidFindBy(accessibility = "undefined")
-    @iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"ReloadButton\"]")
-    private MobileElement reloadButtonInAppBrowser;
-
-    @AndroidFindBy(accessibility = "undefined")
-    @iOSXCUITFindBy(xpath = "Export as PDF")
-    private MobileElement certificateExportAsPDF;
-
-    @AndroidFindBy(accessibility = "undefined")
-    @iOSXCUITFindBy(accessibility = "Export as Image")
-    private MobileElement certificateExportAsImage;
-
-    @AndroidFindBy(accessibility = "undefined")
-    @iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name=\"URL\"]")
-    private MobileElement clickURLInAppBrowser;
 
     /* Notifications */ // android.view.View
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView")
@@ -188,7 +216,7 @@ public class LoginPage extends BaseTest {
     @AndroidFindBy(accessibility = "Cancel")
     @iOSXCUITFindBy(accessibility = "Cancel")
     private MobileElement cancel;
-    
+
     public LoginPage clickSignInBtn() throws Exception {
         try {
             click(signInButton);
@@ -204,12 +232,17 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage enterLoginEmail(String username) throws Exception {
+    public LoginPage enterLoginEmail(String platformName, String username) throws Exception {
         try {
-            sendKeys(textBox, username);
-            //getDriver().getKeyboard().sendKeys(username); // Entering from keyboard
-            utils.log().info("Entered userName/Email: " + username);
-            ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: " + username);
+            if(platformName.equals("iOS")){
+                sendKeys(textBox, username);
+            }
+            else {
+                getDriver().getKeyboard().sendKeys(username); // Entering from keyboard
+            }
+            //sendKeys(textBox, username);
+            utils.log().info("Entered userName/Email: '" + username + "'");
+            ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: " + username + "'");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -220,12 +253,16 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage enterLoginPassword(String password) throws Exception {
+    public LoginPage enterLoginPassword(String platformName, String password) throws Exception {
         try {
-            sendKeys(textBox, password);
-            //getDriver().getKeyboard().sendKeys(password); // Entering from keyboard
-            utils.log().info("Entered Password: " + password);
-            ExtentReport.getTest().log(Status.INFO, "Entered Password: " + password);
+            if(platformName.equals("iOS")){
+                sendKeys(textBox, password);
+            }
+            else {
+                getDriver().getKeyboard().sendKeys(password); // Entering from keyboard
+            }
+            utils.log().info("Entered Password: " + password + "'");
+            ExtentReport.getTest().log(Status.INFO, "Entered Password: " + password + "'");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -392,7 +429,7 @@ public class LoginPage extends BaseTest {
     public LoginPage viewSpecificCourse(String courseName) throws Exception {
         try {
             getDriver().findElementByAccessibilityId(courseName).click();
-            utils.log().info("Clicked on '"+courseName+"' Course");
+            utils.log().info("Clicked on '" + courseName+"' Course");
             ExtentReport.getTest().log(Status.INFO, "Clicked on '"+courseName+"' Course");
         }
         catch (Exception e){
@@ -419,6 +456,21 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
+    public LoginPage clickCompletedButton() throws Exception {
+        try {
+            click(completedButton);
+            utils.log().info("Clicked on Completed Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Completed Button");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Enroll Now Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Completed Button");
+            throw new Exception("Error: Unable to Click on Completed Button");
+        }
+        return this;
+    }
+
     public LoginPage clickStartCourse() throws Exception {
         try {
             click(startCourseButton);
@@ -434,9 +486,24 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
+    public LoginPage clickResumeButton() throws Exception {
+        try {
+            click(resumeButton);
+            utils.log().info("Clicked on Resume Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Resume Button");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Resume Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Resume Button");
+            throw new Exception("Error: Unable to Click on Resume Button");
+        }
+        return this;
+    }
+
     public LoginPage clickNextLesson() throws Exception {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             click(nextLessonButton);
             utils.log().info("Clicked on Next Lesson Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Next Lesson Button");
@@ -461,6 +528,48 @@ public class LoginPage extends BaseTest {
             utils.log().info("Error: Unable to Click on Take Assessment Button");
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Take Assessment Button");
             throw new Exception("Error: Unable to Click on Take Assessment Button");
+        }
+        return this;
+    }
+
+    public LoginPage clickSkipAssessment() throws Exception {
+        try {
+            click(skipAssessmentButton);
+            utils.log().info("Clicked on Skip Assessment Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Skip Assessment Button");
+        } catch(Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Skip Assessment Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Skip Assessment Button");
+            throw new Exception("Error: Unable to Click on Skip Assessment Button");
+        }
+        return this;
+    }
+
+    public LoginPage clickSkipButton() throws Exception {
+        try {
+            click(skipButton);
+            utils.log().info("Clicked on Skip Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Skip Button");
+        } catch(Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Skip Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Skip Button");
+            throw new Exception("Error: Unable to Click on Skip Button");
+        }
+        return this;
+    }
+
+    public LoginPage clickBackButton() throws Exception {
+        try {
+            click(backButton);
+            utils.log().info("Clicked on Back Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Back Button");
+        } catch(Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Back Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Back Button");
+            throw new Exception("Error: Unable to Click on Back Button");
         }
         return this;
     }
@@ -513,14 +622,29 @@ public class LoginPage extends BaseTest {
     public LoginPage answerSingleChoiceQuestion(String option) throws Exception {
         try {
             getDriver().findElementByAccessibilityId(option).click();
-            utils.log().info("Selected Option '"+option+"'");
-            ExtentReport.getTest().log(Status.INFO, "Selected Option '"+option+"'");
+            utils.log().info("Selected Option '" + option + "'");
+            ExtentReport.getTest().log(Status.INFO, "Selected Option '" + option + "'");
         }
         catch (Exception e) {
             e.printStackTrace();
             utils.log().info("Error: Unable to click Option '" + option + "'");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Option '"+option+"'");
-            throw new Exception("Error: Unable to click Option '"+option+"'");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Option '" + option + "'");
+            throw new Exception("Error: Unable to click Option '" + option + "'");
+        }
+        return this;
+    }
+
+    public LoginPage clickAttemptAssessmentAgainButton(String attemptNumber) throws Exception {
+        try {
+            getDriver().findElementByAccessibilityId("Attempt again(" + attemptNumber + ")").click();
+            utils.log().info("Attempt again(" + attemptNumber + ") Button");
+            ExtentReport.getTest().log(Status.INFO, "Attempt again(" + attemptNumber + ") Button");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Attempt again(" + attemptNumber + ") Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Attempt again(" + attemptNumber + ") Button");
+            throw new Exception("Error: Unable to click Attempt again(" + attemptNumber + ") Button");
         }
         return this;
     }
@@ -536,6 +660,22 @@ public class LoginPage extends BaseTest {
             utils.log().info("Error: Unable to click Assessment Summary Button");
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Assessment Summary Button");
             throw new Exception("Error: Unable to click Assessment Summary Button");
+        }
+        return this;
+    }
+
+    public LoginPage clickBackButtonOnAssessmentSummaryPage() throws Exception {
+        try {
+            Thread.sleep(5000);
+            click(backButtonOnAssessmentSummaryPage);
+            utils.log().info("Clicked Back Button on Assessment Summary Page");
+            ExtentReport.getTest().log(Status.INFO, "Clicked Back Button on Assessment Summary Page");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Back Button on Assessment Summary Page");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Back Button on Assessment Summary Page");
+            throw new Exception("Error: Unable to click Back Button on Assessment Summary Page");
         }
         return this;
     }
@@ -567,6 +707,109 @@ public class LoginPage extends BaseTest {
             utils.log().info("Error: Unable to click View Certificate Button");
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to click View Certificate Button");
             throw new Exception("Error: Unable to click View Certificate Button");
+        }
+        return this;
+    }
+
+    public LoginPage clickDownloadButton() throws Exception {
+        try {
+            click(downloadButton);
+            utils.log().info("Clicked on Download Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Download Button");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Download Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Download Button");
+            throw new Exception("Error: Unable to click Download Button");
+        }
+        return this;
+    }
+
+    public LoginPage downloadCertificateButton() throws Exception {
+        try {
+            click(downloadCertificateButton);
+            utils.log().info("Clicked on Download Certificate Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Download Certificate Button");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Download Certificate Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Download Certificate Button");
+            throw new Exception("Error: Unable to click Download Certificate Button");
+        }
+        return this;
+    }
+
+    public LoginPage downloadCertificateImage() throws Exception {
+        try {
+            downloadCertificateButton();
+            click(certificateExportAsImage);
+            utils.log().info("Clicked on Export as Image Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Export as Image Button");
+            isFileAlreadyPresent();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Export as Image Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Export as Image Button");
+            throw new Exception("Error: Unable to click Export as Image Button");
+        }
+        return this;
+    }
+
+    public LoginPage downloadCertificatePDF() throws Exception {
+        try {
+            downloadCertificateButton();
+            click(certificateExportAsPDF);
+            utils.log().info("Clicked on Export as PDF Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Export as PDF Button");
+            isFileAlreadyPresent();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Export as PDF Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Export as PDF Button");
+            throw new Exception("Error: Unable to click Export as PDF Button");
+        }
+        return this;
+    }
+
+    public boolean isFileAlreadyPresent() throws Exception {
+        try {
+            if(getDriver().findElementsById("com.android.chrome:id/button_primary").size()>0) {
+                click(downloadButtonChrome);
+                utils.log().info("Clicked on Download Button");
+                ExtentReport.getTest().log(Status.INFO, "Clicked on Download Button");
+                utils.log().info("This file with same name is already present in downloads, Downloaded Again");
+                ExtentReport.getTest().log(Status.INFO, "This file with same name is already present in downloads, Downloaded Again");
+                return true;
+            }
+            else {
+                utils.log().info("File is Downloaded Successfully!");
+                ExtentReport.getTest().log(Status.INFO, "File is Downloaded Successfully!");
+                return false;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Download Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Download Button");
+            throw new Exception("Error: Unable to click Download Button");
+        }
+    }
+
+    public LoginPage clickBackToCourseButton() throws Exception {
+        try {
+            click(backToCourseButton);
+            utils.log().info("Clicked on Back to Course Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Back to Course Button");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Back to Course Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Back to Course Button");
+            throw new Exception("Error: Unable to click Back to Course Button");
         }
         return this;
     }
@@ -648,21 +891,6 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage clickDoneButtonInAppBrowser() throws Exception {
-        try {
-            click(doneButtonInAppBrowser);
-            utils.log().info("Clicked Go Back Button");
-            ExtentReport.getTest().log(Status.INFO, "Clicked Go Back Button");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            utils.log().info("Error: Unable to click Done Button");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Done Button");
-            throw new Exception("Error: Unable to click Done Button");
-        }
-        return this;
-    }
-
     /*****************
         Validations
      *****************/
@@ -676,6 +904,23 @@ public class LoginPage extends BaseTest {
             utils.log().info("Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
             return false;
+    }
+
+    public boolean validateAssessmentStatus() throws Exception {
+        if(getDriver().findElementsByAccessibilityId("Awesome!!!!!").size() > 0) {
+            // Congratulations!! You have passed the assessment. Your Certificate is awaiting!!!
+            utils.log().info("Required Assessment Status(Pass) validated Successfully!");
+            ExtentReport.getTest().log(Status.INFO, "Required Assessment Status(Pass) validated Successfully!");
+            return true;
+        } else if(getDriver().findElementsByAccessibilityId("Uhoh!! You didn't pass").size() > 0) {
+            utils.log().info("Required Assessment Status(Fail) validated Successfully!");
+            ExtentReport.getTest().log(Status.INFO, "Required Assessment Status(Fail) validated Successfully!");
+            return false;
+        } else {
+            utils.log().info("Error: Something went wrong while validating Assessment Status!");
+            ExtentReport.getTest().log(Status.INFO, "Error: Something went wrong while validating Assessment Status!");
+            return false;
+        }
     }
 
     public boolean isNoResultFound() throws Exception {
@@ -754,6 +999,7 @@ public class LoginPage extends BaseTest {
     }
 
     public LoginPage scroll() throws Exception {
+        Thread.sleep(4000);
         TouchAction action = new TouchAction(getDriver());
         /*
         xOffset = startScrollingFromX

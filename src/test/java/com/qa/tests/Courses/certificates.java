@@ -31,9 +31,9 @@ public class certificates extends BaseTest {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(loginData.get("padmin").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner1").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword(loginData.get("password").toString());
+            loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80760");
@@ -76,12 +76,12 @@ public class certificates extends BaseTest {
         try {
             LoginPage loginPage = new LoginPage();
             if(platformName.equals("iOS")) {
-                loginPage.iOSPermissions();
+                iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(loginData.get("learner1").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner1").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword(loginData.get("password").toString());
+            loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 81218");
@@ -91,16 +91,39 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickNextLesson();
             loginPage.clickCompleteButton();
+            loginPage.clickViewCertificate();
             if(!platformName.equals("iOS")) {
-                loginPage.clickViewCertificate();
+                loginPage.downloadCertificateImage();
+                loginPage.downloadCertificateImage();/****/
+                loginPage.downloadCertificatePDF();
+                loginPage.downloadCertificatePDF();
+                loginPage.pressBackButtonFromMobile();
+                loginPage.clickBackButtonOnViewCertificatePage();
             }
-            loginPage.clickBackButtonOnViewCertificatePage();
+            else {
+                launchApp();
+                iOSPermissions();
+                loginPage.clickSignInBtn();
+                loginPage.enterLoginEmail(platformName, loginData.get("learner1").toString());
+                loginPage.clickContinue();
+                loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
+                loginPage.clickContinue();
+                loginPage.scroll();
+                loginPage.viewSpecificCourse("Course 81218");
+                loginPage.clickCompletedButton();
+                loginPage.clickNextLesson();
+                loginPage.clickNextLesson();
+                loginPage.clickCompleteButton();
+                loginPage.clickViewCertificate();
+                loginPage.clickDownloadButton();
+                loginPage.clickBackToCourseButton();
+            }
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             loginPage.clickBackButtonOnCourseDetailsPage();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 81218");
             Assert.assertTrue(loginPage.isNoResultFound());
-            // https://auzmorhr.testrail.io/index.php?/cases/view/81218
+            // https://auzmorhr.testrail.io/index.php?/cases/view/80760
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -123,29 +146,55 @@ public class certificates extends BaseTest {
         try {
             LoginPage loginPage = new LoginPage();
             if(platformName.equals("iOS")) {
-                loginPage.iOSPermissions();
+                iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(loginData.get("learner1").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("padmin").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword(loginData.get("password").toString());
-            loginPage.clickShowPasswordButton();
-            loginPage.clickHidePasswordButton();
-            loginPage.clickForgotPassword();
+            loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80773");
             loginPage.viewSpecificCourse("Course 80773");
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
+            loginPage.clickNextLesson();
             loginPage.clickTakeAssessment();
             loginPage.clickTakeAssessment();
-            loginPage.answerSingleChoiceQuestion(testData.get("a").toString());
+            loginPage.answerSingleChoiceQuestion("a");
             loginPage.clickCompleteAssessment();
+            loginPage.clickAssessmentSummary();
+            loginPage.clickBackButtonOnAssessmentSummaryPage();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
-            loginPage.pressBackButtonFromMobile();
-            loginPage.clickBackToCoursesButton();
+            if(!platformName.equals("iOS")) {
+                loginPage.downloadCertificateImage();
+                loginPage.downloadCertificateImage();/****/
+                loginPage.downloadCertificatePDF();
+                loginPage.downloadCertificatePDF();
+                loginPage.pressBackButtonFromMobile();
+                loginPage.clickBackButtonOnViewCertificatePage();
+            }
+            else {
+                launchApp();
+                iOSPermissions();
+                loginPage.clickSignInBtn();
+                loginPage.enterLoginEmail(platformName, loginData.get("padmin").toString());
+                loginPage.clickContinue();
+                loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
+                loginPage.clickContinue();
+                loginPage.scroll();
+                loginPage.viewSpecificCourse("Course 80773");
+                loginPage.clickCompletedButton();
+                loginPage.clickNextLesson();
+                loginPage.clickNextLesson();
+                loginPage.clickCompleteButton();
+                loginPage.clickViewCertificate();
+                loginPage.clickDownloadButton();
+                loginPage.clickBackToCourseButton();
+            }
+            Assert.assertTrue(loginPage.isCompletedButtonPresent());
+            loginPage.clickBackButtonOnCourseDetailsPage();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80773");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -172,82 +221,76 @@ public class certificates extends BaseTest {
         try {
             LoginPage loginPage = new LoginPage();
             if(platformName.equals("iOS")) {
-                loginPage.iOSPermissions();
+                iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(loginData.get("learner1").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("padmin").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword(loginData.get("password").toString());
-            loginPage.clickShowPasswordButton();
-            loginPage.clickHidePasswordButton();
-            loginPage.clickForgotPassword();
+            loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80777");
             loginPage.viewSpecificCourse("Course 80777");
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
+            loginPage.clickNextLesson();
             loginPage.clickTakeAssessment();
             loginPage.clickTakeAssessment();
-            loginPage.answerSingleChoiceQuestion(testData.get("b").toString()); // Correct Answer: 'a'
+            loginPage.answerSingleChoiceQuestion("b");
             loginPage.clickCompleteAssessment();
+            Assert.assertFalse(loginPage.validateAssessmentStatus());
+            loginPage.clickAssessmentSummary();
+            loginPage.clickBackButtonOnAssessmentSummaryPage();
+            loginPage.clickProceed();
+            loginPage.viewSpecificCourse("Course 80777");
+            loginPage.clickResumeButton();
+            loginPage.clickNextLesson();
+            loginPage.clickTakeAssessment();
+            loginPage.clickTakeAssessment();
+            loginPage.answerSingleChoiceQuestion("a");
+            loginPage.clickCompleteAssessment();
+            Assert.assertTrue(loginPage.validateAssessmentStatus());
+            loginPage.clickAssessmentSummary();
+            loginPage.clickBackButtonOnAssessmentSummaryPage();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
-            loginPage.pressBackButtonFromMobile();
-            loginPage.clickBackToCoursesButton();
+            if(!platformName.equals("iOS")) {
+                loginPage.downloadCertificateImage();
+                loginPage.downloadCertificateImage();/****/
+                loginPage.downloadCertificatePDF();
+                loginPage.downloadCertificatePDF();
+                loginPage.pressBackButtonFromMobile();
+                loginPage.clickBackButtonOnViewCertificatePage();
+            }
+            else {
+                launchApp();
+                iOSPermissions();
+                loginPage.clickSignInBtn();
+                loginPage.enterLoginEmail(platformName, loginData.get("padmin").toString());
+                loginPage.clickContinue();
+                loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
+                loginPage.clickContinue();
+                loginPage.scroll();
+                loginPage.clickCompletedButton();
+                loginPage.clickNextLesson();
+                loginPage.clickNextLesson();
+                loginPage.clickCompleteButton();
+                loginPage.clickViewCertificate();
+                loginPage.clickDownloadButton();
+                loginPage.clickBackToCourseButton();
+            }
+            Assert.assertTrue(loginPage.isCompletedButtonPresent());
+            loginPage.clickBackButtonOnCourseDetailsPage();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80777");
             Assert.assertTrue(loginPage.isNoResultFound());
-            // https://auzmorhr.testrail.io/index.php?/cases/view/80777
+            // https://auzmorhr.testrail.io/index.php?/cases/view/80773
         }
         catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
     }// 80777
-
-    @Parameters({"platformName"})
-    @Test
-    @Description("Learner - Able to complete the course with admin evaluated assessment and with certificate")
-    public void adminEvaluatedAssessmentWithCertificate(String platformName) throws  Exception {
-        /*
-        Requirements:
-            Name: Course 81188
-            lessons: 1
-            certificate: yes
-            assessment: yes(admin evaluation)
-            access: public
-        */
-        try {
-            LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
-                loginPage.iOSPermissions();
-            }
-            loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(loginData.get("learner1").toString());
-            loginPage.clickContinue();
-            loginPage.enterLoginPassword(loginData.get("password").toString());
-            loginPage.clickShowPasswordButton();
-            loginPage.clickHidePasswordButton();
-            loginPage.clickForgotPassword();
-            loginPage.clickContinue();
-            loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 81188");
-            loginPage.viewSpecificCourse("Course 81188");
-            loginPage.clickEnrollNow();
-            loginPage.clickStartCourse();
-            loginPage.clickCompleteButton();
-            loginPage.clickBackToCoursesButton();
-            loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 81188");
-            Assert.assertTrue(loginPage.isNoResultFound());
-            // https://auzmorhr.testrail.io/index.php?/cases/view/81188
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-            Assert.fail(e.getMessage());
-        }
-    }// 81188
 
     @Parameters({"platformName"})
     @Test
@@ -264,23 +307,52 @@ public class certificates extends BaseTest {
         try {
             LoginPage loginPage = new LoginPage();
             if(platformName.equals("iOS")) {
-                loginPage.iOSPermissions();
+                iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(loginData.get("learner1").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("padmin").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword(loginData.get("password").toString());
-            loginPage.clickShowPasswordButton();
-            loginPage.clickHidePasswordButton();
-            loginPage.clickForgotPassword();
+            loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80778");
             loginPage.viewSpecificCourse("Course 80778");
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
-            loginPage.clickCompleteButton();
-            loginPage.clickBackToCoursesButton();
+            loginPage.clickNextLesson();
+            loginPage.clickTakeAssessment();
+            loginPage.clickSkipAssessment();
+            loginPage.clickBackButton();
+            loginPage.clickSkipAssessment();
+            loginPage.clickSkipButton();
+            loginPage.clickViewCertificate();
+            if(!platformName.equals("iOS")) {
+                loginPage.downloadCertificateImage();
+                loginPage.downloadCertificateImage();/****/
+                loginPage.downloadCertificatePDF();
+                loginPage.downloadCertificatePDF();
+                loginPage.pressBackButtonFromMobile();
+                loginPage.clickBackButtonOnViewCertificatePage();
+            }
+            else {
+                launchApp();
+                iOSPermissions();
+                loginPage.clickSignInBtn();
+                loginPage.enterLoginEmail(platformName, loginData.get("padmin").toString());
+                loginPage.clickContinue();
+                loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
+                loginPage.clickContinue();
+                loginPage.scroll();
+                loginPage.clickCompletedButton();
+                loginPage.clickNextLesson();
+                loginPage.clickNextLesson();
+                loginPage.clickCompleteButton();
+                loginPage.clickViewCertificate();
+                loginPage.clickDownloadButton();
+                loginPage.clickBackToCourseButton();
+            }
+            Assert.assertTrue(loginPage.isCompletedButtonPresent());
+            loginPage.clickBackButtonOnCourseDetailsPage();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80778");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -307,23 +379,59 @@ public class certificates extends BaseTest {
         try {
             LoginPage loginPage = new LoginPage();
             if(platformName.equals("iOS")) {
-                loginPage.iOSPermissions();
+                iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(loginData.get("learner1").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("padmin").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword(loginData.get("password").toString());
-            loginPage.clickShowPasswordButton();
-            loginPage.clickHidePasswordButton();
-            loginPage.clickForgotPassword();
+            loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80779");
             loginPage.viewSpecificCourse("Course 80779");
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
-            loginPage.clickCompleteButton();
-            loginPage.clickBackToCoursesButton();
+            loginPage.clickNextLesson();
+            loginPage.clickTakeAssessment();
+            loginPage.clickTakeAssessment();
+            loginPage.answerSingleChoiceQuestion("b");
+            loginPage.clickCompleteAssessment();
+            Assert.assertFalse(loginPage.validateAssessmentStatus());
+            loginPage.clickAssessmentSummary();
+            loginPage.clickBackButtonOnAssessmentSummaryPage();
+            loginPage.clickProceed();
+            /****/
+            // Bug/Active Thread
+            /*
+            loginPage.clickViewCertificate();
+            if(!platformName.equals("iOS")) {
+                loginPage.downloadCertificateImage();
+                loginPage.downloadCertificateImage();
+                loginPage.downloadCertificatePDF();
+                loginPage.downloadCertificatePDF();
+                loginPage.pressBackButtonFromMobile();
+                loginPage.clickBackButtonOnViewCertificatePage();
+            }
+            else {
+                launchApp();
+                iOSPermissions();
+                loginPage.clickSignInBtn();
+                loginPage.enterLoginEmail(platformName, loginData.get("padmin").toString());
+                loginPage.clickContinue();
+                loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
+                loginPage.clickContinue();
+                loginPage.scroll();
+                loginPage.clickCompletedButton();
+                loginPage.clickNextLesson();
+                loginPage.clickNextLesson();
+                loginPage.clickCompleteButton();
+                loginPage.clickViewCertificate();
+                loginPage.clickDownloadButton();
+                loginPage.clickBackToCourseButton();
+            }
+            Assert.assertTrue(loginPage.isCompletedButtonPresent());
+            loginPage.clickBackButtonOnCourseDetailsPage();
+            */
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80779");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -350,23 +458,52 @@ public class certificates extends BaseTest {
         try {
             LoginPage loginPage = new LoginPage();
             if(platformName.equals("iOS")) {
-                loginPage.iOSPermissions();
+                iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(loginData.get("learner1").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("padmin").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword(loginData.get("password").toString());
-            loginPage.clickShowPasswordButton();
-            loginPage.clickHidePasswordButton();
-            loginPage.clickForgotPassword();
+            loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80780");
             loginPage.viewSpecificCourse("Course 80780");
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
-            loginPage.clickCompleteButton();
-            loginPage.clickBackToCoursesButton();
+            loginPage.clickNextLesson();
+            loginPage.clickTakeAssessment();
+            loginPage.clickSkipAssessment();
+            loginPage.clickBackButton();
+            loginPage.clickSkipAssessment();
+            loginPage.clickSkipButton();
+            loginPage.clickViewCertificate();
+            if(!platformName.equals("iOS")) {
+                loginPage.downloadCertificateImage();
+                loginPage.downloadCertificateImage();/****/
+                loginPage.downloadCertificatePDF();
+                loginPage.downloadCertificatePDF();
+                loginPage.pressBackButtonFromMobile();
+                loginPage.clickBackButtonOnViewCertificatePage();
+            }
+            else {
+                launchApp();
+                iOSPermissions();
+                loginPage.clickSignInBtn();
+                loginPage.enterLoginEmail(platformName, loginData.get("padmin").toString());
+                loginPage.clickContinue();
+                loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
+                loginPage.clickContinue();
+                loginPage.scroll();
+                loginPage.clickCompletedButton();
+                loginPage.clickNextLesson();
+                loginPage.clickNextLesson();
+                loginPage.clickCompleteButton();
+                loginPage.clickViewCertificate();
+                loginPage.clickDownloadButton();
+                loginPage.clickBackToCourseButton();
+            }
+            Assert.assertTrue(loginPage.isCompletedButtonPresent());
+            loginPage.clickBackButtonOnCourseDetailsPage();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80780");
             Assert.assertTrue(loginPage.isNoResultFound());

@@ -10,7 +10,7 @@
     <parameter name="udid" value ="BA1A9176-2735-435F-A766-9294AD224177"/>
     <test name="iOS" >
         <classes>
-            <class name="com.qa.tests.debug"/>
+            <class name="com.qa.tests.Courses.certificates"/>
         </classes>
         <listeners>
             <listener class-name="com.qa.listeners.TestListener"/>

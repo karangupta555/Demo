@@ -11,6 +11,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -23,6 +24,7 @@ import org.apache.logging.log4j.ThreadContext;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -325,9 +327,10 @@ public class BaseTest {
 
     @Parameters({"envID"})
     @BeforeMethod
-    public void beforeMethod (String envID) {
+    public void beforeMethod (String envID) throws InterruptedException {
         if(envID.equals("local")) {
             launchApp();
+            Thread.sleep(5000);
             ((CanRecordScreen) getDriver()).startRecordingScreen();
             utils.log().info("'beforeMethod' Executed for Local");
         } else {
