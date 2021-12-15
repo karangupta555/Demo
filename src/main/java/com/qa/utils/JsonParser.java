@@ -24,4 +24,8 @@ public class JsonParser {
     public static JSONObject getLoginData() {
         return(JSONObject)JsonParser.parse("data/loginData.json");
     }
+
+    public static JSONObject getDevicesData(String platformName) {
+        return new JSONObject(JsonParser.parse("data/devices.json").getJSONObject(platformName).toString());
+    }
 }

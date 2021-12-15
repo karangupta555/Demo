@@ -1,17 +1,13 @@
 package com.qa;
 
-import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import com.qa.pages.LoginPage;
 import com.qa.reports.ExtentReport;
-import com.qa.utils.JsonParser;
 import com.qa.utils.StringParser;
 import com.qa.utils.TestUtils;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -24,10 +20,7 @@ import org.apache.logging.log4j.ThreadContext;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -187,9 +180,9 @@ public class BaseTest {
         return AppiumDriverLocalService.buildDefaultService();
     }
 
-    @Parameters({"envID", "deviceID", "emulator", "platformName", "udid", "deviceName", "systemPort", "chromeDriver", "wdaLocalPort", "webkitDebugProxyPort"})
+    @Parameters({"envID", "emulator", "platformName", "udid", "deviceName", "systemPort", "chromeDriver", "wdaLocalPort", "webkitDebugProxyPort"})
     @BeforeTest(alwaysRun = true)
-    public void beforeTest(@Optional("iOSOnly") String envID, String deviceID, String emulator, String platformName, String udid, String deviceName, @Optional("androidOnly") String systemPort, @Optional("androidOnly") String chromeDriverPort,
+    public void beforeTest(@Optional("iOSOnly") String envID, String emulator, String platformName, String udid, String deviceName, @Optional("androidOnly") String systemPort, @Optional("androidOnly") String chromeDriverPort,
                            @Optional("iOSOnly") String wdaLocalPort, @Optional("iOSOnly") String webkitDebugProxyPort) throws Exception {
 
         if (envID.equals("local")) {
@@ -241,7 +234,7 @@ public class BaseTest {
                         desiredCapabilities.setCapability("autoGrantPermissions", true);
                         desiredCapabilities.setCapability(MobileCapabilityType.APP, androidAppUrl);
                         driver = new AndroidDriver(url, desiredCapabilities);
-                        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+                        driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
                         break;
                     }
                     case "iOS": {
@@ -250,7 +243,7 @@ public class BaseTest {
                         desiredCapabilities.setCapability("wdaLocalPort", props.getProperty("wdaLocalPort"));
                         desiredCapabilities.setCapability(MobileCapabilityType.APP, iOSAppUrl);
                         driver = new IOSDriver(url, desiredCapabilities);
-                        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+                        driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
                         break;
                     }
                     default:
@@ -270,7 +263,8 @@ public class BaseTest {
             utils.log().info("'beforeTest' Executed for Local");
         } else {
             // Driver Initialization for Remote(SauceLabs)
-            DriverManager.initializeDriver(envID, deviceID);
+            DriverManager objSauceLabs = new DriverManager();
+            objSauceLabs.initializeSauceLabsDriver(platformName);
             utils.log().info("'beforeTest' Executed for Remote");
         }
     }
@@ -345,6 +339,7 @@ public class BaseTest {
             String media = ((CanRecordScreen) getDriver()).stopRecordingScreen();
             Map<String, String> params = result.getTestContext().getCurrentXmlTest().getAllParameters();
             String dir = "videos" + File.separator + params.get("platformName") + "_" + params.get("platformVersion") + "_" + params.get("deviceName") + File.separator + getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName();
+            /****/
             File videoDir = new File(dir);
             synchronized (videoDir) {
                 if (!videoDir.exists()) {
@@ -353,6 +348,7 @@ public class BaseTest {
             }
             FileOutputStream stream = new FileOutputStream(videoDir + File.separator + result.getName() + ".mp4");
             stream.write(Base64.decodeBase64(media));
+            closeApp();
             utils.log().info("'afterMethod' Executed for Local");
         }else {
             utils.log().info("'afterMethod' Executed for Remote");

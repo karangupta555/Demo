@@ -5,26 +5,15 @@ import com.qa.BaseTest;
 import com.qa.reports.ExtentReport;
 import com.qa.utils.TestUtils;
 import io.appium.java_client.*;
-import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
-import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
-import org.apache.http.impl.client.StandardHttpRequestRetryHandler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Parameters;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.HashMap;
 
@@ -414,14 +403,14 @@ public class LoginPage extends BaseTest {
             textBox.clear();/****/
             getDriver().getKeyboard().sendKeys(courseName);
             utils.log().info("Searched Course: '" + courseName + "'");
-            ExtentReport.getTest().log(Status.INFO, "Searched Course: " + courseName);
+            ExtentReport.getTest().log(Status.INFO, "Searched Course: '" + courseName + "'");
             getDriver().hideKeyboard();
         }
         catch (Exception e){
             e.printStackTrace();
-            utils.log().info("Error: Search Course Failed!");
-            ExtentReport.getTest().log(Status.INFO, "Error: Search Course Failed!");
-            throw new Exception("Error: Search Course Failed!");
+            utils.log().info("Error: Searching Course Failed!");
+            ExtentReport.getTest().log(Status.INFO, "Error: Searching Course Failed!");
+            throw new Exception("Error: Searching Course Failed!");
         }
         return this;
     }
@@ -429,6 +418,9 @@ public class LoginPage extends BaseTest {
     public LoginPage viewSpecificCourse(String courseName) throws Exception {
         try {
             getDriver().findElementByAccessibilityId(courseName).click();
+            // org.openqa.selenium.StaleElementReferenceException: The previously found element ""Course 81218" Other" is not present in the current view anymore. Make sure the application UI has the expected state. You could also try to switch the binding strategy using the 'boundElementsByIndex' setting for the element lookup. Original error: No matches found for Identity Binding from input {(
+            //    Other, {{26.0, 107.0}, {188.0, 188.0}}, label: 'Course 81218'
+            //)}
             utils.log().info("Clicked on '" + courseName+"' Course");
             ExtentReport.getTest().log(Status.INFO, "Clicked on '"+courseName+"' Course");
         }
@@ -503,7 +495,7 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickNextLesson() throws Exception {
         try {
-            Thread.sleep(1000);
+            // getDriver().findElementByAccessibilityId("Next lesson").click();
             click(nextLessonButton);
             utils.log().info("Clicked on Next Lesson Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Next Lesson Button");
@@ -519,6 +511,7 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickTakeAssessment() throws Exception {
         try {
+            //getDriver().findElementByAccessibilityId("Take assessment").click();
             click(takeAssessmentButton);
             utils.log().info("Clicked on Take Assessment Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Take Assessment Button");
@@ -591,6 +584,7 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickCompleteAssessment() throws Exception {
         try {
+            Thread.sleep(3000);
             click(completeAssessmentButton);
             utils.log().info("Clicked on Complete Assessment Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Assessment Button");
@@ -666,7 +660,6 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickBackButtonOnAssessmentSummaryPage() throws Exception {
         try {
-            Thread.sleep(5000);
             click(backButtonOnAssessmentSummaryPage);
             utils.log().info("Clicked Back Button on Assessment Summary Page");
             ExtentReport.getTest().log(Status.INFO, "Clicked Back Button on Assessment Summary Page");
@@ -862,7 +855,6 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickBackButtonOnCourseDetailsPage() throws Exception {
         try {
-            Thread.sleep(5000);
             click(backButtonOnCourseDetailsPage);
             utils.log().info("Clicked Back Button in Course Details");
             ExtentReport.getTest().log(Status.INFO, "Clicked Back Button in Course Details");

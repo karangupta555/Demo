@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite parallel="tests" name="Suite">
-    <parameter name="envID" value="local"/>
+    <parameter name="envID" value="remote"/>
     <parameter name="platformName" value="iOS"/>
     <parameter name="emulator" value="true"/>
     <parameter name="deviceName" value="iPhone12ProMax"/>
     <parameter name="wdaLocalPort" value="10001"/>
     <parameter name="webkitDebugProxyPort" value="11001"/>
-    <parameter name="deviceID" value="2"/>
     <parameter name="udid" value ="BA1A9176-2735-435F-A766-9294AD224177"/>
     <test name="iOS" >
         <classes>

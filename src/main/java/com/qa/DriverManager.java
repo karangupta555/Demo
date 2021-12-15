@@ -1,50 +1,57 @@
 package com.qa;
 
+import com.qa.utils.JsonParser;
+import io.appium.java_client.remote.MobileCapabilityType;
+import org.json.JSONObject;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.InputStream;
 import java.net.URL;
+import java.lang.*;
+import java.util.Properties;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 
-public class DriverManager{
+public class DriverManager extends BaseTest {
 
-    public static void initializeDriver (String envID, String deviceID) throws Exception {
+    public void initializeSauceLabsDriver(String platformName) throws Exception {
         BaseTest objBaseTest = new BaseTest();
+        JSONObject deviceData = JsonParser.getDevicesData(platformName);
+
         AppiumDriver driver;
 
-        DesiredCapabilities caps = new DesiredCapabilities();
+        Properties props = new Properties();
+        String propFileName = "config.properties";
+        props.load((InputStream)getClass().getClassLoader().getResourceAsStream(propFileName));
+        setProps(props);
 
-        String userName = "oauth-gojur.ravikanth-77299";
-        String accessKey = "2f1b6b64-c96a-4242-979b-42c6516c21d8";
-        URL url = new URL("https://" + userName + ":" + accessKey + "@ondemand.eu-central-1.saucelabs.com:443/wd/hub");
+        String userName = props.getProperty("sauceLabsUserName");
+        String accessKey = props.getProperty("sauceLabsAccessKey");
 
-        caps.setCapability("device", /*deviceObj.getString("device")*/"Samsung Galaxy S9");
-        caps.setCapability("os_version", /*deviceObj.getString("os_version")*/"9");
-        caps.setCapability("project", "LMSMobile");
-        caps.setCapability("build", "1.0.4");
-        caps.setCapability("name", "Sample Test Run");
-        caps.setCapability("autoGrantPermissions", true);
+        URL url = new URL("https://" + userName + ":" + accessKey + (String)props.getProperty("driverCreationURL"));
 
-        switch (deviceID) {
-            case "1":
-                caps.setCapability("app", /*deviceObj.getString("app_url")*/"storage:6bd8d42c-215c-4599-952b-7fba702ce427");
-                driver = new AndroidDriver(url, caps);
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceData.get("cloudDeviceName").toString());
+        desiredCapabilities.setCapability( MobileCapabilityType.PLATFORM_VERSION, deviceData.get("cloudOSVersion").toString());
+        desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
+        desiredCapabilities.setCapability(MobileCapabilityType.APP, deviceData.get("cloudAppURL").toString());
+        desiredCapabilities.setCapability("build", "1.0.4");
+        desiredCapabilities.setCapability("name", "Sample Test Run");
+        desiredCapabilities.setCapability("autoGrantPermissions", true);
+        desiredCapabilities.setCapability("fullReset", false);
+
+        switch (platformName) {
+            case "Android":
+                driver = new AndroidDriver(url, desiredCapabilities);
                 break;
-            case "2":
-                caps.setCapability("app", /*deviceObj.getString("app_url")*/"storage:dbf85b9a-dce3-428b-87ac-b9ec6ed0f183");
-                driver = new IOSDriver(url, caps);
+            case "iOS":
+                driver = new IOSDriver(url, desiredCapabilities);
                 break;
             default:
-                throw new IllegalStateException("Invalid Device id" + deviceID);
+                throw new IllegalStateException("Invalid Platform id" + platformName);
         }
         objBaseTest.setDriver(driver);
     }
 }
-
-// (netstat -ano|findstr "PID :4723"),  (taskkill /pid enter_pid_here /f)
-// "app_url": "storage:6bd8d42c-215c-4599-952b-7fba702ce427" // lmsAndroid
-// "app_url": "storage:dbf85b9a-dce3-428b-87ac-b9ec6ed0f183" // lmsIOS
-// "app_url": "storage:1c0dd137-09ab-4534-8263-5053d72b2d98" // sauceAndroid
-// "app_url": "storage:81c3825c-d215-424a-bb8f-a648f210d958" // sauceIOS
