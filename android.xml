@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite parallel="tests" name="Suite">
-    <parameter name="envID" value="remote"/>
+    <parameter name="envID" value="local"/>
     <parameter name="platformName" value="Android"/>
     <parameter name="emulator" value="false"/>
     <parameter name="udid" value ="emulator-5554"/>           <!-- emulator-5554, J7AAB76018109TA -->

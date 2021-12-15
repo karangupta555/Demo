@@ -102,9 +102,9 @@ public class BaseTest {
     }
 
 
-    @Parameters({"envID", "platformName"})
+    @Parameters({"envID"})
     @BeforeSuite(alwaysRun = true)
-    public void beforeSuite(String envID, String platformName) throws Exception {
+    public void beforeSuite(String envID) throws Exception {
         if (envID.equals("local")) {
             ThreadContext.put("ROUTINGKEY", "ServerLogs");
             server = getAppiumService("Mac OS X"); // Windows or Mac
@@ -180,92 +180,23 @@ public class BaseTest {
         return AppiumDriverLocalService.buildDefaultService();
     }
 
-    @Parameters({"envID", "emulator", "platformName", "udid", "deviceName", "systemPort", "chromeDriver", "wdaLocalPort", "webkitDebugProxyPort"})
+    @Parameters({"envID", "platformName", "udid", "deviceName"})
     @BeforeTest(alwaysRun = true)
-    public void beforeTest(@Optional("iOSOnly") String envID, String emulator, String platformName, String udid, String deviceName, @Optional("androidOnly") String systemPort, @Optional("androidOnly") String chromeDriverPort,
-                           @Optional("iOSOnly") String wdaLocalPort, @Optional("iOSOnly") String webkitDebugProxyPort) throws Exception {
-
-        if (envID.equals("local")) {
-            setDateTime(utils.dateTime());
-            setPlatform(platformName);
-            setDeviceName(deviceName);
-
-            String strFile = "logs" + File.separator + platformName + "_" + deviceName;
-            File logFile = new File(strFile);
-            if (!logFile.exists()) {
-                logFile.mkdirs();
-            }
-            ThreadContext.put("ROUTINGKEY", strFile);
-            utils.log().info("Log(s) for this Run is initiated at: " + strFile);
-            InputStream inputStream = null;
-            InputStream stringsis = null;
-            try {
-                AppiumDriver driver;
-
-                // Reading Config/TestData files
-                Properties props = new Properties();
-                String propFileName = "config.properties";
-                String xmlFileName = "strings/TestDataValidation.xml";
-                inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-                props.load(inputStream);
-                setProps(props);
-                stringsis = getClass().getClassLoader().getResourceAsStream(xmlFileName);
-                setStrings(utils.parseStringXML(stringsis));
-
-                // App Path(s)
-                String androidAppUrl = (System.getProperty("user.dir") + File.separator + props.getProperty("androidApp")).replace("\\", "/");
-                String iOSAppUrl = (System.getProperty("user.dir") + File.separator + props.getProperty("iOSApp")).replace("\\", "/");
-
-                // Capabilities
-                DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-                desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
-                desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
-                desiredCapabilities.setCapability(MobileCapabilityType.UDID, udid);
-                desiredCapabilities.setCapability("fullReset", false);
-                // desiredCapabilities.setCapability("noReset", true);
-                // desiredCapabilities.setCapability("printPageSourceOnFindFailure", true);
-                // desiredCapabilities.setCapability("autoWebview", true);
-                URL url = new URL(props.getProperty("appiumURL") + "4723/wd/hub");
-
-                switch (platformName) {
-                    case "Android": {
-                        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
-                        desiredCapabilities.setCapability("appPackage", props.getProperty("androidLMSAppPackage"));
-                        desiredCapabilities.setCapability("autoGrantPermissions", true);
-                        desiredCapabilities.setCapability(MobileCapabilityType.APP, androidAppUrl);
-                        driver = new AndroidDriver(url, desiredCapabilities);
-                        driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
-                        break;
-                    }
-                    case "iOS": {
-                        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
-                        desiredCapabilities.setCapability("bundleId", props.getProperty("iOSLMSBundleId"));
-                        desiredCapabilities.setCapability("wdaLocalPort", props.getProperty("wdaLocalPort"));
-                        desiredCapabilities.setCapability(MobileCapabilityType.APP, iOSAppUrl);
-                        driver = new IOSDriver(url, desiredCapabilities);
-                        driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
-                        break;
-                    }
-                    default:
-                        throw new Exception("Invalid Platform! - " + platformName);
-                }
-                setDriver(driver);
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-                if (stringsis != null) {
-                    stringsis.close();
-                }
-            }
-            utils.log().info("'beforeTest' Executed for Local");
-        } else {
-            // Driver Initialization for Remote(SauceLabs)
+    public void beforeTest(String envID, String platformName, String UDID, String deviceName) throws Exception {
+        try {
             DriverManager objSauceLabs = new DriverManager();
-            objSauceLabs.initializeSauceLabsDriver(platformName);
-            utils.log().info("'beforeTest' Executed for Remote");
+            if (envID.equals("local")) {
+                // Driver Initialization for Local
+                objSauceLabs.initializeDriver(platformName, UDID, deviceName);
+                utils.log().info("'beforeTest' Executed for Local");
+            } else {
+                // Driver Initialization for Remote(SauceLabs)
+                objSauceLabs.initializeSauceLabsDriver(platformName);
+                utils.log().info("'beforeTest' Executed for Remote");
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 

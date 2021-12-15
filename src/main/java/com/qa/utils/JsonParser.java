@@ -26,6 +26,6 @@ public class JsonParser {
     }
 
     public static JSONObject getDevicesData(String platformName) {
-        return new JSONObject(JsonParser.parse("data/devices.json").getJSONObject(platformName).toString());
+        return new JSONObject(JsonParser.parse("data/devicesAndConfig.json").getJSONObject(platformName).toString());
     }
 }
