@@ -2,6 +2,7 @@ package com.qa;
 
 import com.qa.utils.JsonParser;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.remote.MobilePlatform;
 import org.apache.logging.log4j.ThreadContext;
 import org.json.JSONObject;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -19,7 +20,7 @@ import io.appium.java_client.ios.IOSDriver;
 
 public class DriverManager extends BaseTest {
 
-    public void initializeDriver(String platformName, String udid, String deviceName) throws Exception {
+    public void initializeLocalDriver(String platformName, String udid, String deviceName) throws Exception {
         JSONObject deviceData = JsonParser.getDevicesData(platformName);
 
         // setting logs
@@ -34,47 +35,33 @@ public class DriverManager extends BaseTest {
         try {
             setPlatform(platformName);
             setDeviceName(deviceName);
-
             AppiumDriver driver;
 
-            // Reading Config/TestData files
-            Properties props = new Properties();
-            String propFileName = "config.properties";
-            String xmlFileName = "strings/TestDataValidation.xml";
-            props.load((InputStream)getClass().getClassLoader().getResourceAsStream(propFileName));
-            setProps(props);
-            setStrings(utils.parseStringXML((InputStream)getClass().getClassLoader().getResourceAsStream(xmlFileName)));
-
-            // App Path(s)
-            String androidAppUrl = (System.getProperty("user.dir") + File.separator + props.getProperty("androidApp")).replace("\\", "/");
-            String iOSAppUrl = (System.getProperty("user.dir") + File.separator + props.getProperty("iOSApp")).replace("\\", "/");
-
+            // App
+            String app = (System.getProperty("user.dir") + File.separator + deviceData.get("app").toString()).replace("\\", "/");
             // Capabilities
             DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
             desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
             desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
             desiredCapabilities.setCapability(MobileCapabilityType.UDID, udid);
+            desiredCapabilities.setCapability(MobileCapabilityType.APP, app);
+            desiredCapabilities.setCapability("appPackage", deviceData.get("appPackage").toString());
             desiredCapabilities.setCapability("fullReset", false);
             // desiredCapabilities.setCapability("noReset", true);
             // desiredCapabilities.setCapability("printPageSourceOnFindFailure", true);
             // desiredCapabilities.setCapability("autoWebview", true);
-            URL url = new URL(props.getProperty("appiumURL") + "4723/wd/hub");
+            URL url = new URL(deviceData.get("appiumURL").toString());
 
             switch (platformName) {
                 case "Android": {
                     desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
-                    desiredCapabilities.setCapability("appPackage", props.getProperty("androidLMSAppPackage"));
                     desiredCapabilities.setCapability("autoGrantPermissions", true);
-                    desiredCapabilities.setCapability(MobileCapabilityType.APP, androidAppUrl);
                     driver = new AndroidDriver(url, desiredCapabilities);
                     driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
                     break;
                 }
                 case "iOS": {
                     desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
-                    desiredCapabilities.setCapability("bundleId", props.getProperty("iOSLMSBundleId"));
-                    desiredCapabilities.setCapability("wdaLocalPort", props.getProperty("wdaLocalPort"));
-                    desiredCapabilities.setCapability(MobileCapabilityType.APP, iOSAppUrl);
                     driver = new IOSDriver(url, desiredCapabilities);
                     driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
                     break;
@@ -88,7 +75,7 @@ public class DriverManager extends BaseTest {
         }
     }
 
-    public void initializeSauceLabsDriver(String platformName) throws Exception {
+    public void initializeCloudDriver(String platformName) throws Exception {
         BaseTest objBaseTest = new BaseTest();
         JSONObject deviceData = JsonParser.getDevicesData(platformName);
 
@@ -106,13 +93,15 @@ public class DriverManager extends BaseTest {
 
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceData.get("cloudDeviceName").toString());
-        desiredCapabilities.setCapability( MobileCapabilityType.PLATFORM_VERSION, deviceData.get("cloudOSVersion").toString());
+        desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, deviceData.get("cloudOSVersion").toString());
         desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
-        desiredCapabilities.setCapability(MobileCapabilityType.APP, deviceData.get("cloudAppURL").toString());
-        desiredCapabilities.setCapability("build", "1.0.4");
+        desiredCapabilities.setCapability("app", deviceData.get("cloudAppURL1").toString());
+        desiredCapabilities.setCapability("build", platformName);
         desiredCapabilities.setCapability("name", "Sample Test Run");
         desiredCapabilities.setCapability("autoGrantPermissions", true);
         desiredCapabilities.setCapability("fullReset", false);
+
+        // cloudAppURL = using from past; cloudAppURL1 = pre-prod(1.0.4); cloudAppURL2 = flutter-changes debug
 
         switch (platformName) {
             case "Android":

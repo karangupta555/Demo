@@ -5,6 +5,7 @@ import com.qa.BaseTest;
 import com.qa.reports.ExtentReport;
 import com.qa.utils.TestUtils;
 import io.appium.java_client.*;
+import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.appium.java_client.touch.WaitOptions;
@@ -12,10 +13,15 @@ import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
@@ -206,13 +212,16 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Cancel")
     private MobileElement cancel;
 
+    // driver.findElement(By.xpath("//android.widget.EditText[contains(@resource-id='phone')]")).sendKeys("9632642105");
+    // By.xpath("//android.widget.TextView[contains(@text,'Sign in')]")
+
     public LoginPage clickSignInBtn() throws Exception {
         try {
             click(signInButton);
             utils.log().info("Clicked SignIn Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked SignIn Button");
         }
-        catch (Exception e){
+        catch (Exception e) {
             e.printStackTrace();
             utils.log().info("Error: Unable to Click SignIn Button");
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click SignIn Button");
@@ -227,9 +236,9 @@ public class LoginPage extends BaseTest {
                 sendKeys(textBox, username);
             }
             else {
+                Thread.sleep(4000);
                 getDriver().getKeyboard().sendKeys(username); // Entering from keyboard
             }
-            //sendKeys(textBox, username);
             utils.log().info("Entered userName/Email: '" + username + "'");
             ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: " + username + "'");
         }
@@ -248,6 +257,7 @@ public class LoginPage extends BaseTest {
                 sendKeys(textBox, password);
             }
             else {
+                Thread.sleep(4000);
                 getDriver().getKeyboard().sendKeys(password); // Entering from keyboard
             }
             utils.log().info("Entered Password: " + password + "'");
@@ -1133,6 +1143,16 @@ public class LoginPage extends BaseTest {
     }
 }
 
-// https://kobiton.com/book/chapter-11-automating-gestures
-// http://appium.io/docs/en/writing-running-appium/tutorial/swipe-tutorial/
-// https://www.google.com/search?q=swiping+actions+on+appium+app+automtion&oq=swiping+actions+on+appium+app+automtion&aqs=chrome..69i57j33i10i160.15882j0j1&sourceid=chrome&ie=UTF-8
+
+//textBox.setValue(username);
+//textBox.sendKeys(username);
+//getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+//getDriver().findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.EditText[@text='Enter email ID or username']")).sendKeys(username);
+//getDriver().getKeyboard().sendKeys(username);
+
+//List<WebElement> editText = getDriver().findElements(By.className("android.widget.EditText"));
+//editText.get(0).sendKeys(username);
+
+//new WebDriverWait(getDriver(),30).until(ExpectedConditions.elementToBeClickable(textBox)).sendKeys(username);
+//Thread.sleep(4000);
+//sendKeys(textBox, username);

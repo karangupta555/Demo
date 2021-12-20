@@ -2,6 +2,7 @@ package com.qa;
 
 import com.aventstack.extentreports.Status;
 import com.qa.reports.ExtentReport;
+import com.qa.utils.JsonParser;
 import com.qa.utils.StringParser;
 import com.qa.utils.TestUtils;
 import io.appium.java_client.AppiumDriver;
@@ -184,14 +185,14 @@ public class BaseTest {
     @BeforeTest(alwaysRun = true)
     public void beforeTest(String envID, String platformName, String UDID, String deviceName) throws Exception {
         try {
-            DriverManager objSauceLabs = new DriverManager();
+            DriverManager objDriver = new DriverManager();
             if (envID.equals("local")) {
                 // Driver Initialization for Local
-                objSauceLabs.initializeDriver(platformName, UDID, deviceName);
+                objDriver.initializeLocalDriver(platformName, UDID, deviceName);
                 utils.log().info("'beforeTest' Executed for Local");
             } else {
                 // Driver Initialization for Remote(SauceLabs)
-                objSauceLabs.initializeSauceLabsDriver(platformName);
+                objDriver.initializeCloudDriver(platformName);
                 utils.log().info("'beforeTest' Executed for Remote");
             }
         }
@@ -203,10 +204,10 @@ public class BaseTest {
     @Parameters({"envID"})
     @AfterTest(alwaysRun = true)
     public void quit(@Optional String envID) {
+        if (getDriver() != null) {
+            getDriver().quit();
+        }
         if (envID.equals("local")) {
-            if (getDriver() != null) {
-                getDriver().quit();
-            }
             utils.log().info("'afterTest' Executed for Local");
         } else {
             utils.log().info("'afterTest' Executed for Remote");
@@ -253,9 +254,8 @@ public class BaseTest {
     @Parameters({"envID"})
     @BeforeMethod
     public void beforeMethod (String envID) throws InterruptedException {
+        launchApp();
         if(envID.equals("local")) {
-            launchApp();
-            Thread.sleep(5000);
             ((CanRecordScreen) getDriver()).startRecordingScreen();
             utils.log().info("'beforeMethod' Executed for Local");
         } else {
@@ -263,14 +263,14 @@ public class BaseTest {
         }
     }
 
-    @Parameters({"envID"})
+    @Parameters({"envID", "platformName"})
     @AfterMethod
-    public synchronized void afterMethod (ITestResult result, String envID) throws IOException {
+    public synchronized void afterMethod (ITestResult result, String envID, String platformName) throws Exception {
+        closeApp();
         if(envID.equals("local")) {
+            JSONObject deviceData = JsonParser.getDevicesData(platformName);
             String media = ((CanRecordScreen) getDriver()).stopRecordingScreen();
-            Map<String, String> params = result.getTestContext().getCurrentXmlTest().getAllParameters();
-            String dir = "videos" + File.separator + params.get("platformName") + "_" + params.get("platformVersion") + "_" + params.get("deviceName") + File.separator + getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName();
-            /****/
+            String dir = "videos" + File.separator + platformName + "_" + deviceData.get("OSVersion").toString() + "_" + deviceData.get("deviceName").toString() + File.separator + getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName();
             File videoDir = new File(dir);
             synchronized (videoDir) {
                 if (!videoDir.exists()) {
@@ -279,7 +279,6 @@ public class BaseTest {
             }
             FileOutputStream stream = new FileOutputStream(videoDir + File.separator + result.getName() + ".mp4");
             stream.write(Base64.decodeBase64(media));
-            closeApp();
             utils.log().info("'afterMethod' Executed for Local");
         }else {
             utils.log().info("'afterMethod' Executed for Remote");

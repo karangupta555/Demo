@@ -4,8 +4,7 @@
     <parameter name="platformName" value="iOS"/>
     <parameter name="emulator" value="true"/>
     <parameter name="deviceName" value="iPhone12ProMax"/>
-    <parameter name="wdaLocalPort" value="10001"/>
-    <parameter name="webkitDebugProxyPort" value="11001"/>
+    <parameter name="platformVersion" value="14"/>
     <parameter name="udid" value ="BA1A9176-2735-435F-A766-9294AD224177"/>
     <test name="iOS" >
         <classes>
