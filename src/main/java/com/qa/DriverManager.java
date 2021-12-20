@@ -92,9 +92,9 @@ public class DriverManager extends BaseTest {
         URL url = new URL("https://" + userName + ":" + accessKey + (String)props.getProperty("driverCreationURL"));
 
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceData.get("cloudDeviceName").toString());
-        desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, deviceData.get("cloudOSVersion").toString());
-        desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
+        desiredCapabilities.setCapability("deviceName", deviceData.get("cloudDeviceName").toString());
+        desiredCapabilities.setCapability("platformVersion", deviceData.get("cloudOSVersion").toString());
+        desiredCapabilities.setCapability("platformName", platformName);
         desiredCapabilities.setCapability("app", deviceData.get("cloudAppURL1").toString());
         desiredCapabilities.setCapability("build", platformName);
         desiredCapabilities.setCapability("name", "Sample Test Run");
