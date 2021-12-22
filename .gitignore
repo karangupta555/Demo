@@ -34,6 +34,7 @@ Thumbs.db
 # Applications
 *.app
 *.apk
+*.ipa
 *.exe
 *.war
 
@@ -53,7 +54,6 @@ Thumbs.db
 /bin
 /videos
 *.txt
-*.ipa
 *.iml
 /logs
 /reports
@@ -64,4 +64,5 @@ references.md
 .project
 .settings
 *.html
+**/app/
 **/debug.java

@@ -4,7 +4,7 @@
     <parameter name="platformName" value="Android"/>
     <parameter name="platformVersion" value="9"/>
     <parameter name="emulator" value="false"/>
-    <parameter name="udid" value ="emulator-5554"/>           <!-- emulator-5554, J7AAB76018109TA -->
+    <parameter name="udid" value ="J7AAB76018109TA"/>           <!-- emulator-5554, J7AAB76018109TA -->
     <parameter name="deviceName" value="AsusZenfoneMaxProM1"/>
     <test name="Android" >
         <classes>
