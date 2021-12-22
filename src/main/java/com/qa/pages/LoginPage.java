@@ -14,6 +14,7 @@ import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -232,13 +233,10 @@ public class LoginPage extends BaseTest {
 
     public LoginPage enterLoginEmail(String platformName, String username) throws Exception {
         try {
-            if(platformName.equals("iOS")){
-                sendKeys(textBox, username);
-            }
-            else {
-                Thread.sleep(4000);
-                getDriver().getKeyboard().sendKeys(username); // Entering from keyboard
-            }
+            click(textBox);
+            Actions objActions = new Actions(getDriver());
+            objActions.sendKeys(username);
+            objActions.perform();
             utils.log().info("Entered userName/Email: '" + username + "'");
             ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: " + username + "'");
         }
@@ -253,13 +251,10 @@ public class LoginPage extends BaseTest {
 
     public LoginPage enterLoginPassword(String platformName, String password) throws Exception {
         try {
-            if(platformName.equals("iOS")){
-                sendKeys(textBox, password);
-            }
-            else {
-                Thread.sleep(4000);
-                getDriver().getKeyboard().sendKeys(password); // Entering from keyboard
-            }
+            click(textBox);
+            Actions objActions = new Actions(getDriver());
+            objActions.sendKeys(password);
+            objActions.perform();
             utils.log().info("Entered Password: " + password + "'");
             ExtentReport.getTest().log(Status.INFO, "Entered Password: " + password + "'");
         }
@@ -947,6 +942,29 @@ public class LoginPage extends BaseTest {
         return false;
     }
 
+    public boolean isCertificateTabPresentPresent() throws Exception {
+        if(getDriver().findElements(By.name("Certificate")).size()>0){
+            utils.log().info("Certificate Tab Present");
+            ExtentReport.getTest().log(Status.INFO, "Certificate Tab Present");
+            return true;
+        }
+        utils.log().info("Certificate Tab Not Present");
+        ExtentReport.getTest().log(Status.INFO, "Certificate Tab Not Present");
+        return false;
+    }
+
+    public boolean isCertificateAvailable() throws Exception {
+        Thread.sleep(6000);
+        if(getDriver().findElements(By.name("Certificate")).size()>1){
+            utils.log().info("Certificate is Available");
+            ExtentReport.getTest().log(Status.INFO, "Certificate is Available");
+            return true;
+        }
+        utils.log().info("Certificate is Not Available Yet");
+        ExtentReport.getTest().log(Status.INFO, "Certificate is Not Available Yet");
+        return false;
+    }
+
      /*****************
        Actions Examples
      *****************/
@@ -977,7 +995,13 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage checkNotifications() throws Exception {
+    public LoginPage tapAtSpecificPosition() {
+        TouchAction touchAction = new TouchAction(getDriver());
+        touchAction.tap(PointOption.point(0, 800)).perform();
+        return this;
+    }
+
+    public LoginPage checkMobileNotifications() throws Exception {
         TouchAction action = new TouchAction(getDriver());
         Dimension size = getDriver().manage().window().getSize();
         size.getHeight();

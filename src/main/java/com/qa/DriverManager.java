@@ -106,9 +106,11 @@ public class DriverManager extends BaseTest {
         switch (platformName) {
             case "Android":
                 driver = new AndroidDriver(url, desiredCapabilities);
+                driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
                 break;
             case "iOS":
                 driver = new IOSDriver(url, desiredCapabilities);
+                driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
                 break;
             default:
                 throw new IllegalStateException("Invalid Platform id" + platformName);
