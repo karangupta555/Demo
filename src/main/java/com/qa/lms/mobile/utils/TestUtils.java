@@ -1,6 +1,6 @@
-package com.qa.utils;
+package com.qa.lms.mobile.utils;
 
-import com.qa.BaseTest;
+import com.qa.lms.mobile.BaseTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;

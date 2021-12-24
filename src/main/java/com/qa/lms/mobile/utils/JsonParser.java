@@ -1,4 +1,4 @@
-package com.qa.utils;
+package com.qa.lms.mobile.utils;
 
 import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;

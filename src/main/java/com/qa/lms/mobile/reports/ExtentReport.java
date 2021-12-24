@@ -1,4 +1,4 @@
-package com.qa.reports;
+package com.qa.lms.mobile.reports;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;

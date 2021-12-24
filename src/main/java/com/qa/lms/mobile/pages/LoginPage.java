@@ -1,28 +1,27 @@
-package com.qa.pages;
+package com.qa.lms.mobile.pages;
 
 import com.aventstack.extentreports.Status;
-import com.qa.BaseTest;
-import com.qa.reports.ExtentReport;
-import com.qa.utils.TestUtils;
-import io.appium.java_client.*;
-import io.appium.java_client.android.nativekey.AndroidKey;
+import com.qa.lms.mobile.BaseTest;
+import com.qa.lms.mobile.reports.ExtentReport;
+import com.qa.lms.mobile.utils.JsonParser;
+import com.qa.lms.mobile.utils.TestUtils;
+import io.appium.java_client.FindsByAndroidUIAutomator;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.MultiTouchAction;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
+import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
@@ -200,7 +199,7 @@ public class LoginPage extends BaseTest {
     private MobileElement saveButton;
 
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView[1]")
-    private MobileElement certificates; // className = "android.widget.ImageView"
+    private MobileElement myCertificates; // className = "android.widget.ImageView"
 
     @AndroidFindBy(accessibility = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView[2]")
     private MobileElement logout;
@@ -398,6 +397,22 @@ public class LoginPage extends BaseTest {
             utils.log().info("Error: Unable to Switch to Profile Tab");
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to Switch to Profile Tab");
             throw new Exception("Error: Error: Unable to Switch to Profile Tab");
+        }
+        return this;
+    }
+    JSONObject loginData = JsonParser.getLoginData();
+
+    public LoginPage viewMyCertificates() throws Exception {
+        try{
+            click(myCertificates);
+            utils.log().info("Clicked on View My Certificates Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on View My Certificates Button");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click My Certificates Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click My Certificates Button");
+            throw new Exception("Error: Unable to Click My Certificates Button");
         }
         return this;
     }
@@ -942,7 +957,7 @@ public class LoginPage extends BaseTest {
         return false;
     }
 
-    public boolean isCertificateTabPresentPresent() throws Exception {
+    public boolean isCertificateTabPresent() throws Exception {
         if(getDriver().findElements(By.name("Certificate")).size()>0){
             utils.log().info("Certificate Tab Present");
             ExtentReport.getTest().log(Status.INFO, "Certificate Tab Present");
@@ -963,6 +978,16 @@ public class LoginPage extends BaseTest {
         utils.log().info("Certificate is Not Available Yet");
         ExtentReport.getTest().log(Status.INFO, "Certificate is Not Available Yet");
         return false;
+    }
+
+    public LoginPage terminateApp(String platformName) throws Exception {
+        Thread.sleep(5000);
+        JSONObject deviceData = JsonParser.getDevicesData(platformName);
+        getDriver().terminateApp(deviceData.get("appPackage").toString());
+        //closeApp();
+        utils.log().info("Terminated the App");
+        ExtentReport.getTest().log(Status.INFO, "Terminated the App");
+        return this;
     }
 
      /*****************

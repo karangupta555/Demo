@@ -1,8 +1,7 @@
-package com.qa;
+package com.qa.lms.mobile;
 
-import com.qa.utils.JsonParser;
+import com.qa.lms.mobile.utils.JsonParser;
 import io.appium.java_client.remote.MobileCapabilityType;
-import io.appium.java_client.remote.MobilePlatform;
 import org.apache.logging.log4j.ThreadContext;
 import org.json.JSONObject;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -46,6 +45,7 @@ public class DriverManager extends BaseTest {
             desiredCapabilities.setCapability(MobileCapabilityType.UDID, udid);
             desiredCapabilities.setCapability(MobileCapabilityType.APP, app);
             desiredCapabilities.setCapability("appPackage", deviceData.get("appPackage").toString());
+            desiredCapabilities.setCapability("appActivity", deviceData.get("appActivity").toString());
             desiredCapabilities.setCapability("fullReset", false);
             // desiredCapabilities.setCapability("noReset", true);
             // desiredCapabilities.setCapability("printPageSourceOnFindFailure", true);
@@ -96,8 +96,10 @@ public class DriverManager extends BaseTest {
         desiredCapabilities.setCapability("platformVersion", deviceData.get("cloudOSVersion").toString());
         desiredCapabilities.setCapability("platformName", platformName);
         desiredCapabilities.setCapability("app", deviceData.get("cloudAppURL1").toString());
+        desiredCapabilities.setCapability("appPackage", deviceData.get("appPackage").toString());
+        desiredCapabilities.setCapability("appActivity", deviceData.get("appActivity").toString());
         desiredCapabilities.setCapability("build", platformName);
-        desiredCapabilities.setCapability("name", "Sample Test Run");
+        desiredCapabilities.setCapability("name", "Backlogs");
         desiredCapabilities.setCapability("autoGrantPermissions", true);
         desiredCapabilities.setCapability("fullReset", false);
 

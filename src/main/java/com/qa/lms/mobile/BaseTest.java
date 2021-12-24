@@ -1,17 +1,14 @@
-package com.qa;
+package com.qa.lms.mobile;
 
 import com.aventstack.extentreports.Status;
-import com.qa.reports.ExtentReport;
-import com.qa.utils.JsonParser;
-import com.qa.utils.StringParser;
-import com.qa.utils.TestUtils;
+import com.qa.lms.mobile.reports.ExtentReport;
+import com.qa.lms.mobile.utils.JsonParser;
+import com.qa.lms.mobile.utils.StringParser;
+import com.qa.lms.mobile.utils.TestUtils;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.screenrecording.CanRecordScreen;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
@@ -21,7 +18,6 @@ import org.apache.logging.log4j.ThreadContext;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.openqa.selenium.By;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -33,12 +29,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
-import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     protected static ThreadLocal<AppiumDriver> driver = new ThreadLocal<AppiumDriver>();

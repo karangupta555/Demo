@@ -1,10 +1,10 @@
-package com.qa.listeners;
+package com.qa.lms.mobile.listeners;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.qa.BaseTest;
-import com.qa.reports.ExtentReport;
-import com.qa.utils.TestUtils;
+import com.qa.lms.mobile.BaseTest;
+import com.qa.lms.mobile.reports.ExtentReport;
+import com.qa.lms.mobile.utils.TestUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;

@@ -1,4 +1,4 @@
-package com.qa.utils;
+package com.qa.lms.mobile.utils;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
