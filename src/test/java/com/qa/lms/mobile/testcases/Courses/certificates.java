@@ -325,7 +325,7 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickTakeAssessment();
             loginPage.clickTakeAssessment();
-            loginPage.answerSingleChoiceQuestion("a");
+            loginPage.selectOption("a");
             loginPage.clickCompleteAssessment();
             loginPage.clickAssessmentSummary();
             loginPage.clickBackButtonOnAssessmentSummaryPage();
@@ -398,7 +398,7 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickTakeAssessment();
             loginPage.clickTakeAssessment();
-            loginPage.answerSingleChoiceQuestion("b");
+            loginPage.selectOption("b");
             loginPage.clickCompleteAssessment();
             Assert.assertFalse(loginPage.validateAssessmentStatus());
             loginPage.clickAssessmentSummary();
@@ -409,7 +409,7 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickTakeAssessment();
             loginPage.clickTakeAssessment();
-            loginPage.answerSingleChoiceQuestion("a");
+            loginPage.selectOption("a");
             loginPage.clickCompleteAssessment();
             Assert.assertTrue(loginPage.validateAssessmentStatus());
             loginPage.clickAssessmentSummary();
@@ -552,7 +552,7 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickTakeAssessment();
             loginPage.clickTakeAssessment();
-            loginPage.answerSingleChoiceQuestion("b");
+            loginPage.selectOption("b");
             loginPage.clickCompleteAssessment();
             Assert.assertFalse(loginPage.validateAssessmentStatus());
             loginPage.clickAssessmentSummary();
@@ -647,7 +647,7 @@ public class certificates extends BaseTest {
     }// 80780
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to see all the information in the certificate under My certificate")
     public void validateInfoInMyCertificates(String platformName) throws  Exception {
         /*
@@ -666,6 +666,7 @@ public class certificates extends BaseTest {
             loginPage.clickContinue();
             loginPage.clickProfileTab();
             loginPage.viewMyCertificates();
+            loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/80783
         }
@@ -676,7 +677,7 @@ public class certificates extends BaseTest {
     }// 80783
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to see all the Certificate in My certificate and download it")
     public void downloadFromMyCertificates(String platformName) throws  Exception {
         /*
@@ -695,6 +696,7 @@ public class certificates extends BaseTest {
             loginPage.clickContinue();
             loginPage.clickProfileTab();
             loginPage.viewMyCertificates();
+            loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/80784
         }
@@ -705,7 +707,7 @@ public class certificates extends BaseTest {
     }// 80784
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to see all the Certificate under My certificate in sorted order")
     public void myCertificatesInSortedOrder(String platformName) throws  Exception {
         /*
@@ -724,6 +726,7 @@ public class certificates extends BaseTest {
             loginPage.clickContinue();
             loginPage.clickProfileTab();
             loginPage.viewMyCertificates();
+            loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/82525
         }
@@ -752,7 +755,7 @@ public class certificates extends BaseTest {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner2").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
@@ -763,8 +766,6 @@ public class certificates extends BaseTest {
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
-            loginPage.clickNextLesson();
-            loginPage.clickNextLesson();
             loginPage.clickCompleteButton();
             loginPage.terminateApp(platformName);
             launchApp();
@@ -772,15 +773,16 @@ public class certificates extends BaseTest {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner2").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.scroll();
-            loginPage.viewSpecificCourse("Course 80778");
+            loginPage.viewSpecificCourse("Course 81217");
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             Assert.assertTrue(loginPage.isCertificateAvailable());
+            loginPage.clickBackButtonOnCourseDetailsPage();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 81217");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -793,7 +795,7 @@ public class certificates extends BaseTest {
     }// 81217
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to see all the preview information under My certificate ")
     public void previewMyCertificates(String platformName) throws  Exception {
         /*
@@ -812,6 +814,7 @@ public class certificates extends BaseTest {
             loginPage.clickContinue();
             loginPage.clickProfileTab();
             loginPage.viewMyCertificates();
+            loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/81213
         }
@@ -822,7 +825,7 @@ public class certificates extends BaseTest {
     }// 81213
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to view the certificate gained from Web/Mobile browser")
     public void validateCertificateGainedOnBrowser(String platformName) throws  Exception {
         /*
@@ -841,6 +844,7 @@ public class certificates extends BaseTest {
             loginPage.clickContinue();
             loginPage.clickProfileTab();
             loginPage.viewMyCertificates();
+            loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/82966
         }
