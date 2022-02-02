@@ -1,6 +1,6 @@
-package com.qa.utils;
+package com.qa.lms.mobile.utils;
 
-import com.qa.BaseTest;
+import com.qa.lms.mobile.BaseTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -61,8 +61,7 @@ public class TestUtils {
 
         //System.out.println(msg);
 
-        String strFile = "logs" + File.separator + base.getPlatform() + "_" + base.getDeviceName()
-                + File.separator + base.getDateTime();
+        String strFile = "logs" + File.separator + base.getPlatform() + "_" + base.getDeviceName() + File.separator + base.getDateTime();
 
         File logFile = new File(strFile);
 

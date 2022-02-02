@@ -1,10 +1,10 @@
-package com.qa.listeners;
+package com.qa.lms.mobile.listeners;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.qa.BaseTest;
-import com.qa.reports.ExtentReport;
-import com.qa.utils.TestUtils;
+import com.qa.lms.mobile.BaseTest;
+import com.qa.lms.mobile.reports.ExtentReport;
+import com.qa.lms.mobile.utils.TestUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -45,7 +45,7 @@ public class TestListener implements ITestListener {
         Map<String, String> params = new HashMap<String, String>();
         params = result.getTestContext().getCurrentXmlTest().getAllParameters();
 
-        String imagePath = "Screenshots" + File.separator +params.get("platformName") + "_"+ params.get("platformVersion") + "_" + params.get("deviceName") +
+        String imagePath = "Screenshots" + File.separator + params.get("platformName") + "_"+ params.get("platformVersion") + "_" + params.get("deviceName") +
                 File.separator + base.getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName() + File.separator + result.getName() + ".png";
 
         String completeImagePath = System.getProperty("user.dir") + File.separator + imagePath;
@@ -68,7 +68,7 @@ public class TestListener implements ITestListener {
         BaseTest base = new BaseTest();
         ExtentReport.startTest(result.getName(),result.getMethod().getDescription())
                 .assignCategory(base.getPlatform() + "_" + base.getDeviceName())
-                .assignAuthor("Abhinav Dharmapuri");
+                .assignAuthor("Test Author");
     }
 
     @Override

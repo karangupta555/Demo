@@ -1,4 +1,4 @@
-package com.qa.utils;
+package com.qa.lms.mobile.utils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

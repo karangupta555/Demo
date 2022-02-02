@@ -2,18 +2,16 @@
 <suite parallel="tests" name="Suite">
     <parameter name="envID" value="local"/>
     <parameter name="platformName" value="Android"/>
-    <parameter name="deviceID" value="1"/>
+    <parameter name="platformVersion" value="9"/>
     <parameter name="emulator" value="false"/>
-    <parameter name="udid" value ="emulator-5554"/>           <!-- emulator-5554, J7AAB76018109TA -->
-    <parameter name="deviceName" value="Asus"/>
-    <parameter name="systemPort" value="10000"/>
-    <parameter name="chromeDriverPort" value="11000"/>
+    <parameter name="udid" value ="J7AAB76018109TA"/>           <!-- emulator-5554, J7AAB76018109TA -->
+    <parameter name="deviceName" value="AsusZenfoneMaxProM1"/>
     <test name="Android" >
         <classes>
-            <class name="com.qa.tests.debug"/>
+            <class name="com.qa.lms.mobile.testcases.Courses.certificates"/>
         </classes>
         <listeners>
-            <listener class-name="com.qa.listeners.TestListener"/>
+            <listener class-name="com.qa.lms.mobile.listeners.TestListener"/>
         </listeners>
     </test>
 </suite>

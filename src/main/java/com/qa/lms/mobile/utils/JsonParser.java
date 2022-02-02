@@ -1,4 +1,4 @@
-package com.qa.utils;
+package com.qa.lms.mobile.utils;
 
 import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
@@ -23,5 +23,9 @@ public class JsonParser {
 
     public static JSONObject getLoginData() {
         return(JSONObject)JsonParser.parse("data/loginData.json");
+    }
+
+    public static JSONObject getDevicesData(String platformName) {
+        return new JSONObject(JsonParser.parse("data/devicesAndConfig.json").getJSONObject(platformName).toString());
     }
 }

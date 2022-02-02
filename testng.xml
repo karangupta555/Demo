@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Suite" parallel="tests">
-  <parameter name="envID" value="local"/>
-  <!--
-    DeviceID = {"1":"Android", "2":"IOS"}
-    EnvID    = {"1":"local", "2":"remote"}
-  -->
+<suite name="Suite Container" parallel="tests">
+    <parameter name="envID" value="local"/>
+    <test name="Android" >
+        <parameter name="platformName" value="Android"/>
+        <parameter name="platformVersion" value="9"/>
+        <parameter name="emulator" value="false"/>
+        <parameter name="udid" value ="emulator-5554"/>           <!-- emulator-5554, J7AAB76018109TA -->
+        <parameter name="deviceName" value="AsusZenfoneMaxProM1"/>
+        <classes>
+            <class name="com.qa.lms.mobile.testcases.Courses.certificates"/>
+        </classes>
+    </test>
+    <test name="iOS" >
+        <parameter name="platformName" value="iOS"/>
+        <parameter name="emulator" value="true"/>
+        <parameter name="deviceName" value="iPhone12ProMax"/>
+        <parameter name="platformVersion" value="14"/>
+        <parameter name="udid" value ="BA1A9176-2735-435F-A766-9294AD224177"/>
+        <classes>
+            <class name="com.qa.lms.mobile.testcases.Courses.certificates"/>
+        </classes>
+    </test>
+    <listeners>
+      <listener class-name="com.qa.lms.mobile.listeners.TestListener"/>
+    </listeners>
 </suite>
