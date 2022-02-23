@@ -6,7 +6,7 @@
     "OSVersion": "9",
     "systemPort": "8201",
     "chromeDriverPort": "11000",
-    "app": "src\\test\\resources\\app\\lms.apk",
+    "app": "src\\test\\resources\\app\\engg.apk",
     "appPackage": "com.auzmor.learnlms",
     "appActivity": "com.auzmor.learnlms.MainActivity",
     "cloudDeviceName": "Samsung Galaxy S9",

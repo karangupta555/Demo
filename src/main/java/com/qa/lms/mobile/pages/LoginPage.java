@@ -29,8 +29,8 @@ public class LoginPage extends BaseTest {
     TestUtils utils =  new TestUtils();
 
     /* Tabs*/
-    @AndroidFindBy(accessibility = "Tab 1 of 4")
-    @iOSXCUITFindBy(accessibility = "Tab 1 of 4")
+    @AndroidFindBy(accessibility = "Home")
+    @iOSXCUITFindBy(accessibility = "Home")
     private MobileElement homeTab;
 
     @AndroidFindBy(accessibility = "Tab 2 of 4")
@@ -174,12 +174,12 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Continue")
     private MobileElement continueBtn;
 
-    @AndroidFindBy(accessibility = "Sign in")
-    @iOSXCUITFindBy(accessibility = "Sign in")
+    @AndroidFindBy(accessibility = "Sign In")
+    @iOSXCUITFindBy(accessibility = "Sign In")
     private MobileElement signInButton;
 
-    @AndroidFindBy(accessibility = "Sign in with SSO")
-    @iOSXCUITFindBy(accessibility = "Sign in with SSO")
+    @AndroidFindBy(accessibility = "Sign In with SSO")
+    @iOSXCUITFindBy(accessibility = "Sign In with SSO")
     private MobileElement signInSSOButton;
 
     @AndroidFindBy(accessibility = "Forgot password?")

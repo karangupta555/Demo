@@ -16,7 +16,7 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test
     @Description("Learner - Able to complete the course without assessment and with certificate")
-    public void completeCourseWithCertificateWithoutAssessment(String platformName) throws  Exception {
+    public void completeCourseWithCertificateWithoutAssessment(String platformName) throws Exception {
         /*
         Requirements:
             Name: Course 80760
@@ -27,9 +27,10 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 loginPage.iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -45,7 +46,7 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickNextLesson();
             loginPage.clickCompleteButton();
-            if(!platformName.equals("iOS")) {
+            if (!platformName.equals("iOS")) {
                 loginPage.clickViewCertificate();
                 loginPage.pressBackButtonFromMobile();
             }
@@ -58,8 +59,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80760");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80760
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -68,7 +68,7 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test
     @Description("Learner - Able to complete the course without assessment and with certificate and download the certificate")
-    public void completeCourseWithCertificateAndDownload(String platformName) throws  Exception {
+    public void completeCourseWithCertificateAndDownload(String platformName) throws Exception {
         /*
         Requirements:
             Name: Course 81218
@@ -79,9 +79,10 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -98,17 +99,17 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickCompleteButton();
             loginPage.clickViewCertificate();
-            if(!platformName.equals("iOS")) {
+            if (!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
                 loginPage.clickBackButtonOnViewCertificatePage();
-            }
-            else {
+            } else {
                 launchApp();
                 iOSPermissions();
+                loginPage.clickSkipButton();
                 loginPage.clickSignInBtn();
                 loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
                 loginPage.clickContinue();
@@ -125,8 +126,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 81218");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/81218
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -135,7 +135,7 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test
     @Description("Learner - Able to see Certificate in Course details screen ")
-    public void validateCertificateInCourseDetails(String platformName) throws  Exception {
+    public void validateCertificateInCourseDetails(String platformName) throws Exception {
         /*
         Requirements:
             Name: Course 80770
@@ -146,9 +146,10 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -164,17 +165,17 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickCompleteButton();
             loginPage.clickViewCertificate();
-            if(!platformName.equals("iOS")) {
+            if (!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
                 loginPage.clickBackButtonOnViewCertificatePage();
-            }
-            else {
+            } else {
                 launchApp();
                 iOSPermissions();
+                loginPage.clickSkipButton();
                 loginPage.clickSignInBtn();
                 loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
                 loginPage.clickContinue();
@@ -191,8 +192,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80770");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80770
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -201,7 +201,7 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test
     @Description("Learner - Able to see Certificate Tab in Course details screen during enrollment")
-    public void validateCertificateTabWhileEnrolling(String platformName) throws  Exception {
+    public void validateCertificateTabWhileEnrolling(String platformName) throws Exception {
         /*
         Requirements:
             Name: Course 80771
@@ -212,9 +212,10 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -233,8 +234,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80771");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80771
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -243,7 +243,7 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test
     @Description("Learner - Able to see all the information in the certificate as per admin's configuration")
-    public void validateInformationOnCertificate(String platformName) throws  Exception {
+    public void validateInformationOnCertificate(String platformName) throws Exception {
         /*
         Requirements:
             Name: Course 80772
@@ -254,9 +254,10 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -272,7 +273,7 @@ public class certificates extends BaseTest {
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickStartCourse();
             loginPage.clickCompleteButton();
-            if(!platformName.equals("iOS")) {
+            if (!platformName.equals("iOS")) {
                 loginPage.clickViewCertificate();
                 /****/ // validate data on certificate
                 loginPage.pressBackButtonFromMobile();
@@ -286,8 +287,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80772");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80772
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -296,7 +296,7 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test
     @Description("Learner - Able to complete the course with mandatory assessment and with certificate")
-    public void completeCourseWithCertificateAndAssessment(String platformName) throws  Exception {
+    public void completeCourseWithCertificateAndAssessment(String platformName) throws Exception {
         /*
         Requirements:
             Name: Course 80773
@@ -307,9 +307,10 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -331,17 +332,17 @@ public class certificates extends BaseTest {
             loginPage.clickBackButtonOnAssessmentSummaryPage();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
-            if(!platformName.equals("iOS")) {
+            if (!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
                 loginPage.clickBackButtonOnViewCertificatePage();
-            }
-            else {
+            } else {
                 launchApp();
                 iOSPermissions();
+                loginPage.clickSkipButton();
                 loginPage.clickSignInBtn();
                 loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
                 loginPage.clickContinue();
@@ -358,8 +359,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80773");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80773
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -369,7 +369,7 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test
     @Description("Learner - Able to Fail in the course with mandatory assessment and with certificate")
-    public void failMandatoryAssessmentWithCertificate(String platformName) throws  Exception {
+    public void failMandatoryAssessmentWithCertificate(String platformName) throws Exception {
         /*
         Requirements:
             Name: Course 80777
@@ -380,9 +380,10 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -416,17 +417,17 @@ public class certificates extends BaseTest {
             loginPage.clickBackButtonOnAssessmentSummaryPage();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
-            if(!platformName.equals("iOS")) {
+            if (!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
                 loginPage.clickBackButtonOnViewCertificatePage();
-            }
-            else {
+            } else {
                 launchApp();
                 iOSPermissions();
+                loginPage.clickSkipButton();
                 loginPage.clickSignInBtn();
                 loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
                 loginPage.clickContinue();
@@ -443,8 +444,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80777");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80777
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -453,7 +453,7 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test
     @Description("Learner - Able to complete the course with optional assessment and with certificate")
-    public void optionalAssessmentWithCertificate(String platformName) throws  Exception {
+    public void optionalAssessmentWithCertificate(String platformName) throws Exception {
         /*
         Requirements:
             Name: Course 80778
@@ -464,9 +464,10 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -486,17 +487,17 @@ public class certificates extends BaseTest {
             loginPage.clickSkipAssessment();
             loginPage.clickSkipButton();
             loginPage.clickViewCertificate();
-            if(!platformName.equals("iOS")) {
+            if (!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
                 loginPage.clickBackButtonOnViewCertificatePage();
-            }
-            else {
+            } else {
                 launchApp();
                 iOSPermissions();
+                loginPage.clickSkipButton();
                 loginPage.clickSignInBtn();
                 loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
                 loginPage.clickContinue();
@@ -513,8 +514,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80778");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80778
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -523,7 +523,7 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test
     @Description("Learner - Able to Fail in the course with optional assessment and with certificate")
-    public void failOptionalAssessmentWithCertificate(String platformName) throws  Exception {
+    public void failOptionalAssessmentWithCertificate(String platformName) throws Exception {
         /*
         Requirements:
             Name: Course 80779
@@ -534,9 +534,10 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -569,8 +570,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80779");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80779
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -579,7 +579,7 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test
     @Description("Learner - Able to skip the assessment and get certificate")
-    public void skipAssessmentWithCertificate(String platformName) throws  Exception {
+    public void skipAssessmentWithCertificate(String platformName) throws Exception {
         /*
         Requirements:
             Name: Course 80780
@@ -590,9 +590,10 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -612,17 +613,17 @@ public class certificates extends BaseTest {
             loginPage.clickSkipAssessment();
             loginPage.clickSkipButton();
             loginPage.clickViewCertificate();
-            if(!platformName.equals("iOS")) {
+            if (!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
                 loginPage.clickBackButtonOnViewCertificatePage();
-            }
-            else {
+            } else {
                 launchApp();
                 iOSPermissions();
+                loginPage.clickSkipButton();
                 loginPage.clickSignInBtn();
                 loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
                 loginPage.clickContinue();
@@ -639,8 +640,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80780");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80780
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -649,16 +649,17 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to see all the information in the certificate under My certificate")
-    public void validateInfoInMyCertificates(String platformName) throws  Exception {
+    public void validateInfoInMyCertificates(String platformName) throws Exception {
         /*
         Requirements:
             Learner should have earned some Certificates
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -669,8 +670,7 @@ public class certificates extends BaseTest {
             loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/80783
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -679,16 +679,17 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to see all the Certificate in My certificate and download it")
-    public void downloadFromMyCertificates(String platformName) throws  Exception {
+    public void downloadFromMyCertificates(String platformName) throws Exception {
         /*
         Requirements:
             Learner should have earned some Certificates
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -699,8 +700,7 @@ public class certificates extends BaseTest {
             loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/80784
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -709,16 +709,17 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to see all the Certificate under My certificate in sorted order")
-    public void myCertificatesInSortedOrder(String platformName) throws  Exception {
+    public void myCertificatesInSortedOrder(String platformName) throws Exception {
         /*
         Requirements:
             Learner should have earned some Certificates
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -729,8 +730,7 @@ public class certificates extends BaseTest {
             loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/82525
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -739,7 +739,7 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test
     @Description("Learner - Able to see the certificate even the user kills the application in the certificate screen ")
-    public void killTheAppAfterCourseCompletion(String platformName) throws  Exception {
+    public void killTheAppAfterCourseCompletion(String platformName) throws Exception {
         /*
         Requirements:
             Requirements:
@@ -751,9 +751,10 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 loginPage.iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner2").toString());
             loginPage.clickContinue();
@@ -769,9 +770,10 @@ public class certificates extends BaseTest {
             loginPage.clickCompleteButton();
             loginPage.terminateApp(platformName);
             launchApp();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 loginPage.iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner2").toString());
             loginPage.clickContinue();
@@ -787,8 +789,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 81217");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/81217
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -797,16 +798,17 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to see all the preview information under My certificate ")
-    public void previewMyCertificates(String platformName) throws  Exception {
+    public void previewMyCertificates(String platformName) throws Exception {
         /*
         Requirements:
             Learner should have earned some Certificates
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -817,8 +819,7 @@ public class certificates extends BaseTest {
             loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/81213
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -827,16 +828,17 @@ public class certificates extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to view the certificate gained from Web/Mobile browser")
-    public void validateCertificateGainedOnBrowser(String platformName) throws  Exception {
+    public void validateCertificateGainedOnBrowser(String platformName) throws Exception {
         /*
         Requirements:
             Learner should have earned some Certificates
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if(platformName.equals("iOS")) {
+            if (platformName.equals("iOS")) {
                 iOSPermissions();
             }
+            loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
             loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
@@ -847,8 +849,7 @@ public class certificates extends BaseTest {
             loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/82966
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }

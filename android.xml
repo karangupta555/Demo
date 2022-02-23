@@ -8,7 +8,7 @@
     <parameter name="deviceName" value="AsusZenfoneMaxProM1"/>
     <test name="Android" >
         <classes>
-            <class name="com.qa.lms.mobile.testcases.Courses.certificates"/>
+            <class name="debug"/>
         </classes>
         <listeners>
             <listener class-name="com.qa.lms.mobile.listeners.TestListener"/>
