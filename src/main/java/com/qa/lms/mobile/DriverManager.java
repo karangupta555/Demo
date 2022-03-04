@@ -22,7 +22,7 @@ public class DriverManager extends BaseTest {
     public void initializeLocalDriver(String platformName, String udid, String deviceName) throws Exception {
         JSONObject deviceData = JsonParser.getDevicesData(platformName);
 
-        // setting logs
+        // Setting Custom logs
         String strFile = "logs" + File.separator + platformName + "_" + deviceName;
         File logFile = new File(strFile);
         if (!logFile.exists()) {
@@ -78,10 +78,20 @@ public class DriverManager extends BaseTest {
 
     public void initializeCloudDriver(String platformName) throws Exception {
         BaseTest objBaseTest = new BaseTest();
-        JSONObject deviceData = JsonParser.getDevicesData(platformName);
+
+        // Setting Custom logs
+        String strFile = "logs" + File.separator + platformName + "_" + deviceName;
+        File logFile = new File(strFile);
+        if (!logFile.exists()) {
+            logFile.mkdirs();
+        }
+        ThreadContext.put("ROUTINGKEY", strFile);
+        utils.log().info("Log(s) for this Run is initiated at: " + strFile);
 
         AppiumDriver driver;
 
+        // Reading Config, TestData files
+        JSONObject deviceData = JsonParser.getDevicesData(platformName);
         Properties props = new Properties();
         String propFileName = "config.properties";
         props.load((InputStream)getClass().getClassLoader().getResourceAsStream(propFileName));

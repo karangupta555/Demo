@@ -63,7 +63,7 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "back")
     private MobileElement backButton;
 
-    /* Tabs*/
+    /* Tabs */
     @AndroidFindBy(accessibility = "home-tab")
     @iOSXCUITFindBy(accessibility = "home-tab")
     private MobileElement homeTab;
@@ -945,14 +945,14 @@ public class LoginPage extends BaseTest {
      *****************/
 
     public boolean validateNotificationTab() throws Exception {
-            if(getDriver().findElementsByAccessibilityId("Notifications").size() > 0) {
-                utils.log().info("Validated Notification Tab");
-                ExtentReport.getTest().log(Status.INFO, "Validated Notification Tab");
-                return true;
-            }
-            utils.log().info("Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
-            return false;
+        if(getDriver().findElementsByAccessibilityId("Notifications").size() > 0) {
+            utils.log().info("Validated Notification Tab");
+            ExtentReport.getTest().log(Status.INFO, "Validated Notification Tab");
+            return true;
+        }
+        utils.log().info("Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
+        ExtentReport.getTest().log(Status.INFO, "Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
+        return false;
     }
 
     public boolean validateAssessmentStatus() throws Exception {

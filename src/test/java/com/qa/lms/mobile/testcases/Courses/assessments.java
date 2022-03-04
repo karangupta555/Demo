@@ -49,7 +49,6 @@ public class assessments extends BaseTest {
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
-            loginPage.scrollUp();
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -125,7 +124,6 @@ public class assessments extends BaseTest {
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
-            loginPage.scrollUp();
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -182,7 +180,6 @@ public class assessments extends BaseTest {
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
-            loginPage.scrollUp();
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -239,7 +236,6 @@ public class assessments extends BaseTest {
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
-            loginPage.scrollUp();
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -296,7 +292,6 @@ public class assessments extends BaseTest {
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
-            loginPage.scrollUp();
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -353,7 +348,6 @@ public class assessments extends BaseTest {
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
-            loginPage.scrollUp();
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -407,7 +401,6 @@ public class assessments extends BaseTest {
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
-            loginPage.scrollUp();
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();

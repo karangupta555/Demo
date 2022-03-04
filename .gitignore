@@ -45,11 +45,11 @@ Thumbs.db
 /test-output
 /.settings
 /bin
-references.md
 
 # debug files
 *.txt
 **/debug.java
+references.md
 
 # Reports
 /Screenshots

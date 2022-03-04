@@ -32,7 +32,7 @@ public class certificates extends BaseTest {
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("learner2").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
@@ -40,6 +40,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80760");
             loginPage.viewSpecificCourse("Course 80760");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
@@ -94,6 +95,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 81218");
             loginPage.viewSpecificCourse("Course 81218");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
@@ -163,6 +165,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80770");
             loginPage.viewSpecificCourse("Course 80770");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
@@ -231,11 +234,9 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80771");
             loginPage.viewSpecificCourse("Course 80771");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
-            Assert.assertFalse(loginPage.isCertificateAvailable());
-            loginPage.clickEnrollNow();
-            Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
+            loginPage.clickEnrollNow();
             loginPage.scrollUp();
             loginPage.clickBackButton();
             loginPage.clickSearchTab();
@@ -275,10 +276,9 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80772");
             loginPage.viewSpecificCourse("Course 80772");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
-            Assert.assertTrue(loginPage.isCertificateTabPresent());
-            Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickStartCourse();
             loginPage.clickCompleteLessonButton();
             if (!platformName.equals("iOS")) {
@@ -330,6 +330,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80773");
             loginPage.viewSpecificCourse("Course 80773");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
@@ -405,6 +406,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80777");
             loginPage.viewSpecificCourse("Course 80777");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
@@ -491,6 +493,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80778");
             loginPage.viewSpecificCourse("Course 80778");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
@@ -563,6 +566,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80779");
             loginPage.viewSpecificCourse("Course 80779");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
@@ -620,6 +624,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80780");
             loginPage.viewSpecificCourse("Course 80780");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
@@ -783,6 +788,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 81217");
             loginPage.viewSpecificCourse("Course 81217");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
