@@ -1,16 +1,10 @@
 package com.qa.lms.mobile.utils;
 
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
-import java.io.FileReader;
 import java.io.InputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class JsonParser {
-
     public static JSONObject parse(String file) {
         InputStream is = JsonParser.class.getClassLoader().getResourceAsStream(file);
         assert is != null;
@@ -26,6 +20,6 @@ public class JsonParser {
     }
 
     public static JSONObject getDevicesData(String platformName) {
-        return new JSONObject(JsonParser.parse("data/devicesAndConfig.json").getJSONObject(platformName).toString());
+        return new JSONObject(JsonParser.parse("data/devicesData.json").getJSONObject(platformName).toString());
     }
 }

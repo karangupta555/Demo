@@ -19,8 +19,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -176,7 +174,6 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Complete")
     private MobileElement completeButton;
 
-
     @AndroidFindBy(accessibility = "Complete Lesson")
     @iOSXCUITFindBy(accessibility = "Complete Lesson")
     private MobileElement completeLessonButton;
@@ -219,20 +216,6 @@ public class LoginPage extends BaseTest {
     @AndroidFindBy(accessibility = "Back to courses")
     @iOSXCUITFindBy(accessibility = "Back to courses")
     private MobileElement backToCoursesButton;
-
-    /*
-    @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
-    @iOSXCUITFindBy(xpath = "//XCUIElementTypeApplication[@name=\"Auzmor Learn\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeImage")
-    private MobileElement backButtonOnAssessmentSummaryPage;
-
-    @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
-    @iOSXCUITFindBy(className = "XCUIElementTypeImage")
-    private MobileElement backButtonOnViewCertificatePage;
-
-    @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
-    @iOSXCUITFindBy(xpath = "//XCUIElementTypeApplication[@name=\"Auzmor Learn\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeImage[1]")
-    private MobileElement backButtonOnCourseDetailsPage;
-    */
 
     @AndroidFindBy(accessibility = "Go Back")
     @iOSXCUITFindBy(accessibility = "Go Back")
@@ -1007,7 +990,6 @@ public class LoginPage extends BaseTest {
     }
 
     public boolean isCertificateAvailable() throws Exception {
-        Thread.sleep(2000);
         if(getDriver().findElements(By.xpath("//android.view.View[@content-desc[contains(., 'CERTIFICATE OF COMPLETION')]]")).size() > 0){
             utils.log().info("Certificate is Available");
             ExtentReport.getTest().log(Status.INFO, "Certificate is Available");
@@ -1089,15 +1071,22 @@ public class LoginPage extends BaseTest {
 
     public LoginPage scrollDown() throws Exception {
         //Thread.sleep(3000);
-        TouchAction action = new TouchAction(getDriver());
         /*
-        xOffset = startScrollingFromX
-        yOffset = startScrollingFromY
+            xOffset = startScrollingFromX
+            yOffset = startScrollingFromY
 
-        Same x,y points are required for end_points
-         */
-        action.press(PointOption.point(0,800))
-                .waitAction(waitOptions(Duration.ofMillis(3000)))
+            Same x,y points are required for end_points(on x_y axis plane)
+        */
+        // Exception: The swipe action is based on device screen ratio/width which is a dependency
+        TouchAction action = new TouchAction(getDriver());
+        // Swiping Up
+        action.press(PointOption.point(0,400))
+                .waitAction(waitOptions(Duration.ofMillis(2000)))
+                .moveTo(PointOption.point(0,100))
+                .release()
+                .perform();
+        action.press(PointOption.point(0,400))
+                .waitAction(waitOptions(Duration.ofMillis(2000)))
                 .moveTo(PointOption.point(0,100))
                 .release()
                 .perform();
@@ -1106,23 +1095,19 @@ public class LoginPage extends BaseTest {
 
     public LoginPage scrollUp() throws Exception {
         //Thread.sleep(3000);
+        // Exception: The swipe action is based on device screen ratio/width which is a dependency
+        // Swiping Down
         TouchAction action = new TouchAction(getDriver());
         action.press(PointOption.point(0,200))
-                .waitAction(waitOptions(Duration.ofMillis(3000)))
-                .moveTo(PointOption.point(0,900))
+                .waitAction(waitOptions(Duration.ofMillis(2000)))
+                .moveTo(PointOption.point(0,500))
                 .release()
                 .perform();
-        return this;
-    }
-
-    public LoginPage bedug() throws Exception {
-        TouchAction action = new TouchAction(getDriver());
-        action.press(PointOption.point(0,800))
-                .waitAction(waitOptions(Duration.ofMillis(1500)))
-                .moveTo(PointOption.point(0,200))
+        action.press(PointOption.point(0,200))
+                .waitAction(waitOptions(Duration.ofMillis(2000)))
+                .moveTo(PointOption.point(0,500))
                 .release()
                 .perform();
-        Thread.sleep(5000);
         return this;
     }
 
@@ -1151,7 +1136,18 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    /********************************************* Debugging methods ********************************************/
+    /********************************************* Debugging Methods ********************************************/
+
+    public LoginPage bedug() throws Exception {
+        TouchAction action = new TouchAction(getDriver());
+        action.press(PointOption.point(0,800))
+                .waitAction(waitOptions(Duration.ofMillis(1500)))
+                .moveTo(PointOption.point(0,200))
+                .release()
+                .perform();
+        Thread.sleep(5000);
+        return this;
+    }
 
     // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "home"));
     // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "volumeup"));

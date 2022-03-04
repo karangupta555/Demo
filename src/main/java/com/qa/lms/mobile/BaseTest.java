@@ -96,18 +96,16 @@ public class BaseTest {
     }
 
 
-    /*@Parameters({"envID"})
+   /* @Parameters({"envID"})
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite(@Optional String envID) throws Exception {
-        if (true) {
+        if (envID.equals("local")) {
             ThreadContext.put("ROUTINGKEY", "ServerLogs");
-            server = getAppiumService("Windows"); // Windows or Mac
+            server = getAppiumService("Windows"); // Need to provide the OS. Windows or Mac
             if (!checkIfAppiumServerIsRunnning(4723)) {
                 server.start();
                 server.clearOutPutStreams();
                 utils.log().info("Appium server started");
-            } else {
-                utils.log().info("Appium server already running");
             }
             utils.log().info("'beforeSuite' Executed for Local");
         } else {
@@ -118,13 +116,13 @@ public class BaseTest {
     @Parameters({"envID"})
     @AfterSuite(alwaysRun = true)
     public void afterSuite(@Optional String envID) {
-        if (true) {
+        if (envID.equals("local")) {
             server.stop();
             utils.log().info("'afterSuite' Executed for Local");
         } else {
             utils.log().info("'afterSuite' Executed for Remote");
         }
-    }*/
+    } */
 
     public AppiumDriverLocalService getAppiumService(String platform) throws Exception {
         HashMap<String, String> environment = new HashMap<String, String>();
@@ -174,14 +172,16 @@ public class BaseTest {
         return AppiumDriverLocalService.buildDefaultService();
     }
 
-    @Parameters({"envID", "platformName", "udid", "deviceName"})
+    @Parameters({"envID", "platformName"})
     @BeforeTest(alwaysRun = true)
-    public void beforeTest(@Optional String envID, String platformName, String UDID, String deviceName) throws Exception {
+    public void beforeTest(@Optional String envID, String platformName) throws Exception {
         try {
+            JSONObject deviceData = JsonParser.getDevicesData(platformName);
+            setupCustomLogs(platformName, deviceData.get("deviceName").toString());
             DriverManager objDriver = new DriverManager();
             if (envID.equals("local")) {
                 // Driver Initialization for Local
-                objDriver.initializeLocalDriver(platformName, UDID, deviceName);
+                objDriver.initializeLocalDriver(platformName);
                 utils.log().info("'beforeTest' Executed for Local");
             } else {
                 // Driver Initialization for Remote(SauceLabs)
@@ -250,6 +250,7 @@ public class BaseTest {
         launchApp();
         if(envID.equals("local")) {
             ((CanRecordScreen) getDriver()).startRecordingScreen();
+            utils.log().info("Recording has been Started for this Test-Case:");
             utils.log().info("'beforeMethod' Executed for Local");
         } else {
             utils.log().info("'beforeMethod' Executed for Remote");
@@ -272,6 +273,7 @@ public class BaseTest {
             }
             FileOutputStream stream = new FileOutputStream(videoDir + File.separator + result.getName() + ".mp4");
             stream.write(Base64.decodeBase64(media));
+            utils.log().info("Saved the Recording at '"+ videoDir + File.separator + result.getName() + ".mp4'");
             utils.log().info("'afterMethod' Executed for Local");
         }else {
             utils.log().info("'afterMethod' Executed for Remote");
@@ -284,8 +286,19 @@ public class BaseTest {
     }
 
     public void closeApp() {
-        utils.log().info("App Closed!!");
+        utils.log().info("App Closed!");
         getDriver().closeApp();
+    }
+
+    public void setupCustomLogs(String platformName, String deviceName) {
+        // Setting Custom logs
+        String strFile = "logs" + File.separator + platformName + "_" + deviceName;
+        File logFile = new File(strFile);
+        if (!logFile.exists()) {
+            logFile.mkdirs();
+        }
+        ThreadContext.put("ROUTINGKEY", strFile);
+        utils.log().info("Log(s) for this Run is initiated at: " + strFile);
     }
 
     public void iOSPermissions() throws Exception {

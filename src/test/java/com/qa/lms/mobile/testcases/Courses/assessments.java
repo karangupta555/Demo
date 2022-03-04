@@ -96,7 +96,7 @@ public class assessments extends BaseTest {
     }// 80738
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to skip the assessment and complete the course")
     public void skipAssessment(String platformName) throws Exception {
         /*
@@ -152,7 +152,7 @@ public class assessments extends BaseTest {
     }// 80739
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to click on Cancel from skip assessment warning screen")
     public void validateCancelButtonOnSkipAssessment(String platformName) throws Exception {
         /*
@@ -208,7 +208,7 @@ public class assessments extends BaseTest {
     }// 80740
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to perform Attend later")
     public void attendLater(String platformName) throws Exception {
         /*
@@ -264,7 +264,7 @@ public class assessments extends BaseTest {
     }// 80741
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to click on NO from Attend later warning screen")
     public void noAttendLater(String platformName) throws Exception {
         /*
@@ -320,7 +320,7 @@ public class assessments extends BaseTest {
     }// 80742
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to take single choice assessment with assessment options")
     public void takeSingleChoice(String platformName) throws Exception {
         /*
@@ -373,7 +373,7 @@ public class assessments extends BaseTest {
     }// 80744
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to take Multiple choice assessment with assessment options")
     public void takeMultipleChoice(String platformName) throws Exception {
         /*
