@@ -47,6 +47,7 @@ public class DriverManager extends BaseTest {
             desiredCapabilities.setCapability("appPackage", deviceData.get("appPackage").toString());
             desiredCapabilities.setCapability("appActivity", deviceData.get("appActivity").toString());
             desiredCapabilities.setCapability("fullReset", false);
+            desiredCapabilities.setCapability("autoAcceptAlerts", true);
             // desiredCapabilities.setCapability("noReset", true);
             // desiredCapabilities.setCapability("printPageSourceOnFindFailure", true);
             // desiredCapabilities.setCapability("autoWebview", true);
@@ -92,16 +93,17 @@ public class DriverManager extends BaseTest {
         URL url = new URL("https://" + userName + ":" + accessKey + (String)props.getProperty("driverCreationURL"));
 
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setCapability("deviceName", deviceData.get("cloudDeviceName").toString());
-        desiredCapabilities.setCapability("platformVersion", deviceData.get("cloudOSVersion").toString());
+        //desiredCapabilities.setCapability("deviceName", deviceData.get("cloudDeviceName").toString());
+        //desiredCapabilities.setCapability("platformVersion", deviceData.get("cloudOSVersion").toString());
         desiredCapabilities.setCapability("platformName", platformName);
-        desiredCapabilities.setCapability("app", deviceData.get("cloudAppURL1").toString());
+        desiredCapabilities.setCapability("app", deviceData.get("cloudApp").toString());
         desiredCapabilities.setCapability("appPackage", deviceData.get("appPackage").toString());
         desiredCapabilities.setCapability("appActivity", deviceData.get("appActivity").toString());
-        desiredCapabilities.setCapability("build", platformName);
+        //desiredCapabilities.setCapability("build", platformName);
         desiredCapabilities.setCapability("name", "Backlogs");
         desiredCapabilities.setCapability("autoGrantPermissions", true);
         desiredCapabilities.setCapability("fullReset", false);
+        desiredCapabilities.setCapability("autoAcceptAlerts", true);
 
         // cloudAppURL = using from past; cloudAppURL1 = pre-prod(1.0.4); cloudAppURL2 = flutter-changes debug
 

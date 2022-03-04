@@ -96,12 +96,12 @@ public class BaseTest {
     }
 
 
-    @Parameters({"envID"})
+    /*@Parameters({"envID"})
     @BeforeSuite(alwaysRun = true)
-    public void beforeSuite(String envID) throws Exception {
-        if (envID.equals("local")) {
+    public void beforeSuite(@Optional String envID) throws Exception {
+        if (true) {
             ThreadContext.put("ROUTINGKEY", "ServerLogs");
-            server = getAppiumService("Mac OS X"); // Windows or Mac
+            server = getAppiumService("Windows"); // Windows or Mac
             if (!checkIfAppiumServerIsRunnning(4723)) {
                 server.start();
                 server.clearOutPutStreams();
@@ -118,23 +118,23 @@ public class BaseTest {
     @Parameters({"envID"})
     @AfterSuite(alwaysRun = true)
     public void afterSuite(@Optional String envID) {
-        if (envID.equals("local")) {
+        if (true) {
             server.stop();
             utils.log().info("'afterSuite' Executed for Local");
         } else {
             utils.log().info("'afterSuite' Executed for Remote");
         }
-    }
+    }*/
 
     public AppiumDriverLocalService getAppiumService(String platform) throws Exception {
         HashMap<String, String> environment = new HashMap<String, String>();
         switch(platform) {
             case "Windows": {
-                environment.put("PATH", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk:-:-" + System.getenv("PATH"));
-                environment.put("ANDROID_HOME", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk");
+                environment.put("PATH", "C:\\Users\\New User\\AppData\\Local\\Android\\Sdk:-:-" + System.getenv("PATH"));
+                environment.put("ANDROID_HOME", "C:\\Users\\New User\\AppData\\Local\\Android\\Sdk");
                 return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
                         .usingDriverExecutable(new File("C:\\Program Files\\nodejs\\node.exe"))
-                        .withAppiumJS(new File("C:\\Users\\Ravi Kanth Gojur\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
+                        .withAppiumJS(new File("C:\\Users\\New User\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
                         .usingPort(4723).withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment)
                         .withLogFile(new File("ServerLogs/server.log")));
             }
@@ -144,8 +144,8 @@ public class BaseTest {
                 environment.put("JAVA_HOME", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home");
                 return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
                         .usingDriverExecutable(new File("/usr/local/bin/node"))
-                        .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js")).usingPort(4723)
-                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment)
+                        .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+                        .usingPort(4723).withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment)
                         .withLogFile(new File("ServerLogs/server.log")));
             }
             default: {
@@ -176,7 +176,7 @@ public class BaseTest {
 
     @Parameters({"envID", "platformName", "udid", "deviceName"})
     @BeforeTest(alwaysRun = true)
-    public void beforeTest(String envID, String platformName, String UDID, String deviceName) throws Exception {
+    public void beforeTest(@Optional String envID, String platformName, String UDID, String deviceName) throws Exception {
         try {
             DriverManager objDriver = new DriverManager();
             if (envID.equals("local")) {

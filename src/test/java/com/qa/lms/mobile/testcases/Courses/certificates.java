@@ -14,7 +14,7 @@ public class certificates extends BaseTest {
     JSONObject testData = JsonParser.getTestData();
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to complete the course without assessment and with certificate")
     public void completeCourseWithCertificateWithoutAssessment(String platformName) throws Exception {
         /*
@@ -32,7 +32,7 @@ public class certificates extends BaseTest {
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner2").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
@@ -45,16 +45,18 @@ public class certificates extends BaseTest {
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
             loginPage.clickNextLesson();
-            loginPage.clickCompleteButton();
+            loginPage.clickCompleteLessonButton();
             if (!platformName.equals("iOS")) {
                 loginPage.clickViewCertificate();
                 loginPage.pressBackButtonFromMobile();
             }
-            loginPage.clickBackButtonOnViewCertificatePage();
+            loginPage.clickBackButton();
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
-            loginPage.clickBackButtonOnCourseDetailsPage();
+            loginPage.scrollUp();
+            loginPage.clickBackButton();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80760");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -66,7 +68,7 @@ public class certificates extends BaseTest {
     }// 80760
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to complete the course without assessment and with certificate and download the certificate")
     public void completeCourseWithCertificateAndDownload(String platformName) throws Exception {
         /*
@@ -97,7 +99,7 @@ public class certificates extends BaseTest {
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
             loginPage.clickNextLesson();
-            loginPage.clickCompleteButton();
+            loginPage.clickCompleteLessonButton();
             loginPage.clickViewCertificate();
             if (!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
@@ -105,7 +107,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButtonOnViewCertificatePage();
+                loginPage.clickBackButton();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -115,13 +117,15 @@ public class certificates extends BaseTest {
                 loginPage.clickContinue();
                 loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
                 loginPage.clickContinue();
-                loginPage.scroll();
+                loginPage.scrollDown();
                 loginPage.viewSpecificCourse("Course 81218");
             }
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
-            loginPage.clickBackButtonOnCourseDetailsPage();
+            loginPage.scrollUp();
+            loginPage.clickBackButton();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 81218");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -133,7 +137,7 @@ public class certificates extends BaseTest {
     }// 81218
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to see Certificate in Course details screen ")
     public void validateCertificateInCourseDetails(String platformName) throws Exception {
         /*
@@ -163,7 +167,7 @@ public class certificates extends BaseTest {
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
-            loginPage.clickCompleteButton();
+            loginPage.clickCompleteLessonButton();
             loginPage.clickViewCertificate();
             if (!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
@@ -171,7 +175,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButtonOnViewCertificatePage();
+                loginPage.clickBackButton();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -181,13 +185,15 @@ public class certificates extends BaseTest {
                 loginPage.clickContinue();
                 loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
                 loginPage.clickContinue();
-                loginPage.scroll();
+                loginPage.scrollDown();
                 loginPage.viewSpecificCourse("Course 80770");
             }
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
-            loginPage.clickBackButtonOnCourseDetailsPage();
+            loginPage.scrollUp();
+            loginPage.clickBackButton();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80770");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -199,7 +205,7 @@ public class certificates extends BaseTest {
     }// 80770
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to see Certificate Tab in Course details screen during enrollment")
     public void validateCertificateTabWhileEnrolling(String platformName) throws Exception {
         /*
@@ -228,8 +234,10 @@ public class certificates extends BaseTest {
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
-            loginPage.clickBackButtonOnCourseDetailsPage();
+            loginPage.scrollUp();
+            loginPage.clickBackButton();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80771");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -241,7 +249,7 @@ public class certificates extends BaseTest {
     }// 80771
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to see all the information in the certificate as per admin's configuration")
     public void validateInformationOnCertificate(String platformName) throws Exception {
         /*
@@ -272,17 +280,19 @@ public class certificates extends BaseTest {
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickStartCourse();
-            loginPage.clickCompleteButton();
+            loginPage.clickCompleteLessonButton();
             if (!platformName.equals("iOS")) {
                 loginPage.clickViewCertificate();
                 /****/ // validate data on certificate
                 loginPage.pressBackButtonFromMobile();
             }
-            loginPage.clickBackButtonOnViewCertificatePage();
+            loginPage.clickBackButton();
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
-            loginPage.clickBackButtonOnCourseDetailsPage();
+            loginPage.scrollUp();
+            loginPage.clickBackButton();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80772");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -294,7 +304,7 @@ public class certificates extends BaseTest {
     }// 80772
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to complete the course with mandatory assessment and with certificate")
     public void completeCourseWithCertificateAndAssessment(String platformName) throws Exception {
         /*
@@ -329,7 +339,7 @@ public class certificates extends BaseTest {
             loginPage.selectOption("a");
             loginPage.clickCompleteAssessment();
             loginPage.clickAssessmentSummary();
-            loginPage.clickBackButtonOnAssessmentSummaryPage();
+            loginPage.clickBackButton();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
             if (!platformName.equals("iOS")) {
@@ -338,7 +348,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButtonOnViewCertificatePage();
+                loginPage.clickBackButton();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -348,13 +358,15 @@ public class certificates extends BaseTest {
                 loginPage.clickContinue();
                 loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
                 loginPage.clickContinue();
-                loginPage.scroll();
+                loginPage.scrollDown();
                 loginPage.viewSpecificCourse("Course 80773");
             }
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
-            loginPage.clickBackButtonOnCourseDetailsPage();
+            loginPage.scrollUp();
+            loginPage.clickBackButton();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80773");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -367,7 +379,7 @@ public class certificates extends BaseTest {
 
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to Fail in the course with mandatory assessment and with certificate")
     public void failMandatoryAssessmentWithCertificate(String platformName) throws Exception {
         /*
@@ -403,7 +415,7 @@ public class certificates extends BaseTest {
             loginPage.clickCompleteAssessment();
             Assert.assertFalse(loginPage.validateAssessmentStatus());
             loginPage.clickAssessmentSummary();
-            loginPage.clickBackButtonOnAssessmentSummaryPage();
+            loginPage.clickBackButton();
             loginPage.clickProceed();
             loginPage.viewSpecificCourse("Course 80777");
             loginPage.clickResumeButton();
@@ -414,7 +426,7 @@ public class certificates extends BaseTest {
             loginPage.clickCompleteAssessment();
             Assert.assertTrue(loginPage.validateAssessmentStatus());
             loginPage.clickAssessmentSummary();
-            loginPage.clickBackButtonOnAssessmentSummaryPage();
+            loginPage.clickBackButton();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
             if (!platformName.equals("iOS")) {
@@ -423,7 +435,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButtonOnViewCertificatePage();
+                loginPage.clickBackButton();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -433,13 +445,15 @@ public class certificates extends BaseTest {
                 loginPage.clickContinue();
                 loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
                 loginPage.clickContinue();
-                loginPage.scroll();
+                loginPage.scrollDown();
                 loginPage.viewSpecificCourse("Course 80777");
             }
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
-            loginPage.clickBackButtonOnCourseDetailsPage();
+            loginPage.scrollUp();
+            loginPage.clickBackButton();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80777");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -451,7 +465,7 @@ public class certificates extends BaseTest {
     }// 80777
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to complete the course with optional assessment and with certificate")
     public void optionalAssessmentWithCertificate(String platformName) throws Exception {
         /*
@@ -493,7 +507,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButtonOnViewCertificatePage();
+                loginPage.clickBackButton();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -503,13 +517,15 @@ public class certificates extends BaseTest {
                 loginPage.clickContinue();
                 loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
                 loginPage.clickContinue();
-                loginPage.scroll();
+                loginPage.scrollDown();
                 loginPage.viewSpecificCourse("Course 80778");
             }
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
-            loginPage.clickBackButtonOnCourseDetailsPage();
+            loginPage.scrollUp();
+            loginPage.clickBackButton();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80778");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -521,7 +537,7 @@ public class certificates extends BaseTest {
     }// 80778
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to Fail in the course with optional assessment and with certificate")
     public void failOptionalAssessmentWithCertificate(String platformName) throws Exception {
         /*
@@ -557,15 +573,16 @@ public class certificates extends BaseTest {
             loginPage.clickCompleteAssessment();
             Assert.assertFalse(loginPage.validateAssessmentStatus());
             loginPage.clickAssessmentSummary();
-            loginPage.clickBackButtonOnAssessmentSummaryPage();
+            loginPage.clickBackButton();
             loginPage.clickProceed();
-            loginPage.scroll();
+            loginPage.scrollDown();
             loginPage.viewSpecificCourse("Course 80779");
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
-            /****/ // View Certificate
-            loginPage.clickBackButtonOnCourseDetailsPage();
+            loginPage.scrollUp();
+            loginPage.clickBackButton();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80779");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -577,7 +594,7 @@ public class certificates extends BaseTest {
     }// 80779
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to skip the assessment and get certificate")
     public void skipAssessmentWithCertificate(String platformName) throws Exception {
         /*
@@ -619,7 +636,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButtonOnViewCertificatePage();
+                loginPage.clickBackButton();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -629,13 +646,15 @@ public class certificates extends BaseTest {
                 loginPage.clickContinue();
                 loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
                 loginPage.clickContinue();
-                loginPage.scroll();
+                loginPage.scrollDown();
                 loginPage.viewSpecificCourse("Course 80780");
             }
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
-            loginPage.clickBackButtonOnCourseDetailsPage();
+            loginPage.scrollUp();
+            loginPage.clickBackButton();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80780");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -737,7 +756,7 @@ public class certificates extends BaseTest {
     }// 82525
 
     @Parameters({"platformName"})
-    @Test
+    @Test(enabled = false)
     @Description("Learner - Able to see the certificate even the user kills the application in the certificate screen ")
     public void killTheAppAfterCourseCompletion(String platformName) throws Exception {
         /*
@@ -767,7 +786,7 @@ public class certificates extends BaseTest {
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
-            loginPage.clickCompleteButton();
+            loginPage.clickCompleteLessonButton();
             loginPage.terminateApp(platformName);
             launchApp();
             if (platformName.equals("iOS")) {
@@ -779,12 +798,14 @@ public class certificates extends BaseTest {
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
-            loginPage.scroll();
+            loginPage.scrollDown();
             loginPage.viewSpecificCourse("Course 81217");
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
+            loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
-            loginPage.clickBackButtonOnCourseDetailsPage();
+            loginPage.scrollUp();
+            loginPage.clickBackButton();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 81217");
             Assert.assertTrue(loginPage.isNoResultFound());
