@@ -1,21 +1,26 @@
 # Getting Started
 
-## Install Homebrew
+## Install JAVA JDK
+
+- Any JDK version which **above JDK 8** will work, Follow steps from [here] to install(https://www.guru99.com/install-java.html)
+
+## Install Android Studio
+
+  <!-- Helpful to launch Android Emulator -->
+
+- Android Studio download from [here](https://developer.android.com/studio)
+
+## Install Homebrew(For Mac)
 
 -   Package manager for macOS and is used to install software packages
--   Install it from [here](https://brew.sh/)
--   or through **Command**:
-
+-   Install it from [here](https://brew.sh/)    or through below **Command**:
     ```sh
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     ```
 
 ## Install Node.js and npm
 
--   Install Node.js from [here](https://nodejs.org/en/)
-
--   Then Open terminal
-
+- Install Node.js from [here](https://nodejs.org/en/)
     ```sh
     # install
     npm install -g npm
@@ -25,22 +30,22 @@
     npm -v
     ```
 
-    Or
+    **For Mac users**
 
--   Install through HomeBrew
+  - Install through HomeBrew
 
-    ```sh
-    # install
-    brew install node
+      ```sh
+      # install
+      brew install node
 
-    # verify
-    node -v
+      # verify
+      node -v
 
-    # path
-    where node
-    ```
+      # path
+      where node
+      ```
 
-## Install Appium server using NPM (Appium CLI)
+## Install Appium server(Appium CLI)
 
     ```sh
     # install
@@ -53,38 +58,34 @@
     where appium
     ```
 
-## Install Appium Desktop/Inspector
+## Install Appium GUI and Inspector
 
 -   Install Appium Inspector from [Here](https://github.com/appium/appium-inspector/releases)
--   Appium Desktop is not mandatory, as it used to start a server that we can do from terminal(already installed in above step).(If you want you can install)
-
-## Install JAVA JDK
-
--   Any JDK version will work, If don't have any follow steps from [here](https://www.guru99.com/install-java.html)
-
-## Install Android Studio
-
-  <!-- Helpful to launch Android Emulator -->
-
--   Android Studio download from [here](https://developer.android.com/studio)
+-   Appium GUI is not mandatory, as it used to start the appium server that we can do from terminal through below command.(already installed in above step)
+    ```shell
+    # just type appium
+    appium
+    ```
 
 ## Set environment variables
 
--   If there is already `.zshrc` file created in your system, the skip this step, else create it:
+**For MAC Users:**
+
+- If there is already `.zshrc` file created in your system, then skip this step, else create it.
 
     ```sh
     # create
     touch ~/.zshrc
     ```
 
--   Open `.zshrc` file to include environment variables, open terminal and run below command
+- Open `.zshrc` file to include environment variables, open terminal and run below command
 
     ```sh
     # open file
     nano ~/.zshrc
     ```
 
--   And now, Add this below lines to the editor.
+- And now, Add this below lines to the editor.
 
     ```sh
     # adding environment variables
@@ -95,7 +96,7 @@
     export PATH=$PATH:$ANDROID_HOME/emulator
     ```
 
--   Save it and close the editor/file. Now, Reopen terminal and check if it worked:
+- Save it and close the editor/file. Now, Reopen terminal and verify:
 
     ```sh
     # verify
@@ -103,9 +104,19 @@
     echo $ANDROID_HOME
     ```
 
-**Note**: _You can follow similar pattern for adding environment variables for any other setup._
+**Note:** _If you have to add this environment variables to different files like `zprofile` or `.bash_profile`, It will be a similar pattern, but follow any blog or stackoverflow for commands._
 
-**Note:** _If you have to add this environment variables to different files like `zprofile` or `.bash_profile`, It will be a similar pattern, but follow any blog or stackoverflow._
+**For Windows:**
+
+- Add below environment variables:
+  - **ANDROID_HOME**: `C:\Users\username\AppData\Local\Android\Sdk` _(under User variables)_
+  - **ANDROID_HOME**: `C:\Users\username\AppData\Local\Android\Sdk` _(under System variables)_
+  - **ANDROID_SDK**: `C:\Users\username\AppData\Local\Android\Sdk` _(under System variables)_
+  - **ANDROID_SDK_ROOT**: `C:\Users\username\AppData\Local\Android\Sdk` _(under System variables)_
+  - **MAVEN_HOME**: `C:\Program Files\apache-maven-3.8.4\` _(under System variables)_
+  - **JAVA_HOME**: `C:\Program Files\Java\jdk1.8.0_202\` _(under System variables)_
+  - And Add **_SDK tools_ and _SDK Platform tools_** path as well under System variables.
+
 
 ## Verify installation using appium-doctor
 
@@ -131,21 +142,8 @@ find more about [Appium Doctor](https://github.com/appium/appium-doctor)
 
 -   Launch Xcode > Open Developer Tool > Simulator.
 
-## Appium Inspector
 
--   Open Appium Inspector or Appium Desktop and start a server and inspect the application.
-
-### Not Required
-
-Install xcpretty [to make Xcode output reasonable]
-
--   install xcpretty: gem install xcpretty
-
-Install Carthage [dependency manager, required for WebDriverAgent]
-
--   Command to install Carthage: brew install Carthage
-
-## Commands
+## Useful Commands
 
 ```sh
 # list of available emulators
@@ -154,7 +152,7 @@ emulator -list-avds
 # Know the UDID of Connected emulators/devices
 adb devices
 
-# uninstall driver on device
+# uninstall drivers on device
 adb uninstall io.appium.uiautomator2.server
 adb uninstall io.appium.uiautomator2.server.test
 adb uninstall io.appium.unlock
