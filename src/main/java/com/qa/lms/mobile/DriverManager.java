@@ -18,106 +18,69 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 
 public class DriverManager extends BaseTest {
-
-    public void initializeLocalDriver(String platformName) throws Exception {
+    public void initializeDriver(String envID, String platformName) throws Exception {
         try {
             AppiumDriver driver;
+            URL launchURL;
+            Properties objProperties = new Properties();
 
             //  Reading Data
             JSONObject deviceData = JsonParser.getDevicesData(platformName);
-            Properties props = new Properties();
-            String propFileName = "config.properties";
-            props.load((InputStream)getClass().getClassLoader().getResourceAsStream(propFileName));
-            setProps(props);
+            objProperties.load((InputStream)getClass().getClassLoader().getResourceAsStream((String)"config.properties"));
+            setProps(objProperties);
 
             setPlatform(platformName); /****/
             setDeviceName(deviceData.get("deviceName").toString()); /****/
 
-            // App
+            // App Location for Local Execution
             String app = (System.getProperty("user.dir") + File.separator + deviceData.get("app").toString()).replace("\\", "/");
+
+            // SauceLabs/BrowserStack Keys
+            String userName = objProperties.getProperty("sauceLabsUserName");
+            String accessKey = objProperties.getProperty("sauceLabsAccessKey");
+
+            // Driver Launch URL
+            if(envID.equals("local")) {
+                launchURL = new URL(objProperties.getProperty("appiumURL"));
+            }
+            else {
+                launchURL = new URL("https://" + userName + ":" + accessKey + (String)objProperties.getProperty("sauceLabsURL"));
+                //launchURL = new URL("https://" + userName + ":" + accessKey + (String)objProperties.getProperty("browserStackURL"));
+            }
 
             // Capabilities
             DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
             desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
-            desiredCapabilities.setCapability("build", platformName+" "+deviceData.get("build").toString());
-            desiredCapabilities.setCapability("name", "Backlogs");
-            desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceData.get("deviceName").toString());
-            desiredCapabilities.setCapability(MobileCapabilityType.UDID, props.getProperty("deviceID"));
-            desiredCapabilities.setCapability(MobileCapabilityType.APP, app);
-            desiredCapabilities.setCapability("appPackage", props.getProperty("appPackage"));
-            desiredCapabilities.setCapability("appActivity", props.getProperty("appActivity"));
-            desiredCapabilities.setCapability("fullReset", false);
+            desiredCapabilities.setCapability("build", platformName + " " + deviceData.get("build").toString());
+            desiredCapabilities.setCapability("Name", "Backlogs");
+            desiredCapabilities.setCapability("appPackage", objProperties.getProperty("appPackage"));
+            desiredCapabilities.setCapability("appActivity", objProperties.getProperty("appActivity"));
+            desiredCapabilities.setCapability(MobileCapabilityType.FULL_RESET, false);
             desiredCapabilities.setCapability("autoGrantPermissions", true);
             desiredCapabilities.setCapability("autoAcceptAlerts", true);
-            // desiredCapabilities.setCapability("noReset", true);
+            // desiredCapabilities.setCapability(MobileCapabilityType.NO_RESET, true);
             // desiredCapabilities.setCapability("printPageSourceOnFindFailure", true);
-            // desiredCapabilities.setCapability("autoWebview", true);
-            URL url = new URL(props.getProperty("appiumURL"));
-
-            switch (platformName) {
-                case "Android": {
-                    desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
-                    driver = new AndroidDriver(url, desiredCapabilities);
-                    driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
-                    break;
-                }
-                case "iOS": {
-                    desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
-                    driver = new IOSDriver(url, desiredCapabilities);
-                    driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
-                    break;
-                }
-                default:
-                    throw new Exception("Invalid Platform! - " + platformName);
+            // desiredCapabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+            if(envID.equals("remote")) {
+                desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceData.get("cloudDeviceName").toString());
+                desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, deviceData.get("cloudOSVersion").toString());
+                desiredCapabilities.setCapability(MobileCapabilityType.APP, deviceData.get("cloudApp").toString());
+            } else {
+                desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceData.get("deviceName").toString());
+                desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, deviceData.get("OSVersion").toString());
+                desiredCapabilities.setCapability(MobileCapabilityType.UDID, objProperties.getProperty("deviceID"));
+                desiredCapabilities.setCapability(MobileCapabilityType.APP, app);
             }
-            setDriver(driver);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void initializeCloudDriver(String platformName) throws Exception {
-        try {
-            AppiumDriver driver;
-
-            // Reading Config, TestData files
-            JSONObject deviceData = JsonParser.getDevicesData(platformName);
-            Properties props = new Properties();
-            String propFileName = "config.properties";
-            props.load((InputStream)getClass().getClassLoader().getResourceAsStream(propFileName));
-            setProps(props);
-
-            String userName = props.getProperty("sauceLabsUserName");
-            String accessKey = props.getProperty("sauceLabsAccessKey");
-
-            URL url = new URL("https://" + userName + ":" + accessKey + (String)props.getProperty("sauceLabsURL"));
-
-            // Capabilities
-            DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-            desiredCapabilities.setCapability("platformName", platformName);
-            desiredCapabilities.setCapability("build", platformName+" "+deviceData.get("build").toString());
-            desiredCapabilities.setCapability("name", "Backlogs");
-            // desiredCapabilities.setCapability("deviceName", deviceData.get("cloudDeviceName").toString());
-            // desiredCapabilities.setCapability("platformVersion", deviceData.get("cloudOSVersion").toString());
-            desiredCapabilities.setCapability("app", deviceData.get("cloudApp").toString());
-            desiredCapabilities.setCapability("appPackage", props.getProperty("appPackage"));
-            desiredCapabilities.setCapability("appActivity", props.getProperty("appActivity"));
-            desiredCapabilities.setCapability("fullReset", false);
-            desiredCapabilities.setCapability("autoGrantPermissions", true);
-            desiredCapabilities.setCapability("autoAcceptAlerts", true);
-            // desiredCapabilities.setCapability("noReset", true);
-            // desiredCapabilities.setCapability("printPageSourceOnFindFailure", true);
-            // desiredCapabilities.setCapability("autoWebview", true);
 
             switch (platformName) {
                 case "Android":
                     desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
-                    driver = new AndroidDriver(url, desiredCapabilities);
+                    driver = new AndroidDriver(launchURL, desiredCapabilities);
                     driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
                     break;
                 case "iOS":
                     desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
-                    driver = new IOSDriver(url, desiredCapabilities);
+                    driver = new IOSDriver(launchURL, desiredCapabilities);
                     driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
                     break;
                 default:

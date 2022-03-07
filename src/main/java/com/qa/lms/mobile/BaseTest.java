@@ -177,17 +177,12 @@ public class BaseTest {
     public void beforeTest(@Optional String envID, String platformName) throws Exception {
         try {
             JSONObject deviceData = JsonParser.getDevicesData(platformName);
+            // Logs Initialization
             setupCustomLogs(platformName, deviceData.get("deviceName").toString());
+            // Driver Initialization
             DriverManager objDriver = new DriverManager();
-            if (envID.equals("local")) {
-                // Driver Initialization for Local
-                objDriver.initializeLocalDriver(platformName);
-                utils.log().info("'beforeTest' Executed for Local");
-            } else {
-                // Driver Initialization for Remote(SauceLabs)
-                objDriver.initializeCloudDriver(platformName);
-                utils.log().info("'beforeTest' Executed for Remote");
-            }
+            objDriver.initializeDriver(envID, platformName);
+            utils.log().info("'beforeTest' Executed for Local");
         }
         catch(Exception e){
             e.printStackTrace();
