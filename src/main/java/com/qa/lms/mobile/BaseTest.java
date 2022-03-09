@@ -96,7 +96,7 @@ public class BaseTest {
     }
 
 
-   /* @Parameters({"envID"})
+   @Parameters({"envID"})
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite(@Optional String envID) throws Exception {
         if (envID.equals("local")) {
@@ -122,7 +122,7 @@ public class BaseTest {
         } else {
             utils.log().info("'afterSuite' Executed for Remote");
         }
-    } */
+    }
 
     public AppiumDriverLocalService getAppiumService(String platform) throws Exception {
         HashMap<String, String> environment = new HashMap<String, String>();

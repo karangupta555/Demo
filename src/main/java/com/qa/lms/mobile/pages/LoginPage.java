@@ -453,11 +453,6 @@ public class LoginPage extends BaseTest {
 
     public LoginPage searchCourse(String courseName) throws Exception {
         try {
-            //new WebDriverWait(getDriver(),10).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("(//android.widget.ImageView)[1]")));
-            //getDriver().findElement(By.xpath("(//android.widget.ImageView)[1]")).click();
-            //getDriver().findElement(By.xpath("(//android.widget.ImageView)[1]")).clear();
-            //getDriver().getKeyboard().sendKeys(courseName);
-
             By searchTextBox= By.xpath("(//android.widget.ImageView)[1]"); // Cache Error
             getDriver().findElement(By.xpath("(//android.widget.ImageView)[1]")).click();
             getDriver().findElement(By.xpath("(//android.widget.ImageView)[1]")).clear();
@@ -1011,7 +1006,7 @@ public class LoginPage extends BaseTest {
     }
 
      /*****************
-       Actions Examples
+       Actions
      *****************/
 
     public LoginPage tap() throws Exception {
@@ -1070,7 +1065,6 @@ public class LoginPage extends BaseTest {
     }
 
     public LoginPage scrollDown() throws Exception {
-        //Thread.sleep(3000);
         /*
             xOffset = startScrollingFromX
             yOffset = startScrollingFromY
@@ -1094,7 +1088,6 @@ public class LoginPage extends BaseTest {
     }
 
     public LoginPage scrollUp() throws Exception {
-        //Thread.sleep(3000);
         // Exception: The swipe action is based on device screen ratio/width which is a dependency
         // Swiping Down
         TouchAction action = new TouchAction(getDriver());
@@ -1118,8 +1111,6 @@ public class LoginPage extends BaseTest {
         ExtentReport.getTest().log(Status.INFO, "Toaster Message Captured: " + message);
         return this;
     }
-
-    /****/
 
     public LoginPage clickEditProfile() {
         click(editProfile);
@@ -1148,10 +1139,6 @@ public class LoginPage extends BaseTest {
         Thread.sleep(5000);
         return this;
     }
-
-    // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "home"));
-    // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "volumeup"));
-    // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "volumedown"));
 
     int heightOfScreen = getDriver().manage().window().getSize().getHeight();
     int widthOfScreen = getDriver().manage().window().getSize().getWidth();
@@ -1231,17 +1218,3 @@ public class LoginPage extends BaseTest {
         getDriver().executeScript("mobile:scroll", scrollObject);
     }
 }
-
-
-//textBox.setValue(username);
-//textBox.sendKeys(username);
-//getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-//getDriver().findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.EditText[@text='Enter email ID or username']")).sendKeys(username);
-//getDriver().getKeyboard().sendKeys(username);
-
-//List<WebElement> editText = getDriver().findElements(By.className("android.widget.EditText"));
-//editText.get(0).sendKeys(username);
-
-//new WebDriverWait(getDriver(),30).until(ExpectedConditions.elementToBeClickable(textBox)).sendKeys(username);
-//Thread.sleep(4000);
-//sendKeys(textBox, username);
