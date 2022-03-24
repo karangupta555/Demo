@@ -28,33 +28,98 @@ import static io.appium.java_client.touch.WaitOptions.waitOptions;
 public class LoginPage extends BaseTest {
     TestUtils utils =  new TestUtils();
 
-    /* Tabs*/
-    @AndroidFindBy(accessibility = "Tab 1 of 4")
-    @iOSXCUITFindBy(accessibility = "Tab 1 of 4")
+    /* Sign in */
+    @AndroidFindBy(className = "android.widget.EditText")
+    @iOSXCUITFindBy(className = "XCUIElementTypeTextField")
+    private MobileElement textBox;
+
+    @AndroidFindBy(accessibility = "Continue")
+    @iOSXCUITFindBy(accessibility = "Continue")
+    private MobileElement continueBtn;
+
+    @AndroidFindBy(accessibility = "Sign In")
+    @iOSXCUITFindBy(accessibility = "Sign In")
+    private MobileElement signInButton;
+
+    @AndroidFindBy(accessibility = "Sign In with SSO")
+    @iOSXCUITFindBy(accessibility = "Sign In with SSO")
+    private MobileElement signInSSOButton;
+
+    @AndroidFindBy(accessibility = "Forgot Password?")
+    @iOSXCUITFindBy(accessibility = "Forgot Password?")
+    private MobileElement forgotPasswordButton;
+
+    @AndroidFindBy(accessibility = "Show")
+    @iOSXCUITFindBy(accessibility = "Show")
+    private MobileElement showPasswordButton;
+
+    @AndroidFindBy(accessibility = "Hide")
+    @iOSXCUITFindBy(accessibility = "Hide")
+    private MobileElement hidePasswordButton;
+
+    @AndroidFindBy(accessibility = "back")
+    @iOSXCUITFindBy(accessibility = "back")
+    private MobileElement backButton;
+
+    /* Tabs */
+    @AndroidFindBy(accessibility = "home-tab")
+    @iOSXCUITFindBy(accessibility = "home-tab")
     private MobileElement homeTab;
 
-    @AndroidFindBy(accessibility = "Tab 2 of 4")
-    @iOSXCUITFindBy(accessibility = "Tab 2 of 4")
+    @AndroidFindBy(accessibility = "search-tab")
+    @iOSXCUITFindBy(accessibility = "search-tab")
     private MobileElement searchTab;
-    // Search by course title
 
-    @AndroidFindBy(accessibility = "Tab 3 of 4")
-    @iOSXCUITFindBy(accessibility = "Tab 3 of 4")
+    @AndroidFindBy(accessibility = "notifications-tab")
+    @iOSXCUITFindBy(accessibility = "notifications-tab")
     private MobileElement notificationTab;
 
-    @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"SM Tab 4 of 4\"]")
+    @AndroidFindBy(accessibility = "profile-tab")
+    @iOSXCUITFindBy(accessibility = "profile-tab")
     private MobileElement profileTab;
 
-    @AndroidFindBy(accessibility = "Enroll now")
-    @iOSXCUITFindBy(accessibility = "Enroll now")
+    /* Notifications */
+    @AndroidFindBy(accessibility = "Mark all as read")
+    @iOSXCUITFindBy(accessibility = "Mark all as read")
+    private MobileElement markAllReadNotifications;
+
+    /* Profile */
+    @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"SM\"]")
+    private MobileElement editProfile;
+
+    @AndroidFindBy(accessibility = "Save")
+    @iOSXCUITFindBy(accessibility = "Save")
+    private MobileElement saveButton;
+
+    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView[1]")
+    @iOSXCUITFindBy(className = "XCUIElementTypeImage")
+    private MobileElement myCertificatesTab;
+
+    @AndroidFindBy(className = "XCUIElementTypeOther")
+    @iOSXCUITFindBy(className = "XCUIElementTypeOther")
+    private MobileElement firstCertificate;
+
+    @AndroidFindBy(accessibility = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView[2]")
+    private MobileElement logout;
+
+    @AndroidFindBy(accessibility = "Sign Out")
+    @iOSXCUITFindBy(accessibility = "Sign Out")
+    private MobileElement signout;
+
+    @AndroidFindBy(accessibility = "Cancel")
+    @iOSXCUITFindBy(accessibility = "Cancel")
+    private MobileElement cancel;
+
+    @AndroidFindBy(accessibility = "Enroll Now")
+    @iOSXCUITFindBy(accessibility = "Enroll Now")
     private MobileElement enrollNowButton;
 
     @AndroidFindBy(accessibility = "Completed")
     @iOSXCUITFindBy(accessibility = "Completed")
     private MobileElement completedButton;
 
-    @AndroidFindBy(accessibility = "Start course")
-    @iOSXCUITFindBy(accessibility = "Start course")
+    @AndroidFindBy(accessibility = "Start Course")
+    @iOSXCUITFindBy(accessibility = "Start Course")
     private MobileElement startCourseButton;
 
     @AndroidFindBy(accessibility = "Resume")
@@ -65,17 +130,17 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Next lesson")
     private MobileElement nextLessonButton;
 
-    @AndroidFindBy(accessibility = "Take assessment")
-    @iOSXCUITFindBy(accessibility = "Take assessment")
+    @AndroidFindBy(accessibility = "Exit course")
+    @iOSXCUITFindBy(accessibility = "Exit course")
+    private MobileElement exitCourse;
+
+    @AndroidFindBy(accessibility = "Take Assessment")
+    @iOSXCUITFindBy(accessibility = "Take Assessment")
     private MobileElement takeAssessmentButton;
 
-    @AndroidFindBy(accessibility = "Skip assessment")
-    @iOSXCUITFindBy(accessibility = "Skip assessment")
+    @AndroidFindBy(accessibility = "Skip Assessment")
+    @iOSXCUITFindBy(accessibility = "Skip Assessment")
     private MobileElement skipAssessmentButton;
-
-    @AndroidFindBy(accessibility = "Back")
-    @iOSXCUITFindBy(accessibility = "Back")
-    private MobileElement backButton;
 
     @AndroidFindBy(accessibility = "Skip")
     @iOSXCUITFindBy(accessibility = "Skip")
@@ -97,9 +162,21 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Complete Assessment")
     private MobileElement completeAssessmentButton;
 
+    @AndroidFindBy(accessibility = "Edit Answers")
+    @iOSXCUITFindBy(accessibility = "Edit Answers")
+    private MobileElement editAnswers;
+
+    @AndroidFindBy(accessibility = "Submit")
+    @iOSXCUITFindBy(accessibility = "Submit")
+    private MobileElement submitButton;
+
     @AndroidFindBy(accessibility = "Complete")
     @iOSXCUITFindBy(accessibility = "Complete")
     private MobileElement completeButton;
+
+    @AndroidFindBy(accessibility = "Complete Lesson")
+    @iOSXCUITFindBy(accessibility = "Complete Lesson")
+    private MobileElement completeLessonButton;
 
     @AndroidFindBy(accessibility = "Assessment summary")
     @iOSXCUITFindBy(accessibility = "Assessment summary")
@@ -117,7 +194,7 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Download")
     private MobileElement downloadButton;
 
-    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[2]/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[1]/android.view.View[3]/android.view.View/android.widget.Image")
+    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[2]/android.view.View/android.widget.Image")
     @iOSXCUITFindBy(accessibility = "Export as Image")
     private MobileElement downloadCertificateButton;
 
@@ -140,90 +217,9 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Back to courses")
     private MobileElement backToCoursesButton;
 
-    @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
-    @iOSXCUITFindBy(xpath = "//XCUIElementTypeApplication[@name=\"Auzmor Learn\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeImage")
-    private MobileElement backButtonOnAssessmentSummaryPage;
-
-    @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
-    @iOSXCUITFindBy(className = "XCUIElementTypeImage")
-    private MobileElement backButtonOnViewCertificatePage;
-
-    @AndroidFindBy(xpath = "//android.widget.ImageView[@index='0']")
-    @iOSXCUITFindBy(xpath = "//XCUIElementTypeApplication[@name=\"Auzmor Learn\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeImage[1]")
-    private MobileElement backButtonOnCourseDetailsPage;
-
     @AndroidFindBy(accessibility = "Go Back")
     @iOSXCUITFindBy(accessibility = "Go Back")
     private MobileElement goBackButton;
-
-    /* Notifications */ // android.view.View
-    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView")
-    @iOSXCUITFindBy(xpath = "/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeImage")
-    private MobileElement goBackFromNotificationsTab;
-
-    @AndroidFindBy(accessibility = "mark all read")
-    @iOSXCUITFindBy(accessibility = "mark all read")
-    private MobileElement markAllReadNotifications;
-
-    /* Sign in */
-    @AndroidFindBy(className = "android.widget.EditText")
-    @iOSXCUITFindBy(className = "XCUIElementTypeTextField")
-    private MobileElement textBox;
-
-    @AndroidFindBy(accessibility = "Continue")
-    @iOSXCUITFindBy(accessibility = "Continue")
-    private MobileElement continueBtn;
-
-    @AndroidFindBy(accessibility = "Sign in")
-    @iOSXCUITFindBy(accessibility = "Sign in")
-    private MobileElement signInButton;
-
-    @AndroidFindBy(accessibility = "Sign in with SSO")
-    @iOSXCUITFindBy(accessibility = "Sign in with SSO")
-    private MobileElement signInSSOButton;
-
-    @AndroidFindBy(accessibility = "Forgot password?")
-    @iOSXCUITFindBy(accessibility = "Forgot password?")
-    private MobileElement forgotPasswordButton;
-
-    @AndroidFindBy(accessibility = "Show")
-    @iOSXCUITFindBy(accessibility = "Show")
-    private MobileElement showPasswordButton;
-
-    @AndroidFindBy(accessibility = "Hide")
-    @iOSXCUITFindBy(accessibility = "Hide")
-    private MobileElement hidePasswordButton;
-
-    @AndroidFindBy(xpath = "hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView")
-    @iOSXCUITFindBy(className = "XCUIElementTypeImage")
-    private MobileElement backButtonOnPasswordPage;
-
-    /* Profile */
-    @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"SM\"]")
-    private MobileElement editProfile;
-
-    @AndroidFindBy(accessibility = "Save")
-    @iOSXCUITFindBy(accessibility = "Save")
-    private MobileElement saveButton;
-
-    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView[1]")
-    @iOSXCUITFindBy(className = "XCUIElementTypeImage")
-    private MobileElement myCertificatesTab; // className = "android.widget.ImageView"
-
-    @AndroidFindBy(className = "XCUIElementTypeOther")
-    @iOSXCUITFindBy(className = "XCUIElementTypeOther")
-    private MobileElement firstCertificate;
-
-    @AndroidFindBy(accessibility = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView[2]")
-    private MobileElement logout;
-
-    @AndroidFindBy(accessibility = "Sign Out")
-    @iOSXCUITFindBy(accessibility = "Sign Out")
-    private MobileElement signout;
-
-    @AndroidFindBy(accessibility = "Cancel")
-    @iOSXCUITFindBy(accessibility = "Cancel")
-    private MobileElement cancel;
 
     public LoginPage clickSignInBtn() throws Exception {
         try {
@@ -323,7 +319,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickContinue() throws Exception {
         try {
-            click(continueBtn);
+            // click(continueBtn);
+            getDriver().findElementByAccessibilityId("Continue").click();
             utils.log().info("Clicked Continue Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked Continue Button");
         }
@@ -332,6 +329,35 @@ public class LoginPage extends BaseTest {
             utils.log().info("Error: Unable to Click on Continue Button");
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Continue Button");
             throw new Exception("Error: Unable to Click on Continue Button");
+        }
+        return this;
+    }
+
+    public LoginPage navigateBack() throws Exception {
+        try {
+            // click(backButton);
+            getDriver().findElementByAccessibilityId("back").click();
+            utils.log().info("Clicked on Back Button Arrow");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Back Button Arrow");
+        } catch(Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Back Button Arrow");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Back Button Arrow");
+            throw new Exception("Error: Unable to Click on Back Button Arrow");
+        }
+        return this;
+    }
+
+    public LoginPage clickBackButton() throws Exception {
+        try {
+            getDriver().findElementByAccessibilityId("Back").click();
+            utils.log().info("Clicked on Back Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Back Button");
+        } catch(Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Back Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Back Button");
+            throw new Exception("Error: Unable to Click on Back Button");
         }
         return this;
     }
@@ -443,8 +469,9 @@ public class LoginPage extends BaseTest {
 
     public LoginPage searchCourse(String courseName) throws Exception {
         try {
-            click(textBox);
-            textBox.clear();/****/
+            By searchTextBox= By.xpath("(//android.widget.ImageView)[1]"); // Cache Error
+            getDriver().findElement(By.xpath("(//android.widget.ImageView)[1]")).click();
+            getDriver().findElement(By.xpath("(//android.widget.ImageView)[1]")).clear();
             getDriver().getKeyboard().sendKeys(courseName);
             utils.log().info("Searched Course: '" + courseName + "'");
             ExtentReport.getTest().log(Status.INFO, "Searched Course: '" + courseName + "'");
@@ -462,9 +489,6 @@ public class LoginPage extends BaseTest {
     public LoginPage viewSpecificCourse(String courseName) throws Exception {
         try {
             getDriver().findElementByAccessibilityId(courseName).click();
-            // org.openqa.selenium.StaleElementReferenceException: The previously found element ""Course 81218" Other" is not present in the current view anymore. Make sure the application UI has the expected state. You could also try to switch the binding strategy using the 'boundElementsByIndex' setting for the element lookup. Original error: No matches found for Identity Binding from input {(
-            //    Other, {{26.0, 107.0}, {188.0, 188.0}}, label: 'Course 81218'
-            //)}
             utils.log().info("Clicked on '" + courseName+"' Course");
             ExtentReport.getTest().log(Status.INFO, "Clicked on '"+courseName+"' Course");
         }
@@ -539,7 +563,6 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickNextLesson() throws Exception {
         try {
-            // getDriver().findElementByAccessibilityId("Next lesson").click();
             click(nextLessonButton);
             utils.log().info("Clicked on Next Lesson Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Next Lesson Button");
@@ -555,8 +578,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickTakeAssessment() throws Exception {
         try {
-            //getDriver().findElementByAccessibilityId("Take assessment").click();
-            click(takeAssessmentButton);
+            //click(takeAssessmentButton);
+            getDriver().findElementByAccessibilityId("Take Assessment").click();
             utils.log().info("Clicked on Take Assessment Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Take Assessment Button");
         }
@@ -571,7 +594,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickSkipAssessment() throws Exception {
         try {
-            click(skipAssessmentButton);
+            //click(skipAssessmentButton);
+            getDriver().findElementByAccessibilityId("Skip Assessment").click();
             utils.log().info("Clicked on Skip Assessment Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Skip Assessment Button");
         } catch(Exception e) {
@@ -585,7 +609,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickSkipButton() throws Exception {
         try {
-            click(skipButton);
+            // click(skipButton);
+            getDriver().findElementByAccessibilityId("Skip").click();
             utils.log().info("Clicked on Skip Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Skip Button");
         } catch(Exception e) {
@@ -597,23 +622,10 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage clickBackButton() throws Exception {
-        try {
-            click(backButton);
-            utils.log().info("Clicked on Back Button");
-            ExtentReport.getTest().log(Status.INFO, "Clicked on Back Button");
-        } catch(Exception e) {
-            e.printStackTrace();
-            utils.log().info("Error: Unable to Click on Back Button");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Back Button");
-            throw new Exception("Error: Unable to Click on Back Button");
-        }
-        return this;
-    }
-
     public LoginPage clickAttendLater() throws Exception {
         try {
-            click(attendLaterButton);
+            // click(attendLaterButton);
+            getDriver().findElementByAccessibilityId("Attend later").click();
             utils.log().info("Clicked on Attend Later Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Attend Later Button");
         }
@@ -658,8 +670,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickCompleteAssessment() throws Exception {
         try {
-            Thread.sleep(3000);
-            click(completeAssessmentButton);
+            // click(completeAssessmentButton);
+            getDriver().findElementByAccessibilityId("Complete Assessment").click();
             utils.log().info("Clicked on Complete Assessment Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Assessment Button");
         }
@@ -673,16 +685,33 @@ public class LoginPage extends BaseTest {
     }
 
     public LoginPage clickCompleteButton() throws Exception {
-        try {
+        try { /*Need to be removed*/
             click(completeButton);
+            getDriver().findElementByAccessibilityId("Complete Lesson").click();
             utils.log().info("Clicked on Complete Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Button");
         }
         catch (Exception e) {
             e.printStackTrace();
-            utils.log().info("Error: Unable to click Complete Assessment Button");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Complete Assessment Button");
-            throw new Exception("Error: Unable to click Complete Assessment Button");
+            utils.log().info("Error: Unable to click Complete Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Complete Button");
+            throw new Exception("Error: Unable to click Complete Button");
+        }
+        return this;
+    }
+
+    public LoginPage clickCompleteLessonButton() throws Exception {
+        try {
+            // click(completeLessonButton);
+            getDriver().findElementByAccessibilityId("Complete Lesson").click();
+            utils.log().info("Clicked on Complete Lesson Button");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Lesson Button");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to click Complete Lesson Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Complete Lesson Button");
+            throw new Exception("Error: Unable to click Complete Lesson Button");
         }
         return this;
     }
@@ -719,7 +748,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickAssessmentSummary() throws Exception {
         try {
-            click(assessmentSummaryButton);
+            // click(assessmentSummaryButton);
+            getDriver().findElementByAccessibilityId("Assessment summary").click();
             utils.log().info("Clicked on Assessment Summary Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Assessment Summary Button");
         }
@@ -732,24 +762,10 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage clickBackButtonOnAssessmentSummaryPage() throws Exception {
-        try {
-            click(backButtonOnAssessmentSummaryPage);
-            utils.log().info("Clicked Back Button on Assessment Summary Page");
-            ExtentReport.getTest().log(Status.INFO, "Clicked Back Button on Assessment Summary Page");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            utils.log().info("Error: Unable to click Back Button on Assessment Summary Page");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Back Button on Assessment Summary Page");
-            throw new Exception("Error: Unable to click Back Button on Assessment Summary Page");
-        }
-        return this;
-    }
-
     public LoginPage clickProceed() throws Exception {
         try {
-            click(proceedButton);
+            // click(proceedButton);
+            getDriver().findElementByAccessibilityId("Proceed").click();
             utils.log().info("Clicked on Proceed Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Proceed Button");
         }
@@ -764,7 +780,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickViewCertificate() throws Exception {
         try {
-            click(viewCertificateButton);
+            // click(viewCertificateButton);
+            getDriver().findElementByAccessibilityId("View Certificate").click();
             utils.log().info("Clicked on View Certificate Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on View Certificate Button");
             Thread.sleep(10000);
@@ -811,7 +828,8 @@ public class LoginPage extends BaseTest {
     public LoginPage downloadCertificateImage() throws Exception {
         try {
             downloadCertificateButton();
-            click(certificateExportAsImage);
+            // click(certificateExportAsImage);
+            getDriver().findElementByAccessibilityId("Export as Image").click();
             utils.log().info("Clicked on Export as Image Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Export as Image Button");
             isFileAlreadyPresent();
@@ -828,7 +846,8 @@ public class LoginPage extends BaseTest {
     public LoginPage downloadCertificatePDF() throws Exception {
         try {
             downloadCertificateButton();
-            click(certificateExportAsPDF);
+            // click(certificateExportAsPDF);
+            getDriver().findElementByAccessibilityId("Export as PDF").click();
             utils.log().info("Clicked on Export as PDF Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Export as PDF Button");
             isFileAlreadyPresent();
@@ -868,7 +887,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickBackToCourseButton() throws Exception {
         try {
-            click(backToCourseButton);
+            // click(backToCourseButton);
+            getDriver().findElementByAccessibilityId("Back to Course").click();
             utils.log().info("Clicked on Back to Course Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Back to Course Button");
         }
@@ -911,37 +931,6 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage clickBackButtonOnViewCertificatePage() throws Exception {
-        try {
-            Thread.sleep(5000);
-            click(backButtonOnViewCertificatePage);
-            utils.log().info("Clicked Back Button on View Certificate Page");
-            ExtentReport.getTest().log(Status.INFO, "Clicked Back Button on View Certificate Page");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            utils.log().info("Error: Unable to click Back Button on View Certificate Page");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Back Button on View Certificate Page");
-            throw new Exception("Error: Unable to click Back Button on View Certificate Page");
-        }
-        return this;
-    }
-
-    public LoginPage clickBackButtonOnCourseDetailsPage() throws Exception {
-        try {
-            click(backButtonOnCourseDetailsPage);
-            utils.log().info("Clicked Back Button in Course Details");
-            ExtentReport.getTest().log(Status.INFO, "Clicked Back Button in Course Details");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            utils.log().info("Error: Unable to click Back Button in Course Details");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Back Button in Course Details");
-            throw new Exception("Error: Unable to click Back Button in Course Details");
-        }
-        return this;
-    }
-
     public LoginPage clickGoBackButton() throws Exception {
         try {
             click(goBackButton);
@@ -962,14 +951,14 @@ public class LoginPage extends BaseTest {
      *****************/
 
     public boolean validateNotificationTab() throws Exception {
-            if(getDriver().findElementsByAccessibilityId("Notifications").size() > 0) {
-                utils.log().info("Validated Notification Tab");
-                ExtentReport.getTest().log(Status.INFO, "Validated Notification Tab");
-                return true;
-            }
-            utils.log().info("Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
-            return false;
+        if(getDriver().findElementsByAccessibilityId("Notifications").size() > 0) {
+            utils.log().info("Validated Notification Tab");
+            ExtentReport.getTest().log(Status.INFO, "Validated Notification Tab");
+            return true;
+        }
+        utils.log().info("Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
+        ExtentReport.getTest().log(Status.INFO, "Error: Unable to Validated Notification Tab, You're not on Notifications Tab");
+        return false;
     }
 
     public boolean validateAssessmentStatus() throws Exception {
@@ -1012,7 +1001,8 @@ public class LoginPage extends BaseTest {
     }
 
     public boolean isCertificateTabPresent() throws Exception {
-        if(getDriver().findElements(By.name("Certificate")).size()>0){
+        // Alternate Approach: '//android.view.View[@content-desc[contains(., 'Certificate')]]")).size() == 2'
+        if(getDriver().findElementsByAccessibilityId(("Certificate")).size() > 0 ){
             utils.log().info("Certificate Tab Present");
             ExtentReport.getTest().log(Status.INFO, "Certificate Tab Present");
             return true;
@@ -1023,8 +1013,7 @@ public class LoginPage extends BaseTest {
     }
 
     public boolean isCertificateAvailable() throws Exception {
-        Thread.sleep(6000);
-        if(getDriver().findElements(By.name("Certificate")).size()>1){
+        if(getDriver().findElements(By.xpath("//android.view.View[@content-desc[contains(., 'CERTIFICATE OF COMPLETION')]]")).size() > 0){
             utils.log().info("Certificate is Available");
             ExtentReport.getTest().log(Status.INFO, "Certificate is Available");
             return true;
@@ -1045,7 +1034,7 @@ public class LoginPage extends BaseTest {
     }
 
      /*****************
-       Actions Examples
+       Actions
      *****************/
 
     public LoginPage tap() throws Exception {
@@ -1103,31 +1092,47 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    public LoginPage scroll() throws Exception {
-        Thread.sleep(6000);
-        TouchAction action = new TouchAction(getDriver());
+    public LoginPage scrollDown() throws Exception {
         /*
-        xOffset = startScrollingFromX
-        yOffset = startScrollingFromY
+            xOffset = startScrollingFromX
+            yOffset = startScrollingFromY
 
-        Same x,y points are required for end_points
-         */
-        action.press(PointOption.point(0,800))
+            Same x,y points are required for end_points(on x_y axis plane)
+        */
+        // Exception: The swipe action is based on device screen ratio/width which is a dependency(differs device-to-device)
+        TouchAction action = new TouchAction(getDriver());
+        // Swiping Up(through fingers)
+        action.press(PointOption.point(0,400))
                 .waitAction(waitOptions(Duration.ofMillis(2000)))
-                .moveTo(PointOption.point(0,200))
+                .moveTo(PointOption.point(0,100))
                 .release()
                 .perform();
+        action.press(PointOption.point(0,400))
+                .waitAction(waitOptions(Duration.ofMillis(2000)))
+                .moveTo(PointOption.point(0,100))
+                .release()
+                .perform();
+        utils.log().info("Screen Scrolled Down");
+        ExtentReport.getTest().log(Status.INFO, "Screen Scrolled Down");
         return this;
     }
 
-    public LoginPage bedug() throws Exception {
+    public LoginPage scrollUp() throws Exception {
+        // Exception: The swipe action is based on device screen ratio/width which is a dependency(differs device-to-device)
+        // Swiping Down(through fingers)
         TouchAction action = new TouchAction(getDriver());
-        action.press(PointOption.point(0,800))
-                .waitAction(waitOptions(Duration.ofMillis(1500)))
-                .moveTo(PointOption.point(0,200))
+        action.press(PointOption.point(0,200))
+                .waitAction(waitOptions(Duration.ofMillis(2000)))
+                .moveTo(PointOption.point(0,500))
                 .release()
                 .perform();
-        Thread.sleep(5000);
+        action.press(PointOption.point(0,200))
+                .waitAction(waitOptions(Duration.ofMillis(2000)))
+                .moveTo(PointOption.point(0,500))
+                .release()
+                .perform();
+        utils.log().info("Screen Scrolled Up");
+        ExtentReport.getTest().log(Status.INFO, "Screen Scrolled Up");
         return this;
     }
 
@@ -1136,12 +1141,6 @@ public class LoginPage extends BaseTest {
         String message="";
         utils.log().info("Toaster Message Captured: " + message);
         ExtentReport.getTest().log(Status.INFO, "Toaster Message Captured: " + message);
-        return this;
-    }
-
-    /****/
-    public LoginPage backButtonOnPassword() {
-        click(backButtonOnPasswordPage);
         return this;
     }
 
@@ -1160,11 +1159,18 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    /********************************************* Debugging methods ********************************************/
+    /********************************************* Debugging Methods ********************************************/
 
-    // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "home"));
-    // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "volumeup"));
-    // driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "volumedown"));
+    public LoginPage bedug() throws Exception {
+        TouchAction action = new TouchAction(getDriver());
+        action.press(PointOption.point(0,800))
+                .waitAction(waitOptions(Duration.ofMillis(1500)))
+                .moveTo(PointOption.point(0,200))
+                .release()
+                .perform();
+        Thread.sleep(5000);
+        return this;
+    }
 
     int heightOfScreen = getDriver().manage().window().getSize().getHeight();
     int widthOfScreen = getDriver().manage().window().getSize().getWidth();
@@ -1244,17 +1250,3 @@ public class LoginPage extends BaseTest {
         getDriver().executeScript("mobile:scroll", scrollObject);
     }
 }
-
-
-//textBox.setValue(username);
-//textBox.sendKeys(username);
-//getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-//getDriver().findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.EditText[@text='Enter email ID or username']")).sendKeys(username);
-//getDriver().getKeyboard().sendKeys(username);
-
-//List<WebElement> editText = getDriver().findElements(By.className("android.widget.EditText"));
-//editText.get(0).sendKeys(username);
-
-//new WebDriverWait(getDriver(),30).until(ExpectedConditions.elementToBeClickable(textBox)).sendKeys(username);
-//Thread.sleep(4000);
-//sendKeys(textBox, username);

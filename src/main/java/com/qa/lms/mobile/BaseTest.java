@@ -96,18 +96,16 @@ public class BaseTest {
     }
 
 
-    @Parameters({"envID"})
+   @Parameters({"envID"})
     @BeforeSuite(alwaysRun = true)
-    public void beforeSuite(String envID) throws Exception {
+    public void beforeSuite(@Optional String envID) throws Exception {
         if (envID.equals("local")) {
             ThreadContext.put("ROUTINGKEY", "ServerLogs");
-            server = getAppiumService("Mac OS X"); // Windows or Mac
+            server = getAppiumService("Windows"); // Need to provide the OS. Windows or Mac
             if (!checkIfAppiumServerIsRunnning(4723)) {
                 server.start();
                 server.clearOutPutStreams();
                 utils.log().info("Appium server started");
-            } else {
-                utils.log().info("Appium server already running");
             }
             utils.log().info("'beforeSuite' Executed for Local");
         } else {
@@ -130,11 +128,11 @@ public class BaseTest {
         HashMap<String, String> environment = new HashMap<String, String>();
         switch(platform) {
             case "Windows": {
-                environment.put("PATH", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk:-:-" + System.getenv("PATH"));
-                environment.put("ANDROID_HOME", "C:\\Users\\Ravi Kanth Gojur\\AppData\\Local\\Android\\Sdk");
+                environment.put("PATH", "C:\\Users\\New User\\AppData\\Local\\Android\\Sdk:-:-" + System.getenv("PATH"));
+                environment.put("ANDROID_HOME", "C:\\Users\\New User\\AppData\\Local\\Android\\Sdk");
                 return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
                         .usingDriverExecutable(new File("C:\\Program Files\\nodejs\\node.exe"))
-                        .withAppiumJS(new File("C:\\Users\\Ravi Kanth Gojur\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
+                        .withAppiumJS(new File("C:\\Users\\New User\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
                         .usingPort(4723).withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment)
                         .withLogFile(new File("ServerLogs/server.log")));
             }
@@ -144,8 +142,8 @@ public class BaseTest {
                 environment.put("JAVA_HOME", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home");
                 return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
                         .usingDriverExecutable(new File("/usr/local/bin/node"))
-                        .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js")).usingPort(4723)
-                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment)
+                        .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+                        .usingPort(4723).withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment)
                         .withLogFile(new File("ServerLogs/server.log")));
             }
             default: {
@@ -174,20 +172,17 @@ public class BaseTest {
         return AppiumDriverLocalService.buildDefaultService();
     }
 
-    @Parameters({"envID", "platformName", "udid", "deviceName"})
+    @Parameters({"envID", "platformName"})
     @BeforeTest(alwaysRun = true)
-    public void beforeTest(String envID, String platformName, String UDID, String deviceName) throws Exception {
+    public void beforeTest(@Optional String envID, String platformName) throws Exception {
         try {
+            JSONObject deviceData = JsonParser.getDevicesData(platformName);
+            // Logs Initialization
+            setupCustomLogs(platformName, deviceData.get("deviceName").toString());
+            // Driver Initialization
             DriverManager objDriver = new DriverManager();
-            if (envID.equals("local")) {
-                // Driver Initialization for Local
-                objDriver.initializeLocalDriver(platformName, UDID, deviceName);
-                utils.log().info("'beforeTest' Executed for Local");
-            } else {
-                // Driver Initialization for Remote(SauceLabs)
-                objDriver.initializeCloudDriver(platformName);
-                utils.log().info("'beforeTest' Executed for Remote");
-            }
+            objDriver.initializeDriver(envID, platformName);
+            utils.log().info("'beforeTest' Executed for Local");
         }
         catch(Exception e){
             e.printStackTrace();
@@ -250,6 +245,7 @@ public class BaseTest {
         launchApp();
         if(envID.equals("local")) {
             ((CanRecordScreen) getDriver()).startRecordingScreen();
+            utils.log().info("Recording has been Started for this Test-Case:");
             utils.log().info("'beforeMethod' Executed for Local");
         } else {
             utils.log().info("'beforeMethod' Executed for Remote");
@@ -272,6 +268,7 @@ public class BaseTest {
             }
             FileOutputStream stream = new FileOutputStream(videoDir + File.separator + result.getName() + ".mp4");
             stream.write(Base64.decodeBase64(media));
+            utils.log().info("Saved the Recording at '"+ videoDir + File.separator + result.getName() + ".mp4'");
             utils.log().info("'afterMethod' Executed for Local");
         }else {
             utils.log().info("'afterMethod' Executed for Remote");
@@ -284,8 +281,19 @@ public class BaseTest {
     }
 
     public void closeApp() {
-        utils.log().info("App Closed!!");
+        utils.log().info("App Closed!");
         getDriver().closeApp();
+    }
+
+    public void setupCustomLogs(String platformName, String deviceName) {
+        // Setting Custom logs
+        String strFile = "logs" + File.separator + platformName + "_" + deviceName;
+        File logFile = new File(strFile);
+        if (!logFile.exists()) {
+            logFile.mkdirs();
+        }
+        ThreadContext.put("ROUTINGKEY", strFile);
+        utils.log().info("Log(s) for this Run is initiated at: " + strFile);
     }
 
     public void iOSPermissions() throws Exception {
@@ -302,6 +310,8 @@ public class BaseTest {
             throw new Exception("Error: Unable to 'Allow Access to All Photos' Permission!");
         }
     }
+
+    // Debug Methods
 
     public void waitForVisibility(MobileElement e) {
         WebDriverWait wait = new WebDriverWait(getDriver(), TestUtils.WAIT);
