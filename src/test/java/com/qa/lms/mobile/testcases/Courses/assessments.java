@@ -39,7 +39,7 @@ public class assessments extends BaseTest {
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("debugUser").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner1").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
@@ -48,7 +48,7 @@ public class assessments extends BaseTest {
             loginPage.viewSpecificCourse("Course 80738");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertFalse(loginPage.isCertificateAvailable());
+            // Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -57,22 +57,22 @@ public class assessments extends BaseTest {
             loginPage.selectOption("a");
             loginPage.clickCompleteAssessment();
             loginPage.clickAssessmentSummary();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
             if (!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
-                loginPage.downloadCertificateImage();/****/
+                loginPage.downloadCertificateImage();/* Close the Popup */
                 loginPage.downloadCertificatePDF();
-                loginPage.downloadCertificatePDF();
+                loginPage.downloadCertificatePDF(); /* Close the Popup */
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButton();
+                loginPage.navigateBack();
             } else {
                 launchApp();
                 iOSPermissions();
                 loginPage.clickSkipButton();
                 loginPage.clickSignInBtn();
-                loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
+                loginPage.enterLoginEmail(platformName, loginData.get("learner1").toString());
                 loginPage.clickContinue();
                 loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
                 loginPage.clickContinue();
@@ -84,7 +84,7 @@ public class assessments extends BaseTest {
             loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80738");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -114,7 +114,7 @@ public class assessments extends BaseTest {
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner4").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
@@ -132,15 +132,12 @@ public class assessments extends BaseTest {
             loginPage.clickBackButton();
             loginPage.clickSkipAssessment();
             loginPage.clickSkipButton();
-            loginPage.clickBackToCoursesButton();
-            loginPage.scrollDown();
-            loginPage.viewSpecificCourse("Course 80739");
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80739");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -196,7 +193,7 @@ public class assessments extends BaseTest {
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80740");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -252,7 +249,7 @@ public class assessments extends BaseTest {
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80741");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -308,7 +305,7 @@ public class assessments extends BaseTest {
             loginPage.scrollDown();
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80742");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -356,12 +353,12 @@ public class assessments extends BaseTest {
             loginPage.selectOption("a");
             loginPage.clickCompleteAssessment();
             loginPage.clickAssessmentSummary();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.scrollDown();
             loginPage.viewSpecificCourse("Course 80744");
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80744");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -410,12 +407,12 @@ public class assessments extends BaseTest {
             loginPage.selectOption("b");
             loginPage.clickCompleteAssessment();
             loginPage.clickAssessmentSummary();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.scrollDown();
             loginPage.viewSpecificCourse("Course 80745");
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80745");
             Assert.assertTrue(loginPage.isNoResultFound());

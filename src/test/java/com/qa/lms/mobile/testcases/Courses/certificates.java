@@ -51,13 +51,13 @@ public class certificates extends BaseTest {
                 loginPage.clickViewCertificate();
                 loginPage.pressBackButtonFromMobile();
             }
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80760");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -109,7 +109,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButton();
+                loginPage.navigateBack();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -127,7 +127,7 @@ public class certificates extends BaseTest {
             loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 81218");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -178,7 +178,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButton();
+                loginPage.navigateBack();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -196,7 +196,7 @@ public class certificates extends BaseTest {
             loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80770");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -238,7 +238,7 @@ public class certificates extends BaseTest {
             Assert.assertFalse(loginPage.isCertificateAvailable());
             loginPage.clickEnrollNow();
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80771");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -286,13 +286,13 @@ public class certificates extends BaseTest {
                 /****/ // validate data on certificate
                 loginPage.pressBackButtonFromMobile();
             }
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80772");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -340,7 +340,7 @@ public class certificates extends BaseTest {
             loginPage.selectOption("a");
             loginPage.clickCompleteAssessment();
             loginPage.clickAssessmentSummary();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
             if (!platformName.equals("iOS")) {
@@ -349,7 +349,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButton();
+                loginPage.navigateBack();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -367,7 +367,7 @@ public class certificates extends BaseTest {
             loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80773");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -417,7 +417,7 @@ public class certificates extends BaseTest {
             loginPage.clickCompleteAssessment();
             Assert.assertFalse(loginPage.validateAssessmentStatus());
             loginPage.clickAssessmentSummary();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.viewSpecificCourse("Course 80777");
             loginPage.clickResumeButton();
@@ -428,7 +428,7 @@ public class certificates extends BaseTest {
             loginPage.clickCompleteAssessment();
             Assert.assertTrue(loginPage.validateAssessmentStatus());
             loginPage.clickAssessmentSummary();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
             if (!platformName.equals("iOS")) {
@@ -437,7 +437,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButton();
+                loginPage.navigateBack();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -455,7 +455,7 @@ public class certificates extends BaseTest {
             loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80777");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -510,7 +510,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButton();
+                loginPage.navigateBack();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -528,7 +528,7 @@ public class certificates extends BaseTest {
             loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80778");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -577,7 +577,7 @@ public class certificates extends BaseTest {
             loginPage.clickCompleteAssessment();
             Assert.assertFalse(loginPage.validateAssessmentStatus());
             loginPage.clickAssessmentSummary();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.scrollDown();
             loginPage.viewSpecificCourse("Course 80779");
@@ -586,7 +586,7 @@ public class certificates extends BaseTest {
             loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80779");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -641,7 +641,7 @@ public class certificates extends BaseTest {
                 loginPage.downloadCertificatePDF();
                 loginPage.downloadCertificatePDF();
                 loginPage.pressBackButtonFromMobile();
-                loginPage.clickBackButton();
+                loginPage.navigateBack();
             } else {
                 launchApp();
                 iOSPermissions();
@@ -659,7 +659,7 @@ public class certificates extends BaseTest {
             loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80780");
             Assert.assertTrue(loginPage.isNoResultFound());
@@ -811,7 +811,7 @@ public class certificates extends BaseTest {
             loginPage.scrollDown();
             Assert.assertTrue(loginPage.isCertificateAvailable());
             loginPage.scrollUp();
-            loginPage.clickBackButton();
+            loginPage.navigateBack();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 81217");
             Assert.assertTrue(loginPage.isNoResultFound());

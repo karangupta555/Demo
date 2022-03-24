@@ -194,7 +194,7 @@ public class LoginPage extends BaseTest {
     @iOSXCUITFindBy(accessibility = "Download")
     private MobileElement downloadButton;
 
-    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[2]/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[1]/android.view.View[3]/android.view.View/android.widget.Image")
+    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[2]/android.view.View/android.widget.Image")
     @iOSXCUITFindBy(accessibility = "Export as Image")
     private MobileElement downloadCertificateButton;
 
@@ -319,7 +319,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickContinue() throws Exception {
         try {
-            click(continueBtn);
+            // click(continueBtn);
+            getDriver().findElementByAccessibilityId("Continue").click();
             utils.log().info("Clicked Continue Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked Continue Button");
         }
@@ -332,9 +333,24 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
+    public LoginPage navigateBack() throws Exception {
+        try {
+            // click(backButton);
+            getDriver().findElementByAccessibilityId("back").click();
+            utils.log().info("Clicked on Back Button Arrow");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on Back Button Arrow");
+        } catch(Exception e) {
+            e.printStackTrace();
+            utils.log().info("Error: Unable to Click on Back Button Arrow");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on Back Button Arrow");
+            throw new Exception("Error: Unable to Click on Back Button Arrow");
+        }
+        return this;
+    }
+
     public LoginPage clickBackButton() throws Exception {
         try {
-            click(backButton);
+            getDriver().findElementByAccessibilityId("Back").click();
             utils.log().info("Clicked on Back Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Back Button");
         } catch(Exception e) {
@@ -562,7 +578,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickTakeAssessment() throws Exception {
         try {
-            click(takeAssessmentButton);
+            //click(takeAssessmentButton);
+            getDriver().findElementByAccessibilityId("Take Assessment").click();
             utils.log().info("Clicked on Take Assessment Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Take Assessment Button");
         }
@@ -577,7 +594,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickSkipAssessment() throws Exception {
         try {
-            click(skipAssessmentButton);
+            //click(skipAssessmentButton);
+            getDriver().findElementByAccessibilityId("Skip Assessment").click();
             utils.log().info("Clicked on Skip Assessment Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Skip Assessment Button");
         } catch(Exception e) {
@@ -591,7 +609,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickSkipButton() throws Exception {
         try {
-            click(skipButton);
+            // click(skipButton);
+            getDriver().findElementByAccessibilityId("Skip").click();
             utils.log().info("Clicked on Skip Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Skip Button");
         } catch(Exception e) {
@@ -605,7 +624,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickAttendLater() throws Exception {
         try {
-            click(attendLaterButton);
+            // click(attendLaterButton);
+            getDriver().findElementByAccessibilityId("Attend later").click();
             utils.log().info("Clicked on Attend Later Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Attend Later Button");
         }
@@ -650,8 +670,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickCompleteAssessment() throws Exception {
         try {
-            Thread.sleep(3000);
-            click(completeAssessmentButton);
+            // click(completeAssessmentButton);
+            getDriver().findElementByAccessibilityId("Complete Assessment").click();
             utils.log().info("Clicked on Complete Assessment Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Assessment Button");
         }
@@ -667,6 +687,7 @@ public class LoginPage extends BaseTest {
     public LoginPage clickCompleteButton() throws Exception {
         try { /*Need to be removed*/
             click(completeButton);
+            getDriver().findElementByAccessibilityId("Complete Lesson").click();
             utils.log().info("Clicked on Complete Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Button");
         }
@@ -681,7 +702,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickCompleteLessonButton() throws Exception {
         try {
-            click(completeLessonButton);
+            // click(completeLessonButton);
+            getDriver().findElementByAccessibilityId("Complete Lesson").click();
             utils.log().info("Clicked on Complete Lesson Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Complete Lesson Button");
         }
@@ -726,7 +748,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickAssessmentSummary() throws Exception {
         try {
-            click(assessmentSummaryButton);
+            // click(assessmentSummaryButton);
+            getDriver().findElementByAccessibilityId("Assessment summary").click();
             utils.log().info("Clicked on Assessment Summary Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Assessment Summary Button");
         }
@@ -741,7 +764,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickProceed() throws Exception {
         try {
-            click(proceedButton);
+            // click(proceedButton);
+            getDriver().findElementByAccessibilityId("Proceed").click();
             utils.log().info("Clicked on Proceed Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Proceed Button");
         }
@@ -756,7 +780,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickViewCertificate() throws Exception {
         try {
-            click(viewCertificateButton);
+            // click(viewCertificateButton);
+            getDriver().findElementByAccessibilityId("View Certificate").click();
             utils.log().info("Clicked on View Certificate Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on View Certificate Button");
             Thread.sleep(10000);
@@ -803,7 +828,8 @@ public class LoginPage extends BaseTest {
     public LoginPage downloadCertificateImage() throws Exception {
         try {
             downloadCertificateButton();
-            click(certificateExportAsImage);
+            // click(certificateExportAsImage);
+            getDriver().findElementByAccessibilityId("Export as Image").click();
             utils.log().info("Clicked on Export as Image Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Export as Image Button");
             isFileAlreadyPresent();
@@ -820,7 +846,8 @@ public class LoginPage extends BaseTest {
     public LoginPage downloadCertificatePDF() throws Exception {
         try {
             downloadCertificateButton();
-            click(certificateExportAsPDF);
+            // click(certificateExportAsPDF);
+            getDriver().findElementByAccessibilityId("Export as PDF").click();
             utils.log().info("Clicked on Export as PDF Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Export as PDF Button");
             isFileAlreadyPresent();
@@ -860,7 +887,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickBackToCourseButton() throws Exception {
         try {
-            click(backToCourseButton);
+            // click(backToCourseButton);
+            getDriver().findElementByAccessibilityId("Back to Course").click();
             utils.log().info("Clicked on Back to Course Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Back to Course Button");
         }
@@ -1071,9 +1099,9 @@ public class LoginPage extends BaseTest {
 
             Same x,y points are required for end_points(on x_y axis plane)
         */
-        // Exception: The swipe action is based on device screen ratio/width which is a dependency
+        // Exception: The swipe action is based on device screen ratio/width which is a dependency(differs device-to-device)
         TouchAction action = new TouchAction(getDriver());
-        // Swiping Up
+        // Swiping Up(through fingers)
         action.press(PointOption.point(0,400))
                 .waitAction(waitOptions(Duration.ofMillis(2000)))
                 .moveTo(PointOption.point(0,100))
@@ -1084,12 +1112,14 @@ public class LoginPage extends BaseTest {
                 .moveTo(PointOption.point(0,100))
                 .release()
                 .perform();
+        utils.log().info("Screen Scrolled Down");
+        ExtentReport.getTest().log(Status.INFO, "Screen Scrolled Down");
         return this;
     }
 
     public LoginPage scrollUp() throws Exception {
-        // Exception: The swipe action is based on device screen ratio/width which is a dependency
-        // Swiping Down
+        // Exception: The swipe action is based on device screen ratio/width which is a dependency(differs device-to-device)
+        // Swiping Down(through fingers)
         TouchAction action = new TouchAction(getDriver());
         action.press(PointOption.point(0,200))
                 .waitAction(waitOptions(Duration.ofMillis(2000)))
@@ -1101,6 +1131,8 @@ public class LoginPage extends BaseTest {
                 .moveTo(PointOption.point(0,500))
                 .release()
                 .perform();
+        utils.log().info("Screen Scrolled Up");
+        ExtentReport.getTest().log(Status.INFO, "Screen Scrolled Up");
         return this;
     }
 

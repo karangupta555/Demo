@@ -32,7 +32,7 @@ public class DriverManager extends BaseTest {
             setPlatform(platformName); /****/
             setDeviceName(deviceData.get("deviceName").toString()); /****/
 
-            // App Location for Local Execution
+            // App(.apk or .ipa) Location for Local Execution
             String app = (System.getProperty("user.dir") + File.separator + deviceData.get("app").toString()).replace("\\", "/");
 
             // SauceLabs/BrowserStack Keys
@@ -45,14 +45,14 @@ public class DriverManager extends BaseTest {
             }
             else {
                 launchURL = new URL("https://" + userName + ":" + accessKey + (String)objProperties.getProperty("sauceLabsURL"));
-                //launchURL = new URL("https://" + userName + ":" + accessKey + (String)objProperties.getProperty("browserStackURL"));
+                // launchURL = new URL("https://" + userName + ":" + accessKey + (String)objProperties.getProperty("browserStackURL"));
             }
 
             // Capabilities
             DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
             desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
             desiredCapabilities.setCapability("build", platformName + " " + deviceData.get("build").toString());
-            desiredCapabilities.setCapability("Name", "Backlogs");
+            desiredCapabilities.setCapability("name", "Demo");
             desiredCapabilities.setCapability("appPackage", objProperties.getProperty("appPackage"));
             desiredCapabilities.setCapability("appActivity", objProperties.getProperty("appActivity"));
             desiredCapabilities.setCapability(MobileCapabilityType.FULL_RESET, false);
@@ -68,7 +68,7 @@ public class DriverManager extends BaseTest {
             } else {
                 desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceData.get("deviceName").toString());
                 desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, deviceData.get("OSVersion").toString());
-                desiredCapabilities.setCapability(MobileCapabilityType.UDID, objProperties.getProperty("deviceID"));
+                desiredCapabilities.setCapability(MobileCapabilityType.UDID, objProperties.getProperty("deviceID1"));
                 desiredCapabilities.setCapability(MobileCapabilityType.APP, app);
             }
 
