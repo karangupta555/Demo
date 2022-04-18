@@ -50,6 +50,7 @@ Thumbs.db
 *.txt
 **/debug.java
 references.md
+update.md
 
 # Reports
 /Screenshots
@@ -57,7 +58,7 @@ references.md
 /videos
 *.iml
 /logs
-/reports
+/reports/
 /${ctx:ROUTINGKEY}
 .factorypath
 .classpath

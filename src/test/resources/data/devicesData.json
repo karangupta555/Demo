@@ -5,7 +5,7 @@
     "cloudDeviceName": "Samsung Galaxy S9",
     "cloudOSVersion": "9",
     "build": "1.0.5",
-    "app": "src\\test\\resources\\app\\app.apk",
+    "app": "src\\test\\resources\\apps\\app.apk",
     "cloudApp": "storage:0b751e33-e25c-4d07-9010-7f460940926c"
   },
   "iOS": {
@@ -14,7 +14,7 @@
     "cloudDeviceName": "iPhone XR",
     "cloudOSVersion": "15",
     "build": "1.0.5",
-    "app": "src\\test\\resources\\app\\Runner.app",
+    "app": "src\\test\\resources\\apps\\Runner.app",
     "cloudApp": "storage:0b751e33-e25c-4d07-9010-7f460940926c"
   }
 }

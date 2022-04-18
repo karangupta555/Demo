@@ -83,25 +83,24 @@ public class BaseTest {
         return dateTime.get();
     }
 
-    public void setDeviceName(String deviceName2) {
-        deviceName.set(deviceName2);
+    public void setDateTime(String dateTime2) {
+        dateTime.set(dateTime2);
     }
 
     public String getDeviceName() {
         return deviceName.get();
     }
 
-    public void setDateTime(String dateTime2) {
-        dateTime.set(dateTime2);
+    public void setDeviceName(String deviceName2) {
+        deviceName.set(deviceName2);
     }
 
-
-   @Parameters({"envID"})
+    @Parameters({"envID"})
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite(@Optional String envID) throws Exception {
         if (envID.equals("local")) {
             ThreadContext.put("ROUTINGKEY", "ServerLogs");
-            server = getAppiumService("Windows"); // Need to provide the OS. Windows or Mac
+            server = getAppiumService("Mac OS X"); // Need to provide the OS. Windows or Mac
             if (!checkIfAppiumServerIsRunnning(4723)) {
                 server.start();
                 server.clearOutPutStreams();
@@ -125,8 +124,9 @@ public class BaseTest {
     }
 
     public AppiumDriverLocalService getAppiumService(String platform) throws Exception {
+        /****/ //requirement here..?
         HashMap<String, String> environment = new HashMap<String, String>();
-        switch(platform) {
+        switch (platform) {
             case "Windows": {
                 environment.put("PATH", "C:\\Users\\New User\\AppData\\Local\\Android\\Sdk:-:-" + System.getenv("PATH"));
                 environment.put("ANDROID_HOME", "C:\\Users\\New User\\AppData\\Local\\Android\\Sdk");
@@ -137,9 +137,9 @@ public class BaseTest {
                         .withLogFile(new File("ServerLogs/server.log")));
             }
             case "Mac OS X": {
-                environment.put("PATH", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/bin:/Users/ravikanth/Library/Android/sdk/tools:/Users/ravikanth/Library/Android/sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin" + System.getenv("PATH"));
-                environment.put("ANDROID_HOME", "/Users/ravikanth/Library/Android/sdk");
-                environment.put("JAVA_HOME", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home");
+                environment.put("PATH", "/Library/Java/JavaVirtualMachines/jdk1.8.0_321.jdk/Contents/Home/bin:/Users/harry/Library/Android/sdk/tools:/Users/harry/Library/Android/sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin" + System.getenv("PATH"));
+                environment.put("ANDROID_HOME", "/Users/harry/Library/Android/sdk");
+                environment.put("JAVA_HOME", "/Library/Java/JavaVirtualMachines/jdk1.8.0_321.jdk/Contents/Home");
                 return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
                         .usingDriverExecutable(new File("/usr/local/bin/node"))
                         .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
@@ -183,8 +183,7 @@ public class BaseTest {
             DriverManager objDriver = new DriverManager();
             objDriver.initializeDriver(envID, platformName);
             utils.log().info("'beforeTest' Executed for Local");
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -211,19 +210,18 @@ public class BaseTest {
             datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
             JSONTokener tokener = new JSONTokener(datais);
             JSONObject loginUsers = new JSONObject(tokener);
-            HashMap<String,String> testData = StringParser.parseStringXML("strings/TestDataValidation.xml");
-        } catch (Exception e){
+            HashMap<String, String> testData = StringParser.parseStringXML("strings/TestDataValidation.xml");
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         } finally {
-            if(datais != null){
+            if (datais != null) {
                 datais.close();
             }
         }
-        if(envID.equals("local")) {
+        if (envID.equals("local")) {
             utils.log().info("'beforeClass' Executed for Local");
-        }
-        else {
+        } else {
             utils.log().info("'beforeClass' Executed for Remote");
         }
     }
@@ -231,19 +229,18 @@ public class BaseTest {
     @Parameters({"envID"})
     @AfterClass
     public void afterClass(String envID) {
-        if(envID.equals("local")) {
+        if (envID.equals("local")) {
             utils.log().info("'afterClass' Executed for Local");
-        }
-        else {
+        } else {
             utils.log().info("'afterClass' Executed for Remote");
         }
     }
 
     @Parameters({"envID"})
     @BeforeMethod
-    public void beforeMethod (String envID) throws InterruptedException {
+    public void beforeMethod(String envID) throws InterruptedException {
         launchApp();
-        if(envID.equals("local")) {
+        if (envID.equals("local")) {
             ((CanRecordScreen) getDriver()).startRecordingScreen();
             utils.log().info("Recording has been Started for this Test-Case:");
             utils.log().info("'beforeMethod' Executed for Local");
@@ -254,9 +251,9 @@ public class BaseTest {
 
     @Parameters({"envID", "platformName"})
     @AfterMethod
-    public synchronized void afterMethod (ITestResult result, String envID, String platformName) throws Exception {
+    public synchronized void afterMethod(ITestResult result, String envID, String platformName) throws Exception {
         closeApp();
-        if(envID.equals("local")) {
+        if (envID.equals("local")) {
             JSONObject deviceData = JsonParser.getDevicesData(platformName);
             String media = ((CanRecordScreen) getDriver()).stopRecordingScreen();
             String dir = "videos" + File.separator + platformName + "_" + deviceData.get("OSVersion").toString() + "_" + deviceData.get("deviceName").toString() + File.separator + getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName();
@@ -268,9 +265,9 @@ public class BaseTest {
             }
             FileOutputStream stream = new FileOutputStream(videoDir + File.separator + result.getName() + ".mp4");
             stream.write(Base64.decodeBase64(media));
-            utils.log().info("Saved the Recording at '"+ videoDir + File.separator + result.getName() + ".mp4'");
+            utils.log().info("Saved the Recording at '" + videoDir + File.separator + result.getName() + ".mp4'");
             utils.log().info("'afterMethod' Executed for Local");
-        }else {
+        } else {
             utils.log().info("'afterMethod' Executed for Remote");
         }
     }
@@ -298,12 +295,11 @@ public class BaseTest {
 
     public void iOSPermissions() throws Exception {
         try {
-            waitForVisibility((MobileElement)getDriver().findElement(By.name("Allow Access to All Photos")));
+            waitForVisibility((MobileElement) getDriver().findElement(By.name("Allow Access to All Photos")));
             getDriver().findElement(By.name("Allow Access to All Photos")).click();
             utils.log().info("'Allow Access to All Photos' Permission allowed Successfully");
             ExtentReport.getTest().log(Status.INFO, "'Allow Access to All Photos' Permission allowed Successfully");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             utils.log().info("Error: Unable to 'Allow Access to All Photos' Permission");
             ExtentReport.getTest().log(Status.INFO, "Error: Unable to 'Allow Access to All Photos' Permission");
@@ -356,9 +352,9 @@ public class BaseTest {
     }
 
     public void OpenAppWithDeepLinks(String url) {
-        switch(Objects.requireNonNull(getDriver().getPlatformName())) {
+        switch (Objects.requireNonNull(getDriver().getPlatformName())) {
             case "Android":
-                HashMap<String,String> deepUrl = new HashMap<>();
+                HashMap<String, String> deepUrl = new HashMap<>();
                 deepUrl.put("url", url);
                 deepUrl.put("package", "com.swaglabsmobileapp");
                 getDriver().executeScript("mobile: deepLink", deepUrl);
