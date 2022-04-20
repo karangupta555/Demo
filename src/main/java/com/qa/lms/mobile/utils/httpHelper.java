@@ -24,8 +24,8 @@ public class httpHelper {
     public static String uploadApp(String filePath) throws UnirestException {
         Unirest.setTimeouts(0, 0);
         HttpResponse<String> response = Unirest.post("https://api.eu-central-1.saucelabs.com/v1/storage/upload")
-                .basicAuth(userName,accessKey)
-                .field("upload",  new File(filePath)).asString();
+                .basicAuth(userName, accessKey)
+                .field("upload", new File(filePath)).asString();
         return response.getBody();
     }
 }

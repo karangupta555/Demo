@@ -22,9 +22,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TestListener implements ITestListener {
-    public void onTestFailure(ITestResult result){
+    public void onTestFailure(ITestResult result) {
         TestUtils utils = new TestUtils();
-        if(result.getThrowable()!=null){
+        if (result.getThrowable() != null) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             result.getThrowable().printStackTrace(pw);
@@ -45,15 +45,15 @@ public class TestListener implements ITestListener {
         Map<String, String> params = new HashMap<String, String>();
         params = result.getTestContext().getCurrentXmlTest().getAllParameters();
 
-        String imagePath = "Screenshots" + File.separator + params.get("platformName") + "_"+ params.get("platformVersion") + "_" + params.get("deviceName") +
+        String imagePath = "Screenshots" + File.separator + params.get("platformName") + "_" + params.get("platformVersion") + "_" + params.get("deviceName") +
                 File.separator + base.getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName() + File.separator + result.getName() + ".png";
 
         String completeImagePath = System.getProperty("user.dir") + File.separator + imagePath;
 
         try {
-            FileUtils.copyFile(file,  new File(imagePath));
+            FileUtils.copyFile(file, new File(imagePath));
             Reporter.log("This is a sample screenshot");
-            Reporter.log("<a href='"+ completeImagePath + "'> <img src='"+ completeImagePath + "' height='400' width='400'/> </a>");
+            Reporter.log("<a href='" + completeImagePath + "'> <img src='" + completeImagePath + "' height='400' width='400'/> </a>");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,9 +64,9 @@ public class TestListener implements ITestListener {
     }
 
     @Override
-    public void onTestStart(ITestResult result){
+    public void onTestStart(ITestResult result) {
         BaseTest base = new BaseTest();
-        ExtentReport.startTest(result.getName(),result.getMethod().getDescription())
+        ExtentReport.startTest(result.getName(), result.getMethod().getDescription())
                 .assignCategory(base.getPlatform() + "_" + base.getDeviceName())
                 .assignAuthor("Test Author");
     }

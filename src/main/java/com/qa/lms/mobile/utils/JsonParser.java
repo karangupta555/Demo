@@ -2,6 +2,7 @@ package com.qa.lms.mobile.utils;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;
+
 import java.io.InputStream;
 
 public class JsonParser {
@@ -12,11 +13,11 @@ public class JsonParser {
     }
 
     public static JSONObject getTestData() {
-        return (JSONObject)JsonParser.parse("data/testData.json");
+        return (JSONObject) JsonParser.parse("data/testData.json");
     }
 
     public static JSONObject getLoginData() {
-        return(JSONObject)JsonParser.parse("data/loginData.json");
+        return (JSONObject) JsonParser.parse("data/loginData.json");
     }
 
     public static JSONObject getDevicesData(String platformName) {

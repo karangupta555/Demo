@@ -22,7 +22,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to click on Take assessment button")
-    public void takeAnyAssessment(String platformName) throws Exception {
+    public void takeAnyAssessment(String platformName) {
         /*
         Requirements:
             Requirements:
@@ -98,7 +98,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to skip the assessment and complete the course")
-    public void skipAssessment(String platformName) throws Exception {
+    public void skipAssessment(String platformName) {
         /*
         Requirements:
             Name: Course 80739
@@ -151,7 +151,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to click on Cancel from skip assessment warning screen")
-    public void validateCancelButtonOnSkipAssessment(String platformName) throws Exception {
+    public void validateCancelButtonOnSkipAssessment(String platformName) {
         /*
         Requirements:
             Name: Course 80740
@@ -207,7 +207,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to perform Attend later")
-    public void attendLater(String platformName) throws Exception {
+    public void attendLater(String platformName) {
         /*
         Requirements:
             Name: Course 80741
@@ -263,7 +263,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to click on NO from Attend later warning screen")
-    public void noAttendLater(String platformName) throws Exception {
+    public void noAttendLater(String platformName) {
         /*
         Requirements:
             Name: Course 80742
@@ -319,7 +319,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to take single choice assessment with assessment options")
-    public void takeSingleChoice(String platformName) throws Exception {
+    public void takeSingleChoice(String platformName) {
         /*
         Requirements:
             Name: Course 80744
@@ -372,7 +372,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to take Multiple choice assessment with assessment options")
-    public void takeMultipleChoice(String platformName) throws Exception {
+    public void takeMultipleChoice(String platformName) {
         /*
         Requirements:
             Name: Course 80745
