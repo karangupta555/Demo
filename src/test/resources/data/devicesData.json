@@ -1,20 +1,20 @@
 {
   "Android": {
-    "deviceName": "AsusZenfoneMaxProM1",
+    "deviceName": "androidTestDevice",
     "OSVersion": "9",
     "cloudDeviceName": "Samsung Galaxy S9",
     "cloudOSVersion": "9",
-    "build": "1.0.5",
+    "build": "1.0.9",
     "app": "src\\test\\resources\\apps\\app.apk",
-    "cloudApp": "storage:0b751e33-e25c-4d07-9010-7f460940926c"
+    "cloudApp": "storage:d2035dd4-f32f-4c12-bd82-5865fad179f1"
   },
   "iOS": {
-    "deviceName": "iPhone12ProMax",
+    "deviceName": "iPhoneTestDevice",
     "OSVersion": "14",
     "cloudDeviceName": "iPhone XR",
     "cloudOSVersion": "15",
-    "build": "1.0.5",
+    "build": "1.0.9",
     "app": "src\\test\\resources\\apps\\Runner.app",
-    "cloudApp": "storage:0b751e33-e25c-4d07-9010-7f460940926c"
+    "cloudApp": "storage:fb4bf687-45f8-4e87-911d-b468e05cd90d"
   }
 }
