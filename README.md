@@ -143,6 +143,7 @@ find more about [Appium Doctor](https://github.com/appium/appium-doctor)
 -   ```sh
     # If you know the deviceID(UDID), then you can launch directly by using below command
     open -a Simulator --args -CurrentDeviceUDID <YOUR-DEVICE-ID>
+    # UDID of iPhone 13 Pro Max: 17C61FE7-FD0D-4E8E-B958-C42ACADDEC46
     ```
 
 </br>

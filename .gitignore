@@ -32,6 +32,7 @@ Thumbs.db
 *.ipa
 *.exe
 *.war
+*.zip
 
 # Large media files
 *.mp4

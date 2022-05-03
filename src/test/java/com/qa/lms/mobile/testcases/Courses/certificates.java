@@ -27,7 +27,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -47,7 +47,7 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickNextLesson();
             loginPage.clickCompleteLessonButton();
-            if (!platformName.equals("iOS")) {
+            if(! platformName.equals("iOS")) {
                 loginPage.clickViewCertificate();
                 loginPage.pressBackButtonFromMobile();
             }
@@ -62,7 +62,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80760");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80760
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -82,7 +82,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -103,7 +103,7 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickCompleteLessonButton();
             loginPage.clickViewCertificate();
-            if (!platformName.equals("iOS")) {
+            if(! platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -132,7 +132,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 81218");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/81218
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -152,7 +152,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -172,7 +172,7 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickCompleteLessonButton();
             loginPage.clickViewCertificate();
-            if (!platformName.equals("iOS")) {
+            if(! platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -201,7 +201,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80770");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80770
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -221,7 +221,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -243,7 +243,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80771");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80771
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -263,7 +263,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -281,7 +281,7 @@ public class certificates extends BaseTest {
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickCompleteLessonButton();
-            if (!platformName.equals("iOS")) {
+            if(! platformName.equals("iOS")) {
                 loginPage.clickViewCertificate();
                 /****/ // validate data on certificate
                 loginPage.pressBackButtonFromMobile();
@@ -297,7 +297,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80772");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80772
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -317,7 +317,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -343,7 +343,7 @@ public class certificates extends BaseTest {
             loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
-            if (!platformName.equals("iOS")) {
+            if(! platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -372,12 +372,11 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80773");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80773
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
     }// 80773
-
 
     @Parameters({"platformName"})
     @Test(enabled = false)
@@ -393,7 +392,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -431,7 +430,7 @@ public class certificates extends BaseTest {
             loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
-            if (!platformName.equals("iOS")) {
+            if(! platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -460,7 +459,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80777");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80777
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -480,7 +479,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -504,7 +503,7 @@ public class certificates extends BaseTest {
             loginPage.clickSkipAssessment();
             loginPage.clickSkipButton();
             loginPage.clickViewCertificate();
-            if (!platformName.equals("iOS")) {
+            if(! platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -533,7 +532,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80778");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80778
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -553,7 +552,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -591,7 +590,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80779");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80779
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -611,7 +610,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -635,7 +634,7 @@ public class certificates extends BaseTest {
             loginPage.clickSkipAssessment();
             loginPage.clickSkipButton();
             loginPage.clickViewCertificate();
-            if (!platformName.equals("iOS")) {
+            if(! platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -664,7 +663,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 80780");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80780
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -680,7 +679,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -694,7 +693,7 @@ public class certificates extends BaseTest {
             loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/80783
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -710,7 +709,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -724,7 +723,7 @@ public class certificates extends BaseTest {
             loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/80784
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -740,7 +739,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -754,7 +753,7 @@ public class certificates extends BaseTest {
             loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/82525
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -775,7 +774,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -795,7 +794,7 @@ public class certificates extends BaseTest {
             loginPage.clickCompleteLessonButton();
             loginPage.terminateApp(platformName);
             launchApp();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 loginPage.iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -816,7 +815,7 @@ public class certificates extends BaseTest {
             loginPage.searchCourse("Course 81217");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/81217
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -832,7 +831,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -846,7 +845,7 @@ public class certificates extends BaseTest {
             loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/81213
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -862,7 +861,7 @@ public class certificates extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -876,7 +875,7 @@ public class certificates extends BaseTest {
             loginPage.clickOnFirstCertificate();
             /****/
             // https://auzmorhr.testrail.io/index.php?/cases/view/82966
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }

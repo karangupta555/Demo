@@ -37,9 +37,9 @@ public class TestUtils {
         //Get all elements
         NodeList nList = document.getElementsByTagName("string");
 
-        for (int temp = 0; temp < nList.getLength(); temp++) {
+        for(int temp = 0; temp < nList.getLength(); temp++) {
             Node node = nList.item(temp);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
                 // Store each element key value in map
                 stringMap.put(eElement.getAttribute("name"), eElement.getTextContent());
@@ -57,8 +57,7 @@ public class TestUtils {
 
     public void log(String txt) {
         BaseTest base = new BaseTest();
-        String msg = Thread.currentThread().getId() + ":" + base.getPlatform() + ":" + base.getDeviceName() + ":"
-                + Thread.currentThread().getStackTrace()[2].getClassName() + ":" + txt;
+        String msg = Thread.currentThread().getId() + ":" + base.getPlatform() + ":" + base.getDeviceName() + ":" + Thread.currentThread().getStackTrace()[2].getClassName() + ":" + txt;
 
         //System.out.println(msg);
 
@@ -66,14 +65,14 @@ public class TestUtils {
 
         File logFile = new File(strFile);
 
-        if (!logFile.exists()) {
+        if(! logFile.exists()) {
             logFile.mkdirs();
         }
 
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(logFile + File.separator + "log.txt", true);
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
         PrintWriter printWriter = new PrintWriter(fileWriter);

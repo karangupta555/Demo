@@ -14,10 +14,10 @@ public class ExtentReport {
     static Map<Integer, ExtentTest> extentTestMap = new HashMap();
 
     public synchronized static ExtentReports getReporter() {
-        if (extent == null) {
+        if(extent == null) {
             ExtentSparkReporter spark = new ExtentSparkReporter(filePath);
             spark.config().setDocumentTitle("Appium Framework");
-            spark.config().setReportName("Auzmor Learn");
+            spark.config().setReportName("Auzmor Learn Mobile App");
             spark.config().setTheme(Theme.DARK);
             extent = new ExtentReports();
             extent.attachReporter(spark);

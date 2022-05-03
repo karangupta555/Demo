@@ -1,18 +1,20 @@
 package com.qa.lms.mobile;
 
-import com.qa.lms.mobile.utils.JsonParser;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.remote.MobileCapabilityType;
-import org.json.JSONObject;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+import com.qa.lms.mobile.utils.JsonParser;
+
+import org.json.JSONObject;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
 
 public class DriverManager extends BaseTest {
     public void initializeDriver(String envID, String platformName) throws Exception {
@@ -37,7 +39,7 @@ public class DriverManager extends BaseTest {
             String accessKey = objProperties.getProperty("sauceLabsAccessKey");
 
             // Driver Launch URL
-            if (envID.equals("local")) {
+            if(envID.equals("local")) {
                 launchURL = new URL(objProperties.getProperty("appiumURL"));
             } else {
                 launchURL = new URL("https://" + userName + ":" + accessKey + (String) objProperties.getProperty("sauceLabsURL"));
@@ -57,7 +59,7 @@ public class DriverManager extends BaseTest {
             // desiredCapabilities.setCapability(MobileCapabilityType.NO_RESET, true);
             // desiredCapabilities.setCapability("printPageSourceOnFindFailure", true);
             // desiredCapabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
-            if (envID.equals("remote")) {
+            if(envID.equals("remote")) {
                 desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceData.get("cloudDeviceName").toString());
                 desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, deviceData.get("cloudOSVersion").toString());
                 desiredCapabilities.setCapability(MobileCapabilityType.APP, deviceData.get("cloudApp").toString());
@@ -68,7 +70,7 @@ public class DriverManager extends BaseTest {
                 desiredCapabilities.setCapability(MobileCapabilityType.APP, app);
             }
 
-            switch (platformName) {
+            switch(platformName) {
                 case "Android":
                     desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
                     driver = new AndroidDriver(launchURL, desiredCapabilities);
@@ -83,7 +85,7 @@ public class DriverManager extends BaseTest {
                     throw new IllegalStateException("Invalid Platform id" + platformName);
             }
             setDriver(driver);
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }
