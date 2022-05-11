@@ -47,7 +47,7 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickNextLesson();
             loginPage.clickCompleteLessonButton();
-            if(! platformName.equals("iOS")) {
+            if(!platformName.equals("iOS")) {
                 loginPage.clickViewCertificate();
                 loginPage.pressBackButtonFromMobile();
             }
@@ -103,7 +103,7 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickCompleteLessonButton();
             loginPage.clickViewCertificate();
-            if(! platformName.equals("iOS")) {
+            if(!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -172,7 +172,7 @@ public class certificates extends BaseTest {
             loginPage.clickNextLesson();
             loginPage.clickCompleteLessonButton();
             loginPage.clickViewCertificate();
-            if(! platformName.equals("iOS")) {
+            if(!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -281,7 +281,7 @@ public class certificates extends BaseTest {
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickCompleteLessonButton();
-            if(! platformName.equals("iOS")) {
+            if(!platformName.equals("iOS")) {
                 loginPage.clickViewCertificate();
                 /****/ // validate data on certificate
                 loginPage.pressBackButtonFromMobile();
@@ -343,7 +343,7 @@ public class certificates extends BaseTest {
             loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
-            if(! platformName.equals("iOS")) {
+            if(!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -430,7 +430,7 @@ public class certificates extends BaseTest {
             loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
-            if(! platformName.equals("iOS")) {
+            if(!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -503,7 +503,7 @@ public class certificates extends BaseTest {
             loginPage.clickSkipAssessment();
             loginPage.clickSkipButton();
             loginPage.clickViewCertificate();
-            if(! platformName.equals("iOS")) {
+            if(!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -634,7 +634,7 @@ public class certificates extends BaseTest {
             loginPage.clickSkipAssessment();
             loginPage.clickSkipButton();
             loginPage.clickViewCertificate();
-            if(! platformName.equals("iOS")) {
+            if(!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/****/
                 loginPage.downloadCertificatePDF();
@@ -779,7 +779,7 @@ public class certificates extends BaseTest {
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("learner2").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
@@ -799,7 +799,7 @@ public class certificates extends BaseTest {
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("learner2").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();

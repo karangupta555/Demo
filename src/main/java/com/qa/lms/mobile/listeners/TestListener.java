@@ -22,6 +22,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TestListener implements ITestListener {
+    @Override
+    public void onTestStart(ITestResult result) {
+        BaseTest base = new BaseTest();
+        ExtentReport.startTest(result.getName(), result.getMethod().getDescription()).assignCategory(base.getPlatform() + "_" + base.getDeviceName()).assignAuthor("customTestSuiteAuthorName");
+    }
+
+    @Override
+    public void onTestSuccess(ITestResult result) {
+        ExtentReport.getTest().log(Status.PASS, "Test Passed");
+    }
+
+    @Override
+    public void onTestSkipped(ITestResult result) {
+        ExtentReport.getTest().log(Status.SKIP, "Test Skipped");
+    }
+
+    @Override
+    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {}
+
+    @Override
+    public void onFinish(ITestContext result) {
+        ExtentReport.getReporter().flush();
+    }
+
     public void onTestFailure(ITestResult result) {
         TestUtils utils = new TestUtils();
         if(result.getThrowable() != null) {
@@ -58,29 +82,5 @@ public class TestListener implements ITestListener {
         ExtentReport.getTest().log(Status.FAIL, "Test Failed");
         ExtentReport.getTest().fail("Test Failed", MediaEntityBuilder.createScreenCaptureFromBase64String(new String(encoded, StandardCharsets.US_ASCII)).build());
         ExtentReport.getTest().fail(result.getThrowable());
-    }
-
-    @Override
-    public void onTestStart(ITestResult result) {
-        BaseTest base = new BaseTest();
-        ExtentReport.startTest(result.getName(), result.getMethod().getDescription()).assignCategory(base.getPlatform() + "_" + base.getDeviceName()).assignAuthor("customTestSuiteAuthorName");
-    }
-
-    @Override
-    public void onTestSuccess(ITestResult result) {
-        ExtentReport.getTest().log(Status.PASS, "Test Passed");
-    }
-
-    @Override
-    public void onTestSkipped(ITestResult result) {
-        ExtentReport.getTest().log(Status.SKIP, "Test Skipped");
-    }
-
-    @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {}
-
-    @Override
-    public void onFinish(ITestContext result) {
-        ExtentReport.getReporter().flush();
     }
 }

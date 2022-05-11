@@ -16,6 +16,8 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
+import static io.appium.java_client.remote.IOSMobileCapabilityType.USE_PREBUILT_WDA;
+
 public class DriverManager extends BaseTest {
     public void initializeDriver(String envID, String platformName) throws Exception {
         try {
@@ -56,6 +58,7 @@ public class DriverManager extends BaseTest {
             desiredCapabilities.setCapability(MobileCapabilityType.FULL_RESET, false);
             desiredCapabilities.setCapability("autoGrantPermissions", true);
             desiredCapabilities.setCapability("autoAcceptAlerts", true);
+
             // desiredCapabilities.setCapability(MobileCapabilityType.NO_RESET, true);
             // desiredCapabilities.setCapability("printPageSourceOnFindFailure", true);
             // desiredCapabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
@@ -66,17 +69,18 @@ public class DriverManager extends BaseTest {
             } else {
                 desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceData.get("deviceName").toString());
                 desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, deviceData.get("OSVersion").toString());
-                desiredCapabilities.setCapability(MobileCapabilityType.UDID, objProperties.getProperty("deviceID"));
                 desiredCapabilities.setCapability(MobileCapabilityType.APP, app);
             }
 
             switch(platformName) {
                 case "Android":
+                    desiredCapabilities.setCapability(MobileCapabilityType.UDID, objProperties.getProperty("androidEmulatorUDID"));
                     desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
                     driver = new AndroidDriver(launchURL, desiredCapabilities);
                     driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
                     break;
                 case "iOS":
+                    desiredCapabilities.setCapability(MobileCapabilityType.UDID, objProperties.getProperty("iOSSimulatorUDID"));
                     desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
                     driver = new IOSDriver(launchURL, desiredCapabilities);
                     driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);

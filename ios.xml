@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite parallel="tests" name="Suite">
-    <parameter name="envID" value="local"/>
-    <parameter name="platformName" value="iOS"/>
-    <parameter name="udid" value="BA1A9176-2735-435F-A766-9294AD224177"/>
-    <test name="iOS">
-        <classes>
-            <class name="com.qa.lms.mobile.testcases.debug"/>
-        </classes>
-        <listeners>
-            <listener class-name="com.qa.lms.mobile.listeners.TestListener"/>
-        </listeners>
-    </test>
+<parameter name="envID" value="remote"/>  <!-- local/remote -->
+<parameter name="platformName" value="iOS"/>
+<test name="iOS">
+    <classes>
+        <class name="com.qa.lms.mobile.testcases.debug"/>
+    </classes>
+    <listeners>
+        <listener class-name="com.qa.lms.mobile.listeners.TestListener"/>
+    </listeners>
+</test>
 </suite>

@@ -112,7 +112,7 @@ public class BaseTest {
         if(envID.equals("local")) {
             ThreadContext.put("ROUTINGKEY", "ServerLogs");
             server = getAppiumService("Mac OS X"); // Need to provide the OS. Windows or Mac
-            if(! checkIfAppiumServerIsRunnning(4723)) {
+            if(!checkIfAppiumServerIsRunnning(4723)) {
                 server.start();
                 server.clearOutPutStreams();
                 utils.log().info("Appium server started");
@@ -263,7 +263,7 @@ public class BaseTest {
             String dir = "videos" + File.separator + platformName + "_" + deviceData.get("OSVersion").toString() + "_" + deviceData.get("deviceName").toString() + File.separator + getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName();
             File videoDir = new File(dir);
             synchronized(videoDir) {
-                if(! videoDir.exists()) {
+                if(!videoDir.exists()) {
                     videoDir.mkdirs();
                 }
             }
@@ -278,12 +278,12 @@ public class BaseTest {
     }
 
     public void launchApp() {
-        utils.log().info("Launching App...");
+        utils.log().info("Launching Application...");
         getDriver().launchApp();
     }
 
     public void closeApp() {
-        utils.log().info("App Closed!");
+        utils.log().info("Application Closed!");
         getDriver().closeApp();
     }
 
@@ -291,7 +291,7 @@ public class BaseTest {
         // Setting Custom logs
         String logFilePath = "logs" + File.separator + platformName + "_" + deviceName;
         File logFile = new File(logFilePath);
-        if(! logFile.exists()) {
+        if(!logFile.exists()) {
             logFile.mkdirs();
         }
         ThreadContext.put("ROUTINGKEY", logFilePath);

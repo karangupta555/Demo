@@ -16,7 +16,7 @@ public class ExtentReport {
     public synchronized static ExtentReports getReporter() {
         if(extent == null) {
             ExtentSparkReporter spark = new ExtentSparkReporter(filePath);
-            spark.config().setDocumentTitle("Appium Framework");
+            spark.config().setDocumentTitle("Test Suite Report");
             spark.config().setReportName("Auzmor Learn Mobile App");
             spark.config().setTheme(Theme.DARK);
             extent = new ExtentReports();
@@ -29,8 +29,8 @@ public class ExtentReport {
         return (ExtentTest) extentTestMap.get((int) (long) (Thread.currentThread().getId()));
     }
 
-    public static synchronized ExtentTest startTest(String testName, String desc) {
-        ExtentTest test = getReporter().createTest(testName, desc);
+    public static synchronized ExtentTest startTest(String testName, String description) {
+        ExtentTest test = getReporter().createTest(testName, description);
         extentTestMap.put((int) (long) (Thread.currentThread().getId()), test);
         return test;
     }

@@ -29,10 +29,10 @@ public class LoginPage extends BaseTest {
     TestUtils utils = new TestUtils();
     int heightOfScreen = getDriver().manage().window().getSize().getHeight();
     int widthOfScreen = getDriver().manage().window().getSize().getWidth();
-    int middleHeightOfScreen = heightOfScreen / 2;
+    int middleHeightOfScreen = heightOfScreen/2;
     //50% of width/Width
-    double x = widthOfScreen * 0.5;
-    double y = heightOfScreen * 0.5;
+    double x = widthOfScreen*0.5;
+    double y = heightOfScreen*0.5;
     /* Sign in */
     @AndroidFindBy(className = "android.widget.EditText")
     @iOSXCUITFindBy(className = "XCUIElementTypeTextField")
@@ -200,8 +200,8 @@ public class LoginPage extends BaseTest {
             Actions objActions = new Actions(getDriver());
             objActions.sendKeys(username);
             objActions.perform();
-            utils.log().info("Entered userName/Email: '" + username + "'");
-            ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: " + username + "'");
+            utils.log().info("Entered userName/Email: '"+username+"'");
+            ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: "+username+"'");
         } catch(Exception e) {
             e.printStackTrace();
             utils.log().info("Error: Unable to enter login email");
@@ -217,8 +217,8 @@ public class LoginPage extends BaseTest {
             Actions objActions = new Actions(getDriver());
             objActions.sendKeys(password);
             objActions.perform();
-            utils.log().info("Entered Password: " + password + "'");
-            ExtentReport.getTest().log(Status.INFO, "Entered Password: " + password + "'");
+            utils.log().info("Entered Password: "+password+"'");
+            ExtentReport.getTest().log(Status.INFO, "Entered Password: "+password+"'");
         } catch(Exception e) {
             e.printStackTrace();
             utils.log().info("Error: Unable to enter login password");
@@ -316,7 +316,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickHomeTab() throws Exception {
         try {
-            click(homeTab);
+            //click(homeTab);
+            getDriver().findElementByAccessibilityId("home-tab").click();
             utils.log().info("Clicked on Home Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Home Tab");
         } catch(Exception e) {
@@ -330,7 +331,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickSearchTab() throws Exception {
         try {
-            click(searchTab);
+            //click(searchTab);
+            getDriver().findElementByAccessibilityId("search-tab").click();
             utils.log().info("Clicked on Search/Explore Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Search/Explore Tab");
         } catch(Exception e) {
@@ -344,7 +346,8 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickNotificationTab() throws Exception {
         try {
-            click(notificationTab);
+            //click(notificationTab);
+            getDriver().findElementByAccessibilityId("notifications-tab").click();
             utils.log().info("Clicked on Notification Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Notification Tab");
         } catch(Exception e) {
@@ -413,13 +416,14 @@ public class LoginPage extends BaseTest {
     }
 
     public LoginPage searchCourse(String courseName) throws Exception {
+        Thread.sleep(1000);
         try {
             By searchTextBox = By.xpath("(//android.widget.ImageView)[1]"); // Cache Error
             getDriver().findElement(By.xpath("(//android.widget.ImageView)[1]")).click();
             getDriver().findElement(By.xpath("(//android.widget.ImageView)[1]")).clear();
             getDriver().getKeyboard().sendKeys(courseName);
-            utils.log().info("Searched Course: '" + courseName + "'");
-            ExtentReport.getTest().log(Status.INFO, "Searched Course: '" + courseName + "'");
+            utils.log().info("Searched Course: '"+courseName+"'");
+            ExtentReport.getTest().log(Status.INFO, "Searched Course: '"+courseName+"'");
             getDriver().hideKeyboard();
         } catch(Exception e) {
             e.printStackTrace();
@@ -433,13 +437,13 @@ public class LoginPage extends BaseTest {
     public LoginPage viewSpecificCourse(String courseName) throws Exception {
         try {
             getDriver().findElementByAccessibilityId(courseName).click();
-            utils.log().info("Clicked on '" + courseName + "' Course");
-            ExtentReport.getTest().log(Status.INFO, "Clicked on '" + courseName + "' Course");
+            utils.log().info("Clicked on '"+courseName+"' Course");
+            ExtentReport.getTest().log(Status.INFO, "Clicked on '"+courseName+"' Course");
         } catch(Exception e) {
             e.printStackTrace();
-            utils.log().info("Error: Unable to Click on '" + courseName + "' Course");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on '" + courseName + "' Course");
-            throw new Exception("Error: Unable to Click on '" + courseName + "' Course");
+            utils.log().info("Error: Unable to Click on '"+courseName+"' Course");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to Click on '"+courseName+"' Course");
+            throw new Exception("Error: Unable to Click on '"+courseName+"' Course");
         }
         return this;
     }
@@ -502,6 +506,7 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickNextLesson() throws Exception {
         try {
+            Thread.sleep(1500);
             click(nextLessonButton);
             utils.log().info("Clicked on Next Lesson Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Next Lesson Button");
@@ -516,6 +521,7 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickTakeAssessment() throws Exception {
         try {
+            Thread.sleep(1500);
             //click(takeAssessmentButton);
             getDriver().findElementByAccessibilityId("Take Assessment").click();
             utils.log().info("Clicked on Take Assessment Button");
@@ -604,6 +610,7 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickCompleteAssessment() throws Exception {
         try {
+            Thread.sleep(1500);
             // click(completeAssessmentButton);
             getDriver().findElementByAccessibilityId("Complete Assessment").click();
             utils.log().info("Clicked on Complete Assessment Button");
@@ -650,27 +657,27 @@ public class LoginPage extends BaseTest {
     public LoginPage selectOption(String option) throws Exception {
         try {
             getDriver().findElementByAccessibilityId(option).click();
-            utils.log().info("Selected Option '" + option + "'");
-            ExtentReport.getTest().log(Status.INFO, "Selected Option '" + option + "'");
+            utils.log().info("Selected Option '"+option+"'");
+            ExtentReport.getTest().log(Status.INFO, "Selected Option '"+option+"'");
         } catch(Exception e) {
             e.printStackTrace();
-            utils.log().info("Error: Unable to click/select Option '" + option + "'");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click/select Option '" + option + "'");
-            throw new Exception("Error: Unable to click/select Option '" + option + "'");
+            utils.log().info("Error: Unable to click/select Option '"+option+"'");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click/select Option '"+option+"'");
+            throw new Exception("Error: Unable to click/select Option '"+option+"'");
         }
         return this;
     }
 
     public LoginPage clickAttemptAssessmentAgainButton(String attemptNumber) throws Exception {
         try {
-            getDriver().findElementByAccessibilityId("Attempt again(" + attemptNumber + ")").click();
-            utils.log().info("Attempt again(" + attemptNumber + ") Button");
-            ExtentReport.getTest().log(Status.INFO, "Attempt again(" + attemptNumber + ") Button");
+            getDriver().findElementByAccessibilityId("Attempt again("+attemptNumber+")").click();
+            utils.log().info("Attempt again("+attemptNumber+") Button");
+            ExtentReport.getTest().log(Status.INFO, "Attempt again("+attemptNumber+") Button");
         } catch(Exception e) {
             e.printStackTrace();
-            utils.log().info("Error: Unable to click Attempt again(" + attemptNumber + ") Button");
-            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Attempt again(" + attemptNumber + ") Button");
-            throw new Exception("Error: Unable to click Attempt again(" + attemptNumber + ") Button");
+            utils.log().info("Error: Unable to click Attempt again("+attemptNumber+") Button");
+            ExtentReport.getTest().log(Status.INFO, "Error: Unable to click Attempt again("+attemptNumber+") Button");
+            throw new Exception("Error: Unable to click Attempt again("+attemptNumber+") Button");
         }
         return this;
     }
@@ -867,6 +874,8 @@ public class LoginPage extends BaseTest {
      *****************/
 
     public boolean validateNotificationTab() throws Exception {
+        utils.log().info("Validating Notifications Tab");
+        ExtentReport.getTest().log(Status.INFO, "Validating Notifications Tab");
         if(getDriver().findElementsByAccessibilityId("Notifications").size() > 0) {
             utils.log().info("Validated Notification Tab");
             ExtentReport.getTest().log(Status.INFO, "Validated Notification Tab");
@@ -878,6 +887,8 @@ public class LoginPage extends BaseTest {
     }
 
     public boolean validateAssessmentStatus() throws Exception {
+        utils.log().info("Validating Assessment Status");
+        ExtentReport.getTest().log(Status.INFO, "Validating Assessment Status");
         if(getDriver().findElementsByAccessibilityId("Awesome!!!!!").size() > 0) {
             // Congratulations!! You have passed the assessment. Your Certificate is awaiting!!!
             utils.log().info("Required Assessment Status(Pass) validated Successfully!");
@@ -895,6 +906,8 @@ public class LoginPage extends BaseTest {
     }
 
     public boolean isNoResultFound() throws Exception {
+        utils.log().info("Validating Empty State Container");
+        ExtentReport.getTest().log(Status.INFO, "Validating Empty State Container");
         if(getDriver().findElementsByAccessibilityId("Uh oh!! We searched the whole space but couldn't find it").size() > 0) {
             utils.log().info("No Result Found");
             ExtentReport.getTest().log(Status.INFO, "No Result Found");
@@ -906,6 +919,8 @@ public class LoginPage extends BaseTest {
     }
 
     public boolean isCompletedButtonPresent() throws Exception {
+        utils.log().info("Validating Completed Button");
+        ExtentReport.getTest().log(Status.INFO, "Validating Completed Button");
         if(getDriver().findElementsByAccessibilityId("Completed").size() > 0) {
             utils.log().info("Completed Button Present");
             ExtentReport.getTest().log(Status.INFO, "Completed Button Present");
@@ -917,6 +932,8 @@ public class LoginPage extends BaseTest {
     }
 
     public boolean isCertificateTabPresent() throws Exception {
+        utils.log().info("Validating Certificate Tab");
+        ExtentReport.getTest().log(Status.INFO, "Validating Certificate Tab");
         // Alternate Approach: '//android.view.View[@content-desc[contains(., 'Certificate')]]")).size() == 2'
         if(getDriver().findElementsByAccessibilityId(("Certificate")).size() > 0) {
             utils.log().info("Certificate Tab Present");
@@ -929,6 +946,8 @@ public class LoginPage extends BaseTest {
     }
 
     public boolean isCertificateAvailable() throws Exception {
+        utils.log().info("Validating Certificate");
+        ExtentReport.getTest().log(Status.INFO, "Validating Certificate");
         if(getDriver().findElements(By.xpath("//android.view.View[@content-desc[contains(., 'CERTIFICATE OF COMPLETION')]]")).size() > 0) {
             utils.log().info("Certificate is Available");
             ExtentReport.getTest().log(Status.INFO, "Certificate is Available");
@@ -990,8 +1009,8 @@ public class LoginPage extends BaseTest {
         Dimension size = getDriver().manage().window().getSize();
         size.getHeight();
         size.getWidth();
-        System.out.println("Height of the screen: " + getDriver().manage().window().getSize().getHeight());
-        System.out.println("Width of the screen: " + getDriver().manage().window().getSize().getWidth());
+        System.out.println("Height of the screen: "+getDriver().manage().window().getSize().getHeight());
+        System.out.println("Width of the screen: "+getDriver().manage().window().getSize().getWidth());
         // Drag from Top-Bottom
         action.press(PointOption.point(10, 10)).waitAction(waitOptions(Duration.ofMillis(1200))).moveTo(PointOption.point(900, 900)).release().perform();
         Thread.sleep(5000);
@@ -1007,7 +1026,7 @@ public class LoginPage extends BaseTest {
 
             Same x,y points are required for end_points(on x_y axis plane)
         */
-        // Exception: The swipe action is based on device screen ratio/width which is a dependency(differs device-to-device)
+        // Consider Exception: The swipe action is based on device screen ratio/width which is a dependency(differs device-to-device)
         TouchAction action = new TouchAction(getDriver());
         // Swiping Up(through fingers)
         action.press(PointOption.point(0, 400)).waitAction(waitOptions(Duration.ofMillis(2000))).moveTo(PointOption.point(0, 100)).release().perform();
@@ -1018,7 +1037,7 @@ public class LoginPage extends BaseTest {
     }
 
     public LoginPage scrollUp() throws Exception {
-        // Exception: The swipe action is based on device screen ratio/width which is a dependency(differs device-to-device)
+        // Consider Exception: The swipe action is based on device screen ratio/width which is a dependency(differs device-to-device)
         // Swiping Down(through fingers)
         TouchAction action = new TouchAction(getDriver());
         action.press(PointOption.point(0, 200)).waitAction(waitOptions(Duration.ofMillis(2000))).moveTo(PointOption.point(0, 500)).release().perform();
@@ -1031,8 +1050,8 @@ public class LoginPage extends BaseTest {
     // Toasters
     public LoginPage getToasterMessage() throws Exception {
         String message = "";
-        utils.log().info("Toaster Message Captured: " + message);
-        ExtentReport.getTest().log(Status.INFO, "Toaster Message Captured: " + message);
+        utils.log().info("Toaster Message Captured: "+message);
+        ExtentReport.getTest().log(Status.INFO, "Toaster Message Captured: "+message);
         return this;
     }
 
@@ -1066,7 +1085,6 @@ public class LoginPage extends BaseTest {
         //touchAction.moveTo();
         //touchAction.cancel();
         //touchAction.perform().longPress();
-
         touchAction.tap(PointOption.point(1280, 1013)).perform();
         return this;
     }
@@ -1081,21 +1099,16 @@ public class LoginPage extends BaseTest {
         TouchAction touchActionOne = new TouchAction(getDriver());
         touchActionOne.press(PointOption.point(100, 100));
         touchActionOne.release();
-
         TouchAction touchActionTwo = new TouchAction(getDriver());
         touchActionTwo.press(PointOption.point(200, 200));
         touchActionTwo.release();
-
         MultiTouchAction action = new MultiTouchAction(getDriver());
         action.add(touchActionOne);
         action.add(touchActionTwo);
         action.perform();
-
         // perform multi touch on particular elements
         TouchAction touchAction1 = new TouchAction(getDriver()).tap(ElementOption.element(signInButton)).release();
-
         TouchAction touchAction2 = new TouchAction(getDriver()).tap(ElementOption.element(signInButton)).release();
-
         MultiTouchAction action1 = new MultiTouchAction(getDriver());
         action1.add(touchAction1);
         action1.add(touchAction2);
@@ -1104,7 +1117,7 @@ public class LoginPage extends BaseTest {
     }
 
     public MobileElement scrollToElement(String elementName) {
-        return (MobileElement) ((FindsByAndroidUIAutomator) getDriver()).findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()" + ".scrollable(true)).scrollIntoView(" + "new UiSelector().description(" + elementName + "));");
+        return (MobileElement) ((FindsByAndroidUIAutomator) getDriver()).findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()"+".scrollable(true)).scrollIntoView("+"new UiSelector().description("+elementName+"));");
     }
 
     public void scrollToElement2(String elementName) {

@@ -59,13 +59,11 @@ public class TestUtils {
         BaseTest base = new BaseTest();
         String msg = Thread.currentThread().getId() + ":" + base.getPlatform() + ":" + base.getDeviceName() + ":" + Thread.currentThread().getStackTrace()[2].getClassName() + ":" + txt;
 
-        //System.out.println(msg);
-
         String strFile = "logs" + File.separator + base.getPlatform() + "_" + base.getDeviceName() + File.separator + base.getDateTime();
 
         File logFile = new File(strFile);
 
-        if(! logFile.exists()) {
+        if(!logFile.exists()) {
             logFile.mkdirs();
         }
 

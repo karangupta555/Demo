@@ -39,7 +39,7 @@ public class assessments extends BaseTest {
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("learner1").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
@@ -60,7 +60,7 @@ public class assessments extends BaseTest {
             loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
-            if(! platformName.equals("iOS")) {
+            if(!platformName.equals("iOS")) {
                 loginPage.downloadCertificateImage();
                 loginPage.downloadCertificateImage();/* Close the Popup */
                 loginPage.downloadCertificatePDF();
@@ -72,7 +72,7 @@ public class assessments extends BaseTest {
                 iOSPermissions();
                 loginPage.clickSkipButton();
                 loginPage.clickSignInBtn();
-                loginPage.enterLoginEmail(platformName, loginData.get("learner1").toString());
+                loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
                 loginPage.clickContinue();
                 loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
                 loginPage.clickContinue();
@@ -114,7 +114,7 @@ public class assessments extends BaseTest {
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("learner4").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
@@ -388,9 +388,9 @@ public class assessments extends BaseTest {
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("debugUser").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword(platformName, loginData.get("password1").toString());
+            loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
             loginPage.searchCourse("Course 80745");

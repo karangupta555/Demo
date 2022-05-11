@@ -40,7 +40,7 @@
 - Install Appium Inspector
   from [Here](https://github.com/appium/appium-inspector/releases/download/v2022.2.1/Appium-Inspector-mac-2022.2.1.dmg)
 - Install Appium GUI
-  from [Here](https://github.com/appium/appium-desktop/releases/download/v1.22.2/Appium-Server-GUI-mac-1.22.2.dmg).
+  from [Here](https://github.com/appium/appium-desktop/releases/download/v1.22.2/Appium-Server-GUI-mac-1.22.3.dmg).
   Although its not mandatory, as it used to start the appium server that we can do from terminal through below command.
   ```shell
   # just type appium
@@ -152,11 +152,13 @@ find more about [Appium Doctor](https://github.com/appium/appium-doctor)
 # Useful Commands
 
 ```sh
-# list of available Simulators
-cd "cd /Users/user-name/Library/Android/sdk/emulator"
+# list of available Emulators
 emulator -list-avds
 
-# Know the UDID of active emulators/devices or List of devices attached currently
+# UDID for iOS Simulators
+xcrun simctl list
+
+# Know the UDID of active devices or List of real devices attached currently
 adb devices
 
 # uninstall drivers on device
