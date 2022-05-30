@@ -44,6 +44,8 @@ import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 public class BaseTest {
     protected static ThreadLocal<AppiumDriver> driver = new ThreadLocal<AppiumDriver>();
     protected static ThreadLocal<Properties> props = new ThreadLocal<Properties>();
@@ -300,6 +302,7 @@ public class BaseTest {
 
     public void iOSPermissions() throws Exception {
         try {
+            /****/ // Update
             waitForVisibility((MobileElement) getDriver().findElement(By.name("Allow Access to All Photos")));
             getDriver().findElement(By.name("Allow Access to All Photos")).click();
             utils.log().info("'Allow Access to All Photos' Permission allowed Successfully");
@@ -370,9 +373,9 @@ public class BaseTest {
                 By openBtn = MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeButton' && name CONTAINS 'Open'");
                 getDriver().activateApp("com.apple.mobilesafari");
                 WebDriverWait wait = new WebDriverWait(getDriver(), 10);
-                wait.until(ExpectedConditions.visibilityOfElementLocated(urlBtn)).click();
-                wait.until(ExpectedConditions.visibilityOfElementLocated(urlFld)).sendKeys("" + url + "\uE007");
-                wait.until(ExpectedConditions.visibilityOfElementLocated(openBtn)).click();
+                wait.until(visibilityOfElementLocated(urlBtn)).click();
+                wait.until(visibilityOfElementLocated(urlFld)).sendKeys("" + url + "\uE007");
+                wait.until(visibilityOfElementLocated(openBtn)).click();
                 break;
         }
     }

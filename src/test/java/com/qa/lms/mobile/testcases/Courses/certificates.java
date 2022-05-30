@@ -37,7 +37,7 @@ public class certificates extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80760");
+            loginPage.searchCourse(platformName, "Course 80760");
             loginPage.viewSpecificCourse("Course 80760");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
@@ -59,7 +59,7 @@ public class certificates extends BaseTest {
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80760");
+            loginPage.searchCourse(platformName, "Course 80760");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80760
         } catch(Exception e) {
@@ -92,7 +92,7 @@ public class certificates extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 81218");
+            loginPage.searchCourse(platformName, "Course 81218");
             loginPage.viewSpecificCourse("Course 81218");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
@@ -129,7 +129,7 @@ public class certificates extends BaseTest {
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 81218");
+            loginPage.searchCourse(platformName, "Course 81218");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/81218
         } catch(Exception e) {
@@ -162,7 +162,7 @@ public class certificates extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80770");
+            loginPage.searchCourse(platformName, "Course 80770");
             loginPage.viewSpecificCourse("Course 80770");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
@@ -198,7 +198,7 @@ public class certificates extends BaseTest {
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80770");
+            loginPage.searchCourse(platformName, "Course 80770");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80770
         } catch(Exception e) {
@@ -231,7 +231,7 @@ public class certificates extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80771");
+            loginPage.searchCourse(platformName, "Course 80771");
             loginPage.viewSpecificCourse("Course 80771");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
@@ -240,7 +240,7 @@ public class certificates extends BaseTest {
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80771");
+            loginPage.searchCourse(platformName, "Course 80771");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80771
         } catch(Exception e) {
@@ -273,7 +273,7 @@ public class certificates extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80772");
+            loginPage.searchCourse(platformName, "Course 80772");
             loginPage.viewSpecificCourse("Course 80772");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
@@ -294,7 +294,7 @@ public class certificates extends BaseTest {
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80772");
+            loginPage.searchCourse(platformName, "Course 80772");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80772
         } catch(Exception e) {
@@ -327,7 +327,7 @@ public class certificates extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80773");
+            loginPage.searchCourse(platformName, "Course 80773");
             loginPage.viewSpecificCourse("Course 80773");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
@@ -369,7 +369,7 @@ public class certificates extends BaseTest {
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80773");
+            loginPage.searchCourse(platformName, "Course 80773");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80773
         } catch(Exception e) {
@@ -402,7 +402,7 @@ public class certificates extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80777");
+            loginPage.searchCourse(platformName, "Course 80777");
             loginPage.viewSpecificCourse("Course 80777");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
@@ -456,7 +456,7 @@ public class certificates extends BaseTest {
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80777");
+            loginPage.searchCourse(platformName, "Course 80777");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80777
         } catch(Exception e) {
@@ -489,7 +489,7 @@ public class certificates extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80778");
+            loginPage.searchCourse(platformName, "Course 80778");
             loginPage.viewSpecificCourse("Course 80778");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
@@ -529,7 +529,7 @@ public class certificates extends BaseTest {
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80778");
+            loginPage.searchCourse(platformName, "Course 80778");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80778
         } catch(Exception e) {
@@ -562,7 +562,7 @@ public class certificates extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80779");
+            loginPage.searchCourse(platformName, "Course 80779");
             loginPage.viewSpecificCourse("Course 80779");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
@@ -587,7 +587,7 @@ public class certificates extends BaseTest {
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80779");
+            loginPage.searchCourse(platformName, "Course 80779");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80779
         } catch(Exception e) {
@@ -620,7 +620,7 @@ public class certificates extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80780");
+            loginPage.searchCourse(platformName, "Course 80780");
             loginPage.viewSpecificCourse("Course 80780");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
@@ -660,7 +660,7 @@ public class certificates extends BaseTest {
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80780");
+            loginPage.searchCourse(platformName, "Course 80780");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80780
         } catch(Exception e) {
@@ -784,7 +784,7 @@ public class certificates extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 81217");
+            loginPage.searchCourse(platformName, "Course 81217");
             loginPage.viewSpecificCourse("Course 81217");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
@@ -812,7 +812,7 @@ public class certificates extends BaseTest {
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 81217");
+            loginPage.searchCourse(platformName, "Course 81217");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/81217
         } catch(Exception e) {

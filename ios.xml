@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite parallel="tests" name="Suite">
-<parameter name="envID" value="remote"/>  <!-- local/remote -->
+<parameter name="envID" value="local"/>  <!-- local/remote -->
 <parameter name="platformName" value="iOS"/>
 <test name="iOS">
     <classes>
