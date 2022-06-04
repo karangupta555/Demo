@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -277,6 +278,13 @@ public class BaseTest {
         } else {
             utils.log().info("'afterMethod' Executed for Remote");
         }
+    }
+
+    public void getSessionDetails(AppiumDriver driver) {
+        Map<String, Object> sessionDetails = driver.getSessionDetails();
+        utils.log().info("----------------------- Getting Session Logs -----------------------");
+        sessionDetails.forEach((key, value) -> utils.log().info(key + ": '" + value + "'"));
+        utils.log().info("------------------------------- Logs -------------------------------");
     }
 
     public void launchApp() {

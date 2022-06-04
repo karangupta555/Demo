@@ -17,6 +17,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import java.time.Duration;
@@ -29,7 +30,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 public class LoginPage extends BaseTest {
     TestUtils utils = new TestUtils();
     WebDriverWait wait = new WebDriverWait(getDriver(), TestUtils.WAIT);
-    Actions objActions;
+    Actions actionsObject;
     int heightOfScreen = getDriver().manage().window().getSize().getHeight();
     int widthOfScreen = getDriver().manage().window().getSize().getWidth();
     int middleHeightOfScreen = heightOfScreen/2;
@@ -43,6 +44,10 @@ public class LoginPage extends BaseTest {
     @AndroidFindBy(accessibility = "Continue")
     @iOSXCUITFindBy(accessibility = "Continue")
     private MobileElement continueBtn;
+
+    @AndroidFindBy(accessibility = "Sign In")
+    @iOSXCUITFindBy(accessibility = "Sign In")
+    private MobileElement signInButton;
     @AndroidFindBy(accessibility = "Sign In with SSO")
     @iOSXCUITFindBy(accessibility = "Sign In with SSO")
     private MobileElement signInSSOButton;
@@ -170,10 +175,9 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickSignInBtn() throws Exception {
         try {
-            /****/
-            //wait.until(visibilityOfElementLocated(MobileBy.id("Sign In")));
-            //wait.until(elementToBeClickable(MobileBy.id("Sign In"))).click();
-            // getDriver().findElementByAccessibilityId("Sign In").click();  // Effective way to locate element
+            Thread.sleep(1000);
+            wait.until(visibilityOfElementLocated(MobileBy.AccessibilityId("Sign In")));
+            wait.until(elementToBeClickable(MobileBy.AccessibilityId("Sign In"))).click();
             utils.log().info("Clicked SignIn Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked SignIn Button");
         } catch(Exception e) {
@@ -186,12 +190,16 @@ public class LoginPage extends BaseTest {
     }
 
     public LoginPage enterLoginEmail(String platformName, String username) throws Exception {
+        By inputField;
         try {
-            String local = "XCUIElementTypeTextField";
-            getDriver().findElementByClassName(local).click();
-            objActions = new Actions(getDriver());
-            objActions.sendKeys(username);
-            objActions.perform();
+            if(platformName.equals("iOS")) {
+                inputField = By.className("XCUIElementTypeTextField");
+            } else {
+                inputField = By.className("android.widget.EditText");
+            }
+            getDriver().findElement(inputField).click();
+            getDriver().findElement(inputField).clear();
+            getDriver().getKeyboard().sendKeys(username);
             utils.log().info("Entered userName/Email: '" + username + "'");
             ExtentReport.getTest().log(Status.INFO, "Entered userName/Email: " + username + "'");
         } catch(Exception e) {
@@ -205,11 +213,9 @@ public class LoginPage extends BaseTest {
 
     public LoginPage enterLoginPassword(String platformName, String password) throws Exception {
         try {
-            // click(textBox);
-            // getDriver().findElementByClassName("XCUIElementTypeTextField").click();
-            objActions = new Actions(getDriver());
-            objActions.sendKeys(password);
-            objActions.perform();
+            actionsObject = new Actions(getDriver());
+            actionsObject.sendKeys(password);
+            actionsObject.perform();
             utils.log().info("Entered Password: " + password + "'");
             ExtentReport.getTest().log(Status.INFO, "Entered Password: " + password + "'");
         } catch(Exception e) {
@@ -279,7 +285,7 @@ public class LoginPage extends BaseTest {
 
     public LoginPage navigateBack() throws Exception {
         try {
-            getDriver().findElementByAccessibilityId("back").click();
+            click(backButton);
             utils.log().info("Clicked on Back Button Arrow");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Back Button Arrow");
         } catch(Exception e) {
@@ -406,21 +412,20 @@ public class LoginPage extends BaseTest {
 
     public LoginPage searchCourse(String platformName, String courseName) throws Exception {
         Thread.sleep(1000);
+        By searchTextBox;
         try {
-            if(platformName.equals("iOS")){
-                By searchTextBox = By.xpath("(//XCUIElementTypeTextField)[1]"); // Cache Error
-                getDriver().findElement(By.xpath("(//XCUIElementTypeTextField)[1]")).click();
-                getDriver().findElement(By.xpath("(//XCUIElementTypeTextField)[1]")).clear();
+            if(platformName.equals("iOS")) {
+                searchTextBox = By.xpath("(//XCUIElementTypeTextField)[1]");
+            } else {
+                searchTextBox = By.xpath("(//android.widget.ImageView)[1]");
             }
-            else {
-                By searchTextBox = By.xpath("(//android.widget.ImageView)[1]"); // Cache Error
-                getDriver().findElement(By.xpath("(//android.widget.ImageView)[1]")).click();
-                getDriver().findElement(By.xpath("(//android.widget.ImageView)[1]")).clear();
-            }
+            getDriver().findElement(searchTextBox).click();
+            getDriver().findElement(searchTextBox).clear();
             getDriver().getKeyboard().sendKeys(courseName);
-            utils.log().info("Searched Course: '" + courseName + "'");
             ExtentReport.getTest().log(Status.INFO, "Searched Course: '" + courseName + "'");
             getDriver().hideKeyboard();
+            utils.log().info("Closed keyboard!");
+            ExtentReport.getTest().log(Status.INFO, "Closed keyboard!");
         } catch(Exception e) {
             e.printStackTrace();
             utils.log().info("Error: Searching Course Failed!");
@@ -548,8 +553,7 @@ public class LoginPage extends BaseTest {
 
     public LoginPage clickSkipButton() throws Exception {
         try {
-            // click(skipButton);
-            getDriver().findElementByAccessibilityId("Skip").click();
+            click(skipButton);
             utils.log().info("Clicked on Skip Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Skip Button");
         } catch(Exception e) {
@@ -941,10 +945,19 @@ public class LoginPage extends BaseTest {
         return false;
     }
 
-    public boolean isCertificateAvailable() throws Exception {
+    public boolean isCertificateAvailable(String platformName) throws Exception {
         utils.log().info("Validating Certificate");
         ExtentReport.getTest().log(Status.INFO, "Validating Certificate");
-        if(getDriver().findElements(By.xpath("//android.view.View[@content-desc[contains(., 'CERTIFICATE OF COMPLETION')]]")).size() > 0) {
+        /****/ // Should optimized
+        By cert_issued;
+        if(platformName.equals("iOS")) {
+            // iOS
+            cert_issued = By.xpath("//XCUIElementTypeStaticText[@name[contains(., 'CERTIFICATE OF COMPLETION')]]");
+        } else {
+            // Android
+            cert_issued = By.xpath("//android.view.View[@content-desc[contains(., 'CERTIFICATE OF COMPLETION')]]");
+        }
+        if(getDriver().findElements(cert_issued).size() > 0) {
             utils.log().info("Certificate is Available");
             ExtentReport.getTest().log(Status.INFO, "Certificate is Available");
             return true;

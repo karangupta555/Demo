@@ -1,18 +1,5 @@
 package com.qa.lms.mobile.listeners;
 
-import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.Status;
-import com.qa.lms.mobile.BaseTest;
-import com.qa.lms.mobile.reports.ExtentReport;
-import com.qa.lms.mobile.utils.TestUtils;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
-import org.testng.Reporter;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,6 +7,20 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
+import com.qa.lms.mobile.BaseTest;
+import com.qa.lms.mobile.reports.ExtentReport;
+import com.qa.lms.mobile.utils.TestUtils;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import org.testng.Reporter;
 
 public class TestListener implements ITestListener {
     @Override

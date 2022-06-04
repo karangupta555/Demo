@@ -13,25 +13,25 @@ public class ExtentReport {
     static ExtentReports extent;
     static Map<Integer, ExtentTest> extentTestMap = new HashMap();
 
+    public synchronized static ExtentTest getTest() {
+        return (ExtentTest) extentTestMap.get((int) (long) (Thread.currentThread().getId()));
+    }
+
+    public synchronized static ExtentTest startTest(String testName, String description) {
+        ExtentTest test = getReporter().createTest(testName, description);
+        extentTestMap.put((int) (long) (Thread.currentThread().getId()), test);
+        return test;
+    }
+
     public synchronized static ExtentReports getReporter() {
         if(extent == null) {
             ExtentSparkReporter spark = new ExtentSparkReporter(filePath);
-            spark.config().setDocumentTitle("Test Suite Report");
             spark.config().setReportName("Auzmor Learn Mobile App");
+            spark.config().setDocumentTitle("Test Suite Report");
             spark.config().setTheme(Theme.DARK);
             extent = new ExtentReports();
             extent.attachReporter(spark);
         }
         return extent;
-    }
-
-    public static synchronized ExtentTest getTest() {
-        return (ExtentTest) extentTestMap.get((int) (long) (Thread.currentThread().getId()));
-    }
-
-    public static synchronized ExtentTest startTest(String testName, String description) {
-        ExtentTest test = getReporter().createTest(testName, description);
-        extentTestMap.put((int) (long) (Thread.currentThread().getId()), test);
-        return test;
     }
 }
