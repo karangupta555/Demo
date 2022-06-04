@@ -1,51 +1,29 @@
 # Getting Started
 
+# Installation Setup
+
 ## Install JAVA JDK
 
-- Any JDK version which **above JDK 8** will work, Follow steps from [here] to install(https://www.guru99.com/install-java.html)
+-   Any JDK version which **above JDK 8** will work, Follow steps from [here] to install(https://www.guru99.com/install-java.html)
 
 ## Install Android Studio
 
   <!-- Helpful to launch Android Emulator -->
 
-- Android Studio download from [here](https://developer.android.com/studio)
+-   Android Studio download from [here](https://developer.android.com/studio)
 
-## Install Homebrew(For Mac)
+## Install Homebrew(Only for Mac) (Optional)
 
--   Package manager for macOS and is used to install software packages
--   Install it from [here](https://brew.sh/)    or through below **Command**:
-    ```sh
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    ```
+-   Package Manager for macOS and is used to install software packages
+-   Install it from [here](https://brew.sh/)
 
 ## Install Node.js and npm
 
-- Install Node.js from [here](https://nodejs.org/en/)
-    ```sh
-    # install
-    npm install -g npm
-
-    # verify
-    node -v
-    npm -v
-    ```
-
-    **For Mac users**
-
-  - Install through HomeBrew
-
-      ```sh
-      # install
-      brew install node
-
-      # verify
-      node -v
-
-      # path
-      where node
-      ```
+-   Install Node.js from [here](https://nodejs.org/en/)
 
 ## Install Appium server(Appium CLI)
+
+**Note:** _Latest Version is recommended_
 
     ```sh
     # install
@@ -61,45 +39,51 @@
 ## Install Appium GUI and Inspector
 
 -   Install Appium Inspector from [Here](https://github.com/appium/appium-inspector/releases)
--   Appium GUI is not mandatory, as it used to start the appium server that we can do from terminal through below command.(already installed in above step)
-    ```shell
-    # just type appium
-    appium
+    -   _Latest Version is recommended_
+-   Install Appium GUI from [Here](https://github.com/appium/appium-desktop/releases). Although its not mandatory, as it is required to start the appium server that we can do from terminal through below command.
+
+    -   Recommended Version `1.22.0`.
+
+    ```sh
+    # appium -p port-id
+    appium -p 4723
     ```
 
-## Set environment variables
+**Note:** There might some issues while launching/Inspecting iOS Simulator wrt to WDA(WebDriverAgent). The primary reason is the Xcode build failure and this may varies from machine to machine(Completely dependent on machine, not installation or config issue).
 
-**For MAC Users:**
+## Set Environment Variables
 
-- If there is already `.zshrc` file created in your system, then skip this step, else create it.
+**For MAC:**
+
+-   If there is already `.zshrc` file created in your system, then skip this step, else create it.
 
     ```sh
     # create
     touch ~/.zshrc
     ```
 
-- Open `.zshrc` file to include environment variables, open terminal and run below command
+-   Open `.zshrc` file to include environment variables, open terminal and run below command
 
     ```sh
     # open file
     nano ~/.zshrc
     ```
 
-- And now, Add this below lines to the editor.
+-   And now, Add this below lines to the editor.
 
     ```sh
     # adding environment variables
-    export ANDROID_HOME=/YOUR_PATH_TO/android-sdk
+    export ANDROID_HOME=/Users/user-name/Library/Android/sdk
     export PATH=$PATH:$ANDROID_HOME/platform-tools
     export PATH=$PATH:$ANDROID_HOME/tools
     export PATH=$PATH:$ANDROID_HOME/tools/bin
     export PATH=$PATH:$ANDROID_HOME/emulator
     ```
 
-- Save it and close the editor/file. Now, Reopen terminal and verify:
+-   Save it and close the editor/file. Now, Reopen terminal and verify:
 
     ```sh
-    # verify
+    # Verify
     source ~/.zshrc
     echo $ANDROID_HOME
     ```
@@ -108,17 +92,16 @@
 
 **For Windows:**
 
-- Add below environment variables:
-  - **ANDROID_HOME**: `C:\Users\username\AppData\Local\Android\Sdk` _(under User variables)_
-  - **ANDROID_HOME**: `C:\Users\username\AppData\Local\Android\Sdk` _(under System variables)_
-  - **ANDROID_SDK**: `C:\Users\username\AppData\Local\Android\Sdk` _(under System variables)_
-  - **ANDROID_SDK_ROOT**: `C:\Users\username\AppData\Local\Android\Sdk` _(under System variables)_
-  - **MAVEN_HOME**: `C:\Program Files\apache-maven-3.8.4\` _(under System variables)_
-  - **JAVA_HOME**: `C:\Program Files\Java\jdk1.8.0_202\` _(under System variables)_
-  - And Add **_SDK tools_ and _SDK Platform tools_** path as well under System variables.
+-   Add below environment variables:
+    -   **ANDROID_HOME**: `C:\Users\username\AppData\Local\Android\Sdk` _(under User variables)_
+    -   **ANDROID_HOME**: `C:\Users\username\AppData\Local\Android\Sdk` _(under System variables)_
+    -   **ANDROID_SDK**: `C:\Users\username\AppData\Local\Android\Sdk` _(under System variables)_
+    -   **ANDROID_SDK_ROOT**: `C:\Users\username\AppData\Local\Android\Sdk` _(under System variables)_
+    -   **MAVEN_HOME**: `C:\Program Files\apache-maven-3.8.4\` _(under System variables)_
+    -   **JAVA_HOME**: `C:\Program Files\Java\jdk1.8.0_202\` _(under System variables)_
+    -   And Add **_SDK tools_ and _SDK Platform tools_** path as well under System variables.
 
-
-## Verify installation using appium-doctor
+## Verify installation using appium-doctor(Optional)
 
 find more about [Appium Doctor](https://github.com/appium/appium-doctor)
 
@@ -138,18 +121,46 @@ find more about [Appium Doctor](https://github.com/appium/appium-doctor)
 
 #### iOS
 
-<!-- To Launch iOS Simulator/Emulator -->
+-   For iOS, all Simulators are installed bydefault along with Xcode.
 
--   Launch Xcode > Open Developer Tool > Simulator.
+-   To Launch iOS Simulator --> `Launch Xcode` > `Open Developer Tool` > `Simulator`.
 
+-   Launch via Terminal --> Open Terminal and run this --> `open -a simulator` (This will launch previously launched simulator)
 
-## Useful Commands
+-   ```sh
+    # List of available iOS Devices/Simulators
+    # Device ID will be listed
+    xcrun simctl list
+    ```
+
+-   ```sh
+    # Available Device Type (Example: iPhone XR, iPhone 13 Pro)
+    # Device ID will be listed
+    xcrun simctl list devicetypes
+    ```
+
+-   ```sh
+    # Create a new Simulator by providing the device name and type
+    # xcrun simctl create device-name device-type
+    xcrun simctl create "iPhone 13 Pro Max" "iPhone 13 Pro Max"
+    ```
+
+-   ```sh
+    # If you know the deviceID(UDID), then you can launch directly by using below command
+    open -a Simulator --args -CurrentDeviceUDID <YOUR-DEVICE-ID>
+    # UDID of iPhone 13 Pro Max: 17C61FE7-FD0D-4E8E-B958-C42ACADDEC46
+    ```
+
+</br>
+</br>
+
+# Useful Commands
 
 ```sh
-# list of available emulators
+# list of available Emulators
 emulator -list-avds
 
-# Know the UDID of Connected emulators/devices
+# Know the UDID of active devices or List of real devices attached currently
 adb devices
 
 # uninstall drivers on device

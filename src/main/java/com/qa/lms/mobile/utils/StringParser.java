@@ -31,9 +31,9 @@ public class StringParser {
         //Get all elements
         NodeList nList = document.getElementsByTagName("string");
 
-        for (int temp = 0; temp < nList.getLength(); temp++) {
+        for(int temp = 0; temp < nList.getLength(); temp++) {
             Node node = nList.item(temp);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
                 // Store each element key value in map
                 stringMap.put(eElement.getAttribute("name"), eElement.getTextContent());

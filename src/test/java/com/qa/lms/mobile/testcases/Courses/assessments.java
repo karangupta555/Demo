@@ -9,6 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class assessments extends BaseTest {
     JSONObject loginData = JsonParser.getLoginData();
     JSONObject testData = JsonParser.getTestData();
@@ -22,7 +23,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to click on Take assessment button")
-    public void takeAnyAssessment(String platformName) throws Exception {
+    public void takeAnyAssessment(String platformName) {
         /*
         Requirements:
             Requirements:
@@ -34,21 +35,23 @@ public class assessments extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("learner1").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner3").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
+            loginPage.clickShowPasswordButton();
+            loginPage.clickHidePasswordButton();
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80738");
+            loginPage.searchCourse(platformName, "Course 80738");
             loginPage.viewSpecificCourse("Course 80738");
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            // Assert.assertFalse(loginPage.isCertificateAvailable());
+            Assert.assertFalse(loginPage.isCertificateAvailable(platformName));
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -60,11 +63,11 @@ public class assessments extends BaseTest {
             loginPage.navigateBack();
             loginPage.clickProceed();
             loginPage.clickViewCertificate();
-            if (!platformName.equals("iOS")) {
-                loginPage.downloadCertificateImage();
-                loginPage.downloadCertificateImage();/* Close the Popup */
-                loginPage.downloadCertificatePDF();
-                loginPage.downloadCertificatePDF(); /* Close the Popup */
+            if(!platformName.equals("iOS")) {
+                //loginPage.downloadCertificateImage();
+                //loginPage.downloadCertificateImage();/* Close the Popup */
+                //loginPage.downloadCertificatePDF();
+                //loginPage.downloadCertificatePDF(); /* Close the Popup */
                 loginPage.pressBackButtonFromMobile();
                 loginPage.navigateBack();
             } else {
@@ -72,7 +75,7 @@ public class assessments extends BaseTest {
                 iOSPermissions();
                 loginPage.clickSkipButton();
                 loginPage.clickSignInBtn();
-                loginPage.enterLoginEmail(platformName, loginData.get("learner1").toString());
+                loginPage.enterLoginEmail(platformName, loginData.get("learner3").toString());
                 loginPage.clickContinue();
                 loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
                 loginPage.clickContinue();
@@ -82,14 +85,14 @@ public class assessments extends BaseTest {
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertTrue(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertTrue(loginPage.isCertificateAvailable());
+            Assert.assertTrue(loginPage.isCertificateAvailable(platformName));
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80738");
+            loginPage.searchCourse(platformName, "Course 80738");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80738
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -98,7 +101,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to skip the assessment and complete the course")
-    public void skipAssessment(String platformName) throws Exception {
+    public void skipAssessment(String platformName) {
         /*
         Requirements:
             Name: Course 80739
@@ -109,21 +112,21 @@ public class assessments extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("learner4").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80739");
+            loginPage.searchCourse(platformName, "Course 80739");
             loginPage.viewSpecificCourse("Course 80739");
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertFalse(loginPage.isCertificateAvailable());
+            Assert.assertFalse(loginPage.isCertificateAvailable(platformName));
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -135,14 +138,14 @@ public class assessments extends BaseTest {
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertFalse(loginPage.isCertificateAvailable());
+            Assert.assertFalse(loginPage.isCertificateAvailable(platformName));
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80739");
+            loginPage.searchCourse(platformName, "Course 80739");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80739
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -151,7 +154,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to click on Cancel from skip assessment warning screen")
-    public void validateCancelButtonOnSkipAssessment(String platformName) throws Exception {
+    public void validateCancelButtonOnSkipAssessment(String platformName) {
         /*
         Requirements:
             Name: Course 80740
@@ -162,7 +165,7 @@ public class assessments extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -172,11 +175,11 @@ public class assessments extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80740");
+            loginPage.searchCourse(platformName, "Course 80740");
             loginPage.viewSpecificCourse("Course 80740");
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertFalse(loginPage.isCertificateAvailable());
+            Assert.assertFalse(loginPage.isCertificateAvailable(platformName));
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -191,14 +194,14 @@ public class assessments extends BaseTest {
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertFalse(loginPage.isCertificateAvailable());
+            Assert.assertFalse(loginPage.isCertificateAvailable(platformName));
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80740");
+            loginPage.searchCourse(platformName, "Course 80740");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80740
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -207,7 +210,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to perform Attend later")
-    public void attendLater(String platformName) throws Exception {
+    public void attendLater(String platformName) {
         /*
         Requirements:
             Name: Course 80741
@@ -218,7 +221,7 @@ public class assessments extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -228,11 +231,11 @@ public class assessments extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80741");
+            loginPage.searchCourse(platformName, "Course 80741");
             loginPage.viewSpecificCourse("Course 80741");
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertFalse(loginPage.isCertificateAvailable());
+            Assert.assertFalse(loginPage.isCertificateAvailable(platformName));
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -247,14 +250,14 @@ public class assessments extends BaseTest {
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertFalse(loginPage.isCertificateAvailable());
+            Assert.assertFalse(loginPage.isCertificateAvailable(platformName));
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80741");
+            loginPage.searchCourse(platformName, "Course 80741");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80741
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -263,7 +266,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to click on NO from Attend later warning screen")
-    public void noAttendLater(String platformName) throws Exception {
+    public void noAttendLater(String platformName) {
         /*
         Requirements:
             Name: Course 80742
@@ -274,7 +277,7 @@ public class assessments extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -284,11 +287,11 @@ public class assessments extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80742");
+            loginPage.searchCourse(platformName, "Course 80742");
             loginPage.viewSpecificCourse("Course 80742");
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertFalse(loginPage.isCertificateAvailable());
+            Assert.assertFalse(loginPage.isCertificateAvailable(platformName));
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -303,14 +306,14 @@ public class assessments extends BaseTest {
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertFalse(loginPage.isCertificateAvailable());
+            Assert.assertFalse(loginPage.isCertificateAvailable(platformName));
             loginPage.scrollUp();
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80742");
+            loginPage.searchCourse(platformName, "Course 80742");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80742
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -319,7 +322,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to take single choice assessment with assessment options")
-    public void takeSingleChoice(String platformName) throws Exception {
+    public void takeSingleChoice(String platformName) {
         /*
         Requirements:
             Name: Course 80744
@@ -330,7 +333,7 @@ public class assessments extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
@@ -340,11 +343,11 @@ public class assessments extends BaseTest {
             loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80744");
+            loginPage.searchCourse(platformName, "Course 80744");
             loginPage.viewSpecificCourse("Course 80744");
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertFalse(loginPage.isCertificateAvailable());
+            Assert.assertFalse(loginPage.isCertificateAvailable(platformName));
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -360,10 +363,10 @@ public class assessments extends BaseTest {
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80744");
+            loginPage.searchCourse(platformName, "Course 80744");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80744
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -372,7 +375,7 @@ public class assessments extends BaseTest {
     @Parameters({"platformName"})
     @Test(enabled = false)
     @Description("Learner - Able to take Multiple choice assessment with assessment options")
-    public void takeMultipleChoice(String platformName) throws Exception {
+    public void takeMultipleChoice(String platformName) {
         /*
         Requirements:
             Name: Course 80745
@@ -383,21 +386,21 @@ public class assessments extends BaseTest {
         */
         try {
             LoginPage loginPage = new LoginPage();
-            if (platformName.equals("iOS")) {
+            if(platformName.equals("iOS")) {
                 iOSPermissions();
             }
             loginPage.clickSkipButton();
             loginPage.clickSignInBtn();
-            loginPage.enterLoginEmail(platformName, loginData.get("debugUser").toString());
+            loginPage.enterLoginEmail(platformName, loginData.get("learner").toString());
             loginPage.clickContinue();
-            loginPage.enterLoginPassword(platformName, loginData.get("password1").toString());
+            loginPage.enterLoginPassword(platformName, loginData.get("password").toString());
             loginPage.clickContinue();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80745");
+            loginPage.searchCourse(platformName, "Course 80745");
             loginPage.viewSpecificCourse("Course 80745");
             Assert.assertFalse(loginPage.isCertificateTabPresent());
             loginPage.scrollDown();
-            Assert.assertFalse(loginPage.isCertificateAvailable());
+            Assert.assertFalse(loginPage.isCertificateAvailable(platformName));
             loginPage.clickEnrollNow();
             loginPage.clickStartCourse();
             loginPage.clickNextLesson();
@@ -414,10 +417,10 @@ public class assessments extends BaseTest {
             Assert.assertTrue(loginPage.isCompletedButtonPresent());
             loginPage.navigateBack();
             loginPage.clickSearchTab();
-            loginPage.searchCourse("Course 80745");
+            loginPage.searchCourse(platformName, "Course 80745");
             Assert.assertTrue(loginPage.isNoResultFound());
             // https://auzmorhr.testrail.io/index.php?/cases/view/80745
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }

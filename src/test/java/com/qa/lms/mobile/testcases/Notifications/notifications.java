@@ -7,12 +7,12 @@ import org.testng.annotations.Test;
 public class notifications extends BaseTest {
 
     @Test(enabled = false)
-    public void validateNotifications() throws  Exception{
+    public void validateNotifications() throws Exception {
         LoginPage loginPage = new LoginPage();
         loginPage.clickSignInBtn();
-        loginPage.enterLoginEmail("","auzmor@zetmail.com");
+        loginPage.enterLoginEmail("", "auzmor@zetmail.com");
         loginPage.clickContinue();
-        loginPage.enterLoginPassword("","Test@123");
+        loginPage.enterLoginPassword("", "Test@123");
         loginPage.clickShowPasswordButton();
         loginPage.clickHidePasswordButton();
         loginPage.clickForgotPassword();

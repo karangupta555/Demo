@@ -13,19 +13,14 @@ public class httpHelper {
     // BrowserStack
     public static String uploadAppBS(String filePath) throws UnirestException {
         Unirest.setTimeouts(0, 0);
-        HttpResponse<String> response = Unirest.post("https://api-cloud.browserstack.com/app-automate/upload")
-                .header("Authorization", "Basic Z293dGhhbXJ1cGF2YXRoYTE6M1VHdGpjR3A4eEY5cHNTbVNmblk=")
-                .field("file", new File(filePath))
-                .asString();
+        HttpResponse<String> response = Unirest.post("https://api-cloud.browserstack.com/app-automate/upload").header("Authorization", "Basic Z293dGhhbXJ1cGF2YXRoYTE6M1VHdGpjR3A4eEY5cHNTbVNmblk=").field("file", new File(filePath)).asString();
         return response.getBody();
     }
 
     // sauceLabs
     public static String uploadApp(String filePath) throws UnirestException {
         Unirest.setTimeouts(0, 0);
-        HttpResponse<String> response = Unirest.post("https://api.eu-central-1.saucelabs.com/v1/storage/upload")
-                .basicAuth(userName,accessKey)
-                .field("upload",  new File(filePath)).asString();
+        HttpResponse<String> response = Unirest.post("https://api.eu-central-1.saucelabs.com/v1/storage/upload").basicAuth(userName, accessKey).field("upload", new File(filePath)).asString();
         return response.getBody();
     }
 }

@@ -15,10 +15,10 @@
                             <Pattern>[${ctx:ROUTINGKEY} %-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}:%L - %m%n</Pattern>
                         </PatternLayout>
                         <Policies>
-                            <TimeBasedTriggeringPolicy />
-                            <SizeBasedTriggeringPolicy size="10MB" />
+                            <TimeBasedTriggeringPolicy/>
+                            <SizeBasedTriggeringPolicy size="10MB"/>
                         </Policies>
-                        <DefaultRolloverStrategy max="5" />
+                        <DefaultRolloverStrategy max="5"/>
                     </RollingFile>
                 </Route>
             </Routes>

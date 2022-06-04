@@ -1,13 +1,9 @@
 {
-  "debugUser": "buffer@zetmail.com",
-  "padmin": "auzmor@mobile.com",
-  "learner": "mobile@gustr.com",
-  "learner1": "mobile1@gustr.com",
-  "learner2": "mobile2@gustr.com",
-  "learner3": "mobile3@getnada.com",
-  "learner4": "mobile4@gustr.com",
-  "learner5": "mobile5@gustr.com",
-  "learner6": "mobile6@gustr.com",
-  "password": "Mobile@123",
-  "password1": "Test@123"
+  "admin": "almaa@mailinator.com",
+  "learner": "mobile@mailinator.com",
+  "learner1": "mobile1@mailinator.com",
+  "learner2": "mobile2@mailinator.com",
+  "learner3": "mobile3@mailinator.com",
+  "learner4": "mobile4@mailinator.com",
+  "password": "Mobile@123"
 }
