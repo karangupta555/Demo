@@ -147,10 +147,10 @@ public class BaseTest {
                 return AppiumDriverLocalService.buildService(new AppiumServiceBuilder().usingDriverExecutable(new File("C:\\Program Files\\nodejs\\node.exe")).withAppiumJS(new File("C:\\Users\\New User\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js")).usingPort(4723).withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment).withLogFile(new File("ServerLogs/server.log")));
             }
             case "Mac OS X": {
-                environment.put("PATH", "/Library/Java/JavaVirtualMachines/jdk1.8.0_321.jdk/Contents/Home/bin:/Users/harry/Library/Android/sdk/tools:/Users/harry/Library/Android/sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin" + System.getenv("PATH"));
-                environment.put("ANDROID_HOME", "/Users/harry/Library/Android/sdk");
-                environment.put("JAVA_HOME", "/Library/Java/JavaVirtualMachines/jdk1.8.0_321.jdk/Contents/Home");
-                return AppiumDriverLocalService.buildService(new AppiumServiceBuilder().usingDriverExecutable(new File("/usr/local/bin/node")).withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js")).usingPort(4723).withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment).withLogFile(new File("ServerLogs/server.log")));
+                environment.put("PATH", "/Users/karangupta/Library/Java/JavaVirtualMachines/bellsoft-jdk14.0.2+13-macos-amd64-lite.pkg:/Users/karangupta/Library/Android/sdk/tools:/Users/karangupta/Library/Android/sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin" + System.getenv("PATH"));
+                environment.put("ANDROID_HOME", "/Users/karangupta/Library/Android/sdk");
+                environment.put("JAVA_HOME", "/Users/karangupta/Library/Java/JavaVirtualMachines/bellsoft-jdk14.0.2+13-macos-amd64-lite.pkg");
+                return AppiumDriverLocalService.buildService(new AppiumServiceBuilder().usingDriverExecutable(new File("/opt/homebrew/Cellar/node/18.3.0/bin/node")).withAppiumJS(new File("/opt/homebrew/lib/node_modules/appium/build/lib/main.js")).usingPort(4723).withArgument(GeneralServerFlag.SESSION_OVERRIDE).withEnvironment(environment).withLogFile(new File("ServerLogs/server.log")));
             }
             default: {
                 utils.log().info("Something wrong with 'getAppiumService()'");

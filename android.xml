@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite parallel="tests" name="Suite">
-    <parameter name="envID" value="remote"/>  <!-- local/remote -->
+    <parameter name="envID" value="local"/>  <!-- local/remote --> <!-- browserstack -->
     <parameter name="platformName" value="Android"/>
     <test name="Android">
         <classes>
-            <class name="com.qa.lms.mobile.testcases.debug"/>
+            <class name="com.qa.lms.mobile.testcases.Notifications.course"/>
         </classes>
         <listeners>
             <listener class-name="com.qa.lms.mobile.listeners.TestListener"/>

@@ -5,7 +5,7 @@
     "cloudDeviceName": "Samsung Galaxy S9",
     "cloudOSVersion": "8.0",
     "build": "1.0.9",
-    "app": "src\\test\\resources\\apps\\app.apk",
+    "app": "src\\test\\resources\\apps\\178.apk",
     "sauceAppID": "storage:d2035dd4-f32f-4c12-bd82-5865fad179f1",
     "browserStackAppID": "bs://1bf14c3a8aa8f957d7746b73c654f557f79d27f5"
   },
